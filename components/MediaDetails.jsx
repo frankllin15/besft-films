@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { getMediaById, getDetails, getEmbed, getMediaVideos } from '../lib/apiTmdb'
 import TabPanel from './TabPanel'
 import { hourFormat } from '../lib/utils'
-import { useAppContext } from '../context/state'
+
 import { useThemeContext } from '../context/ThemeStore'
 
 
