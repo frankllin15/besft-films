@@ -12,7 +12,29 @@ import { ThemeStore } from '../context/ThemeStore';
 import Theme from '../Theme';
 
 
+const themes = {
+  bgImage: ""
+}
 
+const GlobalStyle = createGlobalStyle`
+  * {
+box-sizing: border-box;
+}
+
+body {
+background-image: src(${props => props.bgImage});
+background-color: #161f2b;
+max-width: 100vw;
+padding: 0; 
+margin: 0;
+font-family:Verdana;
+display: flex;
+flex-direction: column;
+justify-content: center;
+color: #c4c4c4;
+/* align-items: center; */
+}
+`
 
 export default class App extends NextApp {
   // remove it here
@@ -28,16 +50,15 @@ export default class App extends NextApp {
     const { Component, pageProps } = this.props
     return (
       <>
-
         <ThemeStore>
           <Theme>
-
             <Header />
+         
             <SearchBar />
-            <Component {...pageProps} />
+        <Component {...pageProps} />
+            
           </Theme>
         </ThemeStore>
-
       </>
     )
   }
