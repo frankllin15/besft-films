@@ -17,6 +17,7 @@ body {
 
   max-width: 100vw;
   width: 100% ;
+  /* min-height: 1000px; */
   
   padding: 0; 
   margin: 0;

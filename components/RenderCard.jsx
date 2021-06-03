@@ -38,7 +38,7 @@ const Title = styled.h3`
     }
 `
 
-export default function RenderCard({ list }) {
+export default function RenderCard({ list, media_type }) {
 
 
     return (
@@ -47,7 +47,7 @@ export default function RenderCard({ list }) {
                 <Card key={id}>
                     {/* {console.log(item)} */}
                     <Img src={`https://image.tmdb.org/t/p/w500//${item.poster_path}`} />
-                    <Title><a href={`/${item.media_type}/${item.id}`}>{item.title ? item.title: item.name}</a></Title>
+                    <Title><a href={`/${item.media_type || media_type}/${item.id}`}>{item.title ? item.title: item.name}</a></Title>
                 </Card>
             ))}
         </CardContainer>

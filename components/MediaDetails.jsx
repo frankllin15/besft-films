@@ -10,6 +10,7 @@ import { useThemeContext } from '../context/ThemeStore'
 const GridContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
+    width: 100%;
 `
 const Container = styled.section`
     display: flex;
@@ -92,7 +93,7 @@ export default function MediaDetails({ type, id }) {
             setBgImage(`https://image.tmdb.org/t/p/w1280//${data.backdrop_path}`)
     }, [data])
     // console.log(embed)
-    console.log(data)
+    // console.log(data)
 
 
     if (data)

@@ -9,7 +9,6 @@ const Container = styled.div`
 export default function Home({list}) {
   return (
     <Container>
-      <Head>Best Films</Head>
       <h1>Filmes</h1>
       <RenderCard list={list}/>
     </Container>

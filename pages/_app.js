@@ -1,4 +1,5 @@
 import NextApp from 'next/app'
+import Head from 'next/head';
 import React from 'react'
 import Header from "../components/Header";
 import SearchBar from '../components/SearchBar'
@@ -20,6 +21,7 @@ export default class App extends NextApp {
       <>
         <ThemeStore>
           <Theme>
+            <Head><title>Best Films</title></Head>
             <Header />
 
             <SearchBar />
