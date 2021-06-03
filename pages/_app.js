@@ -1,6 +1,7 @@
 import NextApp from 'next/app'
 import Head from 'next/head';
 import React from 'react'
+import Footer from '../components/Footer';
 import Header from "../components/Header";
 import SearchBar from '../components/SearchBar'
 import { ThemeStore } from '../context/ThemeStore';
@@ -26,7 +27,7 @@ export default class App extends NextApp {
 
             <SearchBar />
             <Component {...pageProps} />
-
+            <Footer />
           </Theme>
         </ThemeStore>
       </>

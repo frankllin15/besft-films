@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { getMediaById, getDetails, getEmbed, getMediaVideos } from '../lib/apiTmdb'
 import TabPanel from './TabPanel'
 import { hourFormat } from '../lib/utils'
+import DownArrowSVG from '../assets/icons/DownArrowSVG';
+
 
 import { useThemeContext } from '../context/ThemeStore'
 
@@ -56,7 +58,7 @@ const WatchBtn = styled.button`
 const Float = styled.div`
     position: sticky;
     top: 100px;
-    margin-left: 20px;
+    margin: 0 auto 0;
     display: flex;
     flex-direction: column;
 `
@@ -93,14 +95,14 @@ export default function MediaDetails({ type, id }) {
             setBgImage(`https://image.tmdb.org/t/p/w1280//${data.backdrop_path}`)
     }, [data])
     // console.log(embed)
-    // console.log(data)
-
-
+    console.log(data)
+    
     if (data)
-        return (
+    return (
+        
+        <GridContainer>
 
-            <GridContainer>
-
+                {console.log(data.crew)}
                 <Container>
                     <Float>
                         <Img src={`https://image.tmdb.org/t/p/w500//${data.poster_path}`} />
@@ -118,13 +120,20 @@ export default function MediaDetails({ type, id }) {
 
                 </Container>
                 <Container>
-                    <dl>
+                    <dl> 
+                        {data.crew.length > 0 ? 
+                        <>
                         <dt>
-                            Direção
-                        </dt>
-                        <dd>
-                            {/* {data.crew.filter(e => e.job == "Director")[0].name || ""} */}
-                        </dd>
+                        Direção
+                    </dt>
+                    <dd>
+                        {/* {data.crew.filter(e => e.job == "Director")[0].name || ""} */}
+                    </dd>
+                    </>
+                    :
+                    ""    
+                    }
+                        
                         <dt>
                             Elenco
                         </dt>
@@ -166,6 +175,7 @@ export default function MediaDetails({ type, id }) {
                             {data.vote_average}
                         </dd>
                     </dl>
+
                 </Container>
 
             </GridContainer>

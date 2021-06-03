@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import { getMediaGenres } from '../lib/apiTmdb';
 import DownArrowIcon from '../assets/icons/down-arrow.svg'
+import Image from 'next/image'
+import DownArrowSVG from '../assets/icons/DownArrowSVG';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const NavBarContent = styled.div`
     /* height: 100%; */
@@ -38,7 +41,8 @@ const NavBarContent = styled.div`
 const NavBar = styled.nav`
     width: 100%;
     height: 70px;
-    background-color: #1c2c41;
+    background: rgb(28,44,65);
+background: linear-gradient(to right, rgba(28,44,65,1) 0%, #0e5b8b 50%);
    display: flex;
 
    align-items: center;
@@ -89,6 +93,11 @@ const DropDown = styled.div`
     }
 `;
 
+const IconContainer = styled.div`
+    display: flex;
+    align-items: center;
+`
+
 export default function Header() {
     const [movieGenres, setMovieGenres] = useState(null)
     const [serieGenres, setSerieGenres] = useState(null)
@@ -112,7 +121,10 @@ export default function Header() {
                     </li>
                     <li>
                     <DropDown>
-                    <p>Filmes</p><img src={DownArrowIcon} alt=""/>
+                        <IconContainer>
+                        <a>Filmes</a>
+                        <ExpandMoreIcon />
+                        </IconContainer>
                     <DropDownContent>
                         <ul>
                             {movieGenres ? movieGenres.map((item, id) => (
@@ -126,7 +138,10 @@ export default function Header() {
                     </li>
                     <li>
                     <DropDown>
-                    <p>Filmes</p>
+                    <IconContainer>
+                        <a>Series</a>
+                        <ExpandMoreIcon />
+                        </IconContainer>
                     <DropDownContent>
                         <ul>
                             {serieGenres ? serieGenres.map((item, id) => (
