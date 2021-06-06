@@ -16,8 +16,8 @@ const responsive = {
     },
     tablet: {
         breakpoint: { max: 1024, min: 464 },
-        items: 3,
-        slidesToSlide: 2
+        items: 4,
+        slidesToSlide: 3
     },
     mobile: {
         breakpoint: { max: 464, min: 0 },
@@ -40,7 +40,7 @@ export default function MultiCarousel({ data }) {
             
                 // transitionDuration={500}
                 ssr={true}
-                centerMode={true}
+                // centerMode={true}
                 containerClass="carousel-container"
                 customTransition="transform 1000ms ease-in-out"
                 infinite={true}>

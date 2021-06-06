@@ -53,13 +53,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleTabs({id, type, overview, videos}) {
+export default function SimpleTabs({imdb_id, type, overview, videos, similarMedia}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
 
   return (
     <div className={classes.root}>
@@ -73,9 +74,13 @@ export default function SimpleTabs({id, type, overview, videos}) {
       </AppBar>
       <TabPanel value={value} index={0}>
     {overview}
+    <iframe src={`https://api.obaflix.com/embed/${imdb_id}`} width="100%" height="400px" allowFullScreen={true} scrolling="no" frameBorder="0"></iframe>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <SimilarMedia id={id} type={type}/>
+        {similarMedia ? 
+        <SimilarMedia list={similarMedia} type={type}/>
+        :""
+        }
       </TabPanel>
       <TabPanel value={value} index={2}>
         {videos ? 

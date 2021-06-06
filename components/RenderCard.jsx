@@ -5,9 +5,9 @@ const CardContainer = styled.div`
     display: flex;
     flex-direction: row;
     width: 100%;
-    justify-content: center;
+    justify-content: space-around;
     flex-wrap: wrap;
-    padding: 20px;
+    padding: 12px;
 `
 
 // const Card = styled.div`
@@ -49,7 +49,7 @@ export default function RenderCard({ list, media_type }) {
                 //     <Img src={`https://image.tmdb.org/t/p/w500//${item.poster_path}`} />
                 //     <Title><a href={`/${item.media_type || media_type}/${item.id}`}>{item.title ? item.title: item.name}</a></Title>
                 // </Card>
-                <Card item={item} media_type={media_type} id={id}/>
+                <Card key={id} item={item} media_type={media_type} id={id}/>
 
             ))}
         </CardContainer>

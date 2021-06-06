@@ -17,6 +17,12 @@ const NavBarContent = styled.div`
     width: 100%;
     flex: 1;
     flex-grow: 1;
+    @media(max-width:480px) {
+        &:nth-child(2) {
+            display: none;
+            /* background-color: red */
+        }
+    }
 
     ul {
         display: flex;
@@ -42,8 +48,8 @@ const NavBar = styled.nav`
     width: 100%;
     height: 70px;
     background: rgb(28,44,65);
-background: linear-gradient(to right, rgba(28,44,65,1) 0%, #0e5b8b 50%);
-   display: flex;
+    background: linear-gradient(to right, rgba(28,44,65,1) 0%, #0e5b8b 50%);
+    display: flex;
 
    align-items: center;
     margin-bottom: 20px;
@@ -51,7 +57,18 @@ background: linear-gradient(to right, rgba(28,44,65,1) 0%, #0e5b8b 50%);
     top: 0;
     z-index: 100;
 
-    
+    /* Smart Phones */
+    @media(max-width:480px) {
+        /* display: none; */
+    }
+    /* Tablets */
+    @media(min-width:600px) {
+
+    }
+    /* Desktop */
+    @media(min-width:1025px) {
+
+    }
     
 `;
 

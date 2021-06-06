@@ -10,6 +10,7 @@ const SearchContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 100px; 
+  max-width: 100%;
 `
 
 
@@ -36,13 +37,12 @@ export default function SearchBar() {
   
 
 
-  return <div>
-    <SearchContainer key="searchbar1">
+  return <SearchContainer key="searchbar1">
 
       <CustomBootstrapInput onKeyDown={e => {if(e.key === "Enter") handleClick(e)}}  value={keyWord} onChange={e => handleChange(e)}/>  
        <Button  onClick={handleClick}>
         <SearchIcon fontSize="large" color="secondary" />
       </Button>
     </SearchContainer>
-  </div>
+  
 }

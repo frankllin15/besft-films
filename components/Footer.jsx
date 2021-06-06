@@ -8,6 +8,11 @@ const GridContainer = styled.footer`
     width: 100%;
     height: 400px;
     margin-top: 100px;
+
+    @media(max-width: 480px) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-grid-template-rows: repeat(2, 1fr);
+    }
 `
 const Container = styled.div`
     display: flex;
@@ -15,6 +20,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     padding: 12px;
+    flex-wrap: wrap;
     
 `
 const Title = styled.h3`
@@ -55,13 +61,13 @@ export default function Footer() {
                 <Link href="/movies">Top IMDB</Link>
                 <Link href="/movies">Lançamentos</Link>
             </Container>
-            <Container>
+            {/* <Container>
             <Title>Redes</Title>
                 <Link href="/movies">Filmes</Link>
                 <Link href="/tv">Series</Link>
                 <Link href="/movies">Top IMDB</Link>
                 <Link href="/movies">Lançamentos</Link>
-            </Container>
+            </Container> */}
 
         </GridContainer>
     )

@@ -30,11 +30,22 @@ const Container = styled.section`
     hr {
         width: 100%;
     }
+
+    @media(max-width: 480px) {
+        display: flex;
+        flex-direction: column;
+        
+        align-items: center;
+        /* grid-template-rows: 2fr 1fr; */
+
+        /* margin-bottom: 2px; */
+    }
 `
 
 const Info = styled.aside`
     display: flex;
     flex-direction: column;
+
     /* justify-content: start; */
     padding-left: 20px;
 `
@@ -49,20 +60,19 @@ const Title = styled.h3`
     }
 `
 const Img = styled.img`
-    border-radius: 8px;
+    border-radius: 4px;
     height: 300px;
     -webkit-box-shadow: 5px 5px 12px 2px rgba(0,0,0,0.51); 
 box-shadow: 5px 5px 12px 2px rgba(0,0,0,0.51);
+
+    @media(max-width: 480px) {
+        width: 199px;
+    }
 `
 
-export default function SimilarMedia({id, type}) {
-    const [list, setList] = useState(null)
+export default function SimilarMedia({list, type}) {
 
-    useEffect(() => {
-        (async () => {
-            setList([...await getSimilarMedia(id, type)])
-        })()
-    }, [id])
+    
 
     // console.log(list)
 
@@ -78,8 +88,8 @@ export default function SimilarMedia({id, type}) {
                     <Title><a href={`/${type}/${item.id}`}>{item.title ? item.title : item.name}</a></Title>
                     <p>⭐<span style={{color: "#fff"}}>{item.vote_average}/</span>10</p>
                     <p>{item.overview}</p>
-                    <hr></hr>
-                    <p>Duração: {hourFormat(item.runtime)}</p>
+                    {/* <hr></hr>
+                    <p>Duração: {hourFormat(item.runtime)}</p> */}
                 </Info>
             </Container>   
 

@@ -7,6 +7,10 @@ import { getTrandingMedia } from '../lib/apiTmdb'
 const Container = styled.div`
   padding: 0 2rem 0;
   padding-top: 30px;
+
+  @media(max-width: 480px) {
+    padding: 0;
+  }
 `
 
 const Title = styled.h3`
@@ -16,7 +20,7 @@ const Title = styled.h3`
 `
 
 export default function Home({trendingTv, trendingMovie}) {
-    console.log(trendingTv)
+   
   return (
     <>
     <Container>
@@ -32,13 +36,28 @@ export default function Home({trendingTv, trendingMovie}) {
   )
 }
 
-export async function getServerSideProps() {
+// export async function getServerSideProps() {
+//   const trendingTv = await getTrandingMedia('tv')
+//   const trendingMovie = await getTrandingMedia('movie')
+//   return {
+//     props: {
+//       trendingTv: trendingTv,
+//       trendingMovie: trendingMovie,
+//       BASE_API: process.env.BASE_API || "!"
+//     }
+//   }
+// }
+
+export async function getStaticProps() {
+
+
   const trendingTv = await getTrandingMedia('tv')
   const trendingMovie = await getTrandingMedia('movie')
   return {
     props: {
       trendingTv: trendingTv,
-      trendingMovie: trendingMovie
-    }
+      trendingMovie: trendingMovie,
+    },  
+    revalidate: 60 * 60 * 24
   }
 }
