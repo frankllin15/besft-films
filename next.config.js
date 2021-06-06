@@ -10,4 +10,11 @@ module.exports = {
   
       return config;
     },
+    images: {
+      domains: ['image.tmdb.org'],
+    },
+
   };
+
+const withImages = require('next-images')
+module.exports = withImages()

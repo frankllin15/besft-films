@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+
 
 const Item = styled.div`
     width: 200px;
@@ -42,10 +43,24 @@ const Title = styled.h3`
 `
 
 export default function Card({id, item, media_type}) {
+    const [isImgNotFount, setIsImgNotFound] = useState(false)
+
+    function handleImgError(e) {
+        
+        e.target.onerror = null; 
+        setIsImgNotFound(true)
+    }
+
+    // reenderiza a pagina quando o item muda; obtivo: atualizar o src da imagem
+    useEffect(() => {
+        setIsImgNotFound(false)
+    }, [item])
+
     return (
         <Item >
         {/* {console.log(item)} */}
-        <Img src={`https://image.tmdb.org/t/p/w500//${item.poster_path}`} />
+        {/* isImgNotFount ? "../public/posterNotFound.png" : `src="https://image.tmdb.org/t/p/w500/${item.poster_path}"` */}
+        <Img onError={e => handleImgError(e)} src={isImgNotFount ? require('../public/img/posterNotFound.png') : `https://image.tmdb.org/t/p/w500/${item.poster_path}`} />
         <Title><a href={`/${item.media_type || media_type}/${item.id}`}>{item.title ? item.title: item.name}</a></Title>
     </Item>
     )

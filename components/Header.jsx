@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import { getMediaGenres } from '../lib/apiTmdb';
-import DownArrowIcon from '../assets/icons/down-arrow.svg'
-import Image from 'next/image'
-import DownArrowSVG from '../assets/icons/DownArrowSVG';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const NavBarContent = styled.div`

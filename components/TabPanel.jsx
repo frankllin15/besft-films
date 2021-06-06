@@ -86,7 +86,7 @@ export default function SimpleTabs({imdb_id, type, overview, videos, similarMedi
         {videos ? 
           videos.map((item, id) => (
             
-            <iframe key={id} width="560" height="315" src={`https://www.youtube.com/embed/${item.key}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+            <iframe style={{marginTop: '12px'}} key={id} width="560" height="315" src={`https://www.youtube.com/embed/${item.key}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
           ))
         :
         ""

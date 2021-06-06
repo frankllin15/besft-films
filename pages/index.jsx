@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import styled from 'styled-components'
-import RenderCard from '../components/RenderCard'
 import MultiCarousel from '../components/MultiCarousel'
 import { getTrandingMedia } from '../lib/apiTmdb'
+
 
 const Container = styled.div`
   padding: 0 2rem 0;
@@ -30,6 +30,7 @@ export default function Home({trendingTv, trendingMovie}) {
       
        <Title>Filmes em Alta</Title>
       <MultiCarousel key={2} data={trendingMovie}/>
+
     </Container>
 
     </>

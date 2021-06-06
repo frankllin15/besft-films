@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-  background-image: linear-gradient(135deg, #161f2beb 0%, #1a223bf4 35%, #19284d 100%), url(${props => props.theme.bgImage});
+  background-image: linear-gradient(135deg, #161f2bdf 0%, #1a223bf4 35%, #19284d 100%), url(${props => props.theme.bgImage});
   background-repeat: no-repeat;
   background-size: contain;
   /* background: rgb(22,31,43); */
@@ -31,6 +31,9 @@ body {
  
  @media(max-width: 480px) {
    font-size: .8em;
+ }
+ .MuiPaginationItem-root {
+   color: #fff;
  }
 }
 
