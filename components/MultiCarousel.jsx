@@ -16,7 +16,7 @@ const responsive = {
     },
     tablet: {
         breakpoint: { max: 1024, min: 464 },
-        items: 4,
+        items: 3,
         slidesToSlide: 3
     },
     mobile: {
@@ -27,13 +27,14 @@ const responsive = {
 };
 
 
-export default function MultiCarousel({ data }) {
+export default function MultiCarousel({ data, type }) {
     
 
     return (
-        <>
+        
+
              <Carousel
-                style={{backgroundColor: 'red'}}
+              
                 responsive={responsive}
                 autoPlay={true}
                 autoPlaySpeed={6000}
@@ -46,7 +47,7 @@ export default function MultiCarousel({ data }) {
                 infinite={true}>
                     
                 {data.map((item, id) => (
-                    <Card key={id} item={item} id={id}/>
+                    <Card key={id} item={item} id={id} media_type={type}/>
 
                 ))
                 }
@@ -57,7 +58,8 @@ export default function MultiCarousel({ data }) {
   <div>Item 4</div>
                  */}
             </Carousel>
+      
+
     
-        </>
     )
 }

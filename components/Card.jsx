@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-
+import Button from '@material-ui/core/IconButton';
 
 const Item = styled.div`
     width: 200px;
-    /* margin: 0 0px 0; */
+    margin: 0 12px 0;
     &:hover{
         transition: 400ms;
         transform: scale(1.04);
@@ -26,16 +26,8 @@ box-shadow: 5px 5px 12px 2px rgba(0,0,0,0.51);
 `
 const Title = styled.h3`
     text-align: center;
-
-    a{
-        text-decoration: none;
-        color: #c4c4c4;
-
-        &:hover {
-            transition: 300ms;
-            color: greenyellow;
-        }
-    }
+    color: #c4c4c4;
+    cursor: default;
 
     @media(max-width: 480px) {
         font-size: .8rem;
@@ -57,11 +49,14 @@ export default function Card({id, item, media_type}) {
     }, [item])
 
     return (
+      
+        
         <Item >
-        {/* {console.log(item)} */}
-        {/* isImgNotFount ? "../public/posterNotFound.png" : `src="https://image.tmdb.org/t/p/w500/${item.poster_path}"` */}
-        <Img onError={e => handleImgError(e)} src={isImgNotFount ? require('../public/img/posterNotFound.png') : `https://image.tmdb.org/t/p/w500/${item.poster_path}`} />
-        <Title><a href={`/${item.media_type || media_type}/${item.id}`}>{item.title ? item.title: item.name}</a></Title>
+        <Button href={`/${item.media_type || media_type}/${item.id}`}> 
+        <Img onError={e => handleImgError(e)} src={isImgNotFount ? require('../public/img/posterNotFound.png') : `https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+         </Button>
+        <Title>{item.title ? item.title: item.name}</Title>
     </Item>
+     
     )
 }

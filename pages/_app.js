@@ -2,10 +2,10 @@ import NextApp from 'next/app'
 import Head from 'next/head';
 import React from 'react'
 import Footer from '../components/Footer';
-import Header from "../components/Header";
-import SearchBar from '../components/SearchBar'
 import { ThemeStore } from '../context/ThemeStore';
 import Theme from '../Theme';
+import NavBar from '../components/NavBar'
+
 
 export default class App extends NextApp {
   // remove it here
@@ -18,14 +18,13 @@ export default class App extends NextApp {
 
   render() {
     const { Component, pageProps } = this.props
+
     return (
       <>
         <ThemeStore>
           <Theme>
             <Head><title>Best Films</title></Head>
-            <Header />
-
-            <SearchBar />
+            <NavBar />
             <Component {...pageProps} />
             <Footer />
           </Theme>
@@ -34,3 +33,5 @@ export default class App extends NextApp {
     )
   }
 }
+
+

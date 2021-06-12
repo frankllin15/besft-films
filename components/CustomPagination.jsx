@@ -2,12 +2,14 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Pagination from '@material-ui/lab/Pagination';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import json2mq from 'json2mq';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > * + *': {
       marginTop: theme.spacing(2),
-      color: '#fff'
+      color: '#fff',
     }
 },
     
@@ -15,6 +17,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PaginationControlled({page, setPage, maxPage}) {
   const classes = useStyles();
+  const isMediaQuerySm = useMediaQuery(
+    json2mq({
+      maxWidth: 600,
+    })
+  )
+
  
   const handleChange = (event, value) => {
     setPage(value);
@@ -28,7 +36,7 @@ export default function PaginationControlled({page, setPage, maxPage}) {
   return (
     <div className={classes.root}>
       <Typography>Page: {page}</Typography>
-      <Pagination size={'large'} color={'secondary'}  count={maxPage} page={page} onChange={handleChange} />
+      <Pagination size={isMediaQuerySm?'small' : 'large'} color={'secondary'}  count={maxPage} page={page} onChange={handleChange} />
     </div>
   );
 }

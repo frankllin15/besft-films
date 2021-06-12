@@ -4,9 +4,32 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import SimilarMedia from './SimilarMedia'
+import MediaInfos from './MediaInfos'
+import { useThemeContext } from '../context/ThemeStore';
+import styled from 'styled-components'
+import { Title } from './styles'
+
+
+const GridContainer = styled.div`
+  div {
+    text-align: center;
+
+  }
+  @media(max-width: 935px) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+
+  div {
+
+    text-align: start;
+  } 
+  
+
+  }
+
+`
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -20,7 +43,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box p={1}>
           <>{children}</>
         </Box>
       )}
@@ -53,9 +76,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleTabs({imdb_id, type, overview, videos, similarMedia}) {
+export default function SimpleTabs({imdb_id, type, data, videos, similarMedia}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const { isMediaQueryMd } = useThemeContext()
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -66,27 +90,44 @@ export default function SimpleTabs({imdb_id, type, overview, videos, similarMedi
     <div className={classes.root}>
       <AppBar position="static" style={{backgroundColor: "#161f2b"}}>
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="Sobre" {...a11yProps(0)} />
-          <Tab label="Similares" {...a11yProps(1)} />
-          <Tab label="Thrilers" {...a11yProps(2)} />
+          <Tab label="Assitir" {...a11yProps(0)} />
+          {data.overview ? 
+          <Tab label="Sobre" {...a11yProps(1)} />
+          :
+          ""
+          }
+          {
+            videos ?
+            <Tab label="Thrilers" {...a11yProps(2)} />
+            :
+            ""
+          }
         
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-    {overview}
+    
     <iframe src={`https://api.obaflix.com/embed/${imdb_id}`} width="100%" height="400px" allowFullScreen={true} scrolling="no" frameBorder="0"></iframe>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {similarMedia ? 
-        <SimilarMedia list={similarMedia} type={type}/>
-        :""
+        <GridContainer>
+          <div>
+          <Title>Resumo</Title>
+          <p>{data.overview}</p>
+          </div>
+        {
+          isMediaQueryMd ?
+          <MediaInfos data={data}/>
+          :
+          ""
         }
+        </GridContainer>
       </TabPanel>
       <TabPanel value={value} index={2}>
         {videos ? 
           videos.map((item, id) => (
             
-            <iframe style={{marginTop: '12px'}} key={id} width="560" height="315" src={`https://www.youtube.com/embed/${item.key}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+            <iframe style={{marginTop: '12px'}} key={id} width="100%"  height="370px"   src={`https://www.youtube.com/embed/${item.key}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
           ))
         :
         ""

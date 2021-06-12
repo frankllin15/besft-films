@@ -7,26 +7,28 @@ import { ThemeContext} from './context/ThemeStore'
 const GlobalStyle = createGlobalStyle`
     * {
   box-sizing: border-box;
+  color: #c4c4c4;
+
+  
+
 }
 
 body {
-  background-image: linear-gradient(135deg, #161f2bdf 0%, #1a223bf4 35%, #19284d 100%), url(${props => props.theme.bgImage});
+  background-image: linear-gradient(165deg, #1a223bf2 0%, #19284d 50%), url(${props => props.theme.bgImage});
   background-repeat: no-repeat;
   background-size: contain;
-  /* background: rgb(22,31,43); */
-/* background: linear-gradient(135deg, rgba(22,31,43,1) 0%, rgba(26,34,59,1) 35%, rgba(25,40,77,1) 100%); */
+
   max-width: 100vw;
   width: 100% ;
-  min-height: 120vh;
+  min-height: 100vh;
   
-  padding: 0; 
+  padding: 4.5rem 4px 0; 
   margin: 0;
   font-family:Verdana;
   font-size: 1em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: #c4c4c4;
+  /* display: flex;
+  flex-direction: column; */
+  /* justify-content: center; */
   /* align-items: center; */
  
  @media(max-width: 480px) {
@@ -36,6 +38,12 @@ body {
    color: #fff;
  }
 }
+
+/* @media(min-width: 700px) {
+  .MuiList-root &:nth-child(n+7)&:nth-child(-n+9) {
+    display: none;
+  }
+} */
 
 .carousel-container {
   padding-top: 20px;

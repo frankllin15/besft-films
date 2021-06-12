@@ -1,48 +1,42 @@
 import SearchIcon from '@material-ui/icons/Search';
 import styled from 'styled-components'
-import Button from '@material-ui/core/Button';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router'
 import CustomBootstrapInput from './CustomBootstrapInput'
+import IconButton from '@material-ui/core/IconButton';
+
 
 const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 100px; 
-  max-width: 100%;
+  /* margin-top: 72px;  */
+  max-width: 80%;
 `
-
 
 export default function SearchBar() {
   
-
   const [keyWord, setKeyWord] = useState("")
   const router = useRouter()
 
-  function handleClick(e) {
-    console.log(e)
+  function handleClick() {
+
     if (keyWord !== "")
-      router.push(`/search/${keyWord}/1`)
+      router.push(`/search/${keyWord}`)
   }
 
   function handleChange(e) {
     e.preventDefault()
 
-
     setKeyWord(e.target.value)
-
   }
-
-  
-
 
   return <SearchContainer key="searchbar1">
 
-      <CustomBootstrapInput onKeyDown={e => {if(e.key === "Enter") handleClick(e)}}  value={keyWord} onChange={e => handleChange(e)}/>  
-       <Button  onClick={handleClick}>
-        <SearchIcon fontSize="large" color="secondary" />
-      </Button>
+      <CustomBootstrapInput onKeyDown={e => {if(e.key === "Enter") handleClick()}}  value={keyWord} onChange={e => handleChange(e)}/>  
+       <IconButton style={{padding: "8px"}}  onClick={handleClick}>
+        <SearchIcon fontSize="default" color="secondary" />
+      </IconButton>
     </SearchContainer>
   
 }
