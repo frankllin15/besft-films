@@ -23,7 +23,10 @@ export default class App extends NextApp {
       <>
         <ThemeStore>
           <Theme>
-            <Head><title>Best Films</title></Head>
+            <Head>
+            <meta name="google-site-verification" content="JT0m821Vw6hBS0L6QiNOfP4H2HDDmaePFsD6MCfUqdM" />
+              <title>Best Films</title>
+              </Head>
             <NavBar />
             <Component {...pageProps} />
             <Footer />
