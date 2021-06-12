@@ -121,7 +121,7 @@ export default function PersistentDrawerLeft() {
 
                     <NavBarContent>
 
-                        <a href="/"><img width={isMediaQuerySm ? "90px" : "150"} src="https://fontmeme.com/permalink/210609/2be61abb18a6a45c288b615ff23704f6.png" alt="netflix-font" border="0" /></a>
+                        <a href="/"><img width="100px" src="https://fontmeme.com/permalink/210609/2be61abb18a6a45c288b615ff23704f6.png" alt="netflix-font" border="0" /></a>
 
                         <CustomLink href="/movie">Filmes</CustomLink>
                         <CustomLink href="/tv">Series</CustomLink>
@@ -167,7 +167,7 @@ export default function PersistentDrawerLeft() {
                     <Divider />
                    
                     <ListItem>
-                        <CustomLink href="release">
+                        <CustomLink href="/release">
                             Lançamentos
                         </CustomLink>
                     </ListItem>
