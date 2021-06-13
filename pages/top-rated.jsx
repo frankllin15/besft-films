@@ -18,50 +18,54 @@ export default function topimdb() {
     const [page, setPage] = useState(1);
     const [data, setData] = useState(null)
     const [media, setMedia] = useState('movie')
-    
+
 
     useEffect(() => {
         (async function () {
-            
-            setData(await getTopRatedTmdb(media , page))
-        })() 
+
+            setData(await getTopRatedTmdb(media, page))
+        })()
     }, [page, media])
     // console.log(data)
     // console.log(list)
 
     const mediaOptions = [
-        {label: 'Filme', value: 'movie'},
-        {label: 'Serie', value: 'tv'},
+        { label: 'Filme', value: 'movie' },
+        { label: 'Serie', value: 'tv' },
     ]
 
-    function handleChange (e) {
+    function handleChange(e) {
         setMedia(e.value)
     }
 
-    if (data)
+
     return (
         <MainContainer>
+            {data ? 
+            <>
             <Title>{media === 'tv'?'Series mais bem avaliadas':'Filmes mais bem avaliados'} </Title>
             <ContentAlignStart>
 
             <CustomSelect options={mediaOptions} label="Categoria" name="media" onchange={handleChange}/>
             </ContentAlignStart>
     
-            <RenderCard list={data.results} media_type={media}/>
-            <CustomPagination page={page} maxPage={data.total_pages} setPage={setPage}/>
+                <RenderCard list={data.results} media_type={media}/>
+                <CustomPagination page={page} maxPage={data.total_pages} setPage={setPage}/>
+                </>
+                :
+                ""
+            }
         </MainContainer>
     )
 
-    else return ""
 
-    
 }
 
-export async function getServerSideProps(ctx) {
+// export async function getServerSideProps(ctx) {
 
-    return {
-        props: {
+//     return {
+//         props: {
 
-        }
-    }
-}
+//         }
+//     }
+// }
