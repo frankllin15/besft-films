@@ -6,18 +6,7 @@ export default function MediaInfos({ data }) {
     return (
         
             <dl>
-                            {data.crew.length > 0 ?
-                                <>
-                                    <dt>
-                                        Direção
-                    </dt>
-                                    <dd>
-                                        {/* {data.crew.filter(e => e.job == "Director")[0].name || ""} */}
-                                    </dd>
-                                </>
-                                :
-                                ""
-                            }
+                          
 
                             <dt>
                                 Elenco

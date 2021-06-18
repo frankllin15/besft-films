@@ -52,14 +52,7 @@ export default function MultiCarousel({ data, type }) {
                 ))
                 }
                
-               {/* <div>Item 1</div>
-  <div>Item 2</div>
-  <div>Item 3</div>
-  <div>Item 4</div>
-                 */}
             </Carousel>
-      
-
     
     )
 }

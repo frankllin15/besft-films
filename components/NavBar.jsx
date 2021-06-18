@@ -160,14 +160,14 @@ export default function PersistentDrawerLeft() {
                         </CustomLink>
                     </ListItem>
                     <ListItem>
-                        <CustomLink href="/top-rated">
+                        <CustomLink href="/movie/top-rated/1">
                             Top IMDB
                         </CustomLink>
                     </ListItem>
                     <Divider />
                    
                     <ListItem>
-                        <CustomLink href="/release">
+                        <CustomLink href="/release/1">
                             Lançamentos
                         </CustomLink>
                     </ListItem>

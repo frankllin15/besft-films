@@ -18,13 +18,28 @@ const Item = styled.div`
 const Img = styled.img`
     border-radius: 4px;
     width: 200px;
-    height: 300px;
+    /* height: 300px; */
     -webkit-box-shadow: 5px 5px 12px 2px rgba(0,0,0,0.51); 
-box-shadow: 5px 5px 12px 2px rgba(0,0,0,0.51);
-@media(max-width: 480px) {
-        width: 99px;
-        height: 148.5px;
+    box-shadow: 5px 5px 12px 2px rgba(0,0,0,0.51);
+    @media(max-width: 415px) {
+            width: 99px;
+            height: 148.5px;
+        }
+    @media(min-width: 416px) {
+    width: 119px;
+    height: 178.5px;
     }
+    @media(min-width: 600px) {
+        width: 165px;
+        height: 247.5px;
+    }
+    @media(min-width: 850px) {
+        width: 200px;
+        height: 300px;
+    }
+        
+ 
+    
 `
 const Title = styled.h3`
     text-align: center;

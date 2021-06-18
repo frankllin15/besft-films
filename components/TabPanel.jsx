@@ -12,6 +12,8 @@ import { Title } from './styles'
 
 
 const GridContainer = styled.div`
+padding-left: 4px;
+padding-right: 4px;
   div {
     text-align: center;
 
@@ -67,7 +69,7 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     // flexGrow: 1,
-    backgroundColor: "#1c2c41",
+    backgroundColor: "#1c2c41da",
     width: "100%",
     // height: '100%',
     minHeight: '300px',

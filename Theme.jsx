@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-  background-image: linear-gradient(165deg, #1a223bf2 0%, #19284d 50%), url(${props => props.theme.bgImage});
+  background: linear-gradient(189deg, rgba(28,44,65,1) 0%, #14425f 50%);
   background-repeat: no-repeat;
   background-size: contain;
 
@@ -22,7 +22,7 @@ body {
   width: 100% ;
   min-height: 100vh;
   
-  padding: 4.5rem 4px 0; 
+  padding: 4rem 0px 0; 
   margin: 0;
   font-family:Verdana;
   font-size: 1em;

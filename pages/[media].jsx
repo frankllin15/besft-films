@@ -35,79 +35,73 @@ export default function Genre({ genre }) {
     const [filter, setFilter] = useState({
         genre: 35,
         order: "desc"
-     })
-    // const [genre, setGenre] = useState()
+    })
 
     const handleChange = (e, label) => {
+        if(label === 'genre') setPage(1)
 
         let aux = filter
-
         aux[label] = e.value
         setFilter({ ...aux })
     }
 
     useEffect(() => {
         (async () => {
-           
+
             setdata(await getMediaByGenre(media, page, filter))
-              
-            
+
+
         })()
     }, [page, filter])
-    
-    
+
+
     // console.log(data)
     // console.log(filter)
 
 
     const releaseOptions = [
-        {label: "Todos", value: false},
-        {label: "2020", value: 2020},
-        {label: "2019", value: 2019},
-        {label: "2019", value: 2019},
-        {label: "2017", value: 2017},
-        {label: "2016", value: 2016},
-        {label: "2015", value: 2015},
-        {label: "2014", value: 2014}
+        { label: "Todos", value: false },
+        { label: "2020", value: 2020 },
+        { label: "2019", value: 2019 },
+        { label: "2019", value: 2019 },
+        { label: "2017", value: 2017 },
+        { label: "2016", value: 2016 },
+        { label: "2015", value: 2015 },
+        { label: "2014", value: 2014 }
     ]
-
-    if (data.results)
-        return (
-            <Container>
-                <Title>{media == 'tv'?"Series":'Filmes'}</Title>
-                <FilterContainer>
-                    <CustomSelect options={genre} name="genre" label="Genero" onchange={handleChange} />
-                    <CustomSelect options={releaseOptions} name={media === "tv"?"first_air_date_year":"primary_release_year"} label="Lançamento" onchange={handleChange} />
-                    {/* <CustomSelect options={pageOptions} name="sort_by" label="Items por Pagina" onchange={handleChange} /> */}
-
-
-
-                    
-                </FilterContainer>
-                <RenderCard list={data.results} media_type={media} />
-                <CustomPagination page={page} maxPage={data.total_pages} setPage={setPage} />
-            </Container>
-        )
-
     return (
         <Container>
-            <CircularProgress />
+            {data.results ?
+                <>
+                    <Title>{media == 'tv' ? "Series" : 'Filmes'}</Title>
+                    <FilterContainer>
+                        <CustomSelect options={genre} name="genre" label="Genero" onchange={handleChange} />
+                        <CustomSelect options={releaseOptions} name={media === "tv" ? "first_air_date_year" : "primary_release_year"} label="Lançamento" onchange={handleChange} />
+                    </FilterContainer>
+                    <RenderCard list={data.results} media_type={media} />
+                    <CustomPagination page={page} maxPage={data.total_pages} setPage={setPage} />
+                </>
+                :
+                <CircularProgress />
+            }
         </Container>
     )
+
 }
 
 export async function getServerSideProps(ctx) {
 
     const { media } = ctx.query
-    console.log(media)
+
     const genres = Array.from(await getMediaGenres(media)).map(e => {
-        const { id: value, name: label} = e
-        
+        const { id: value, name: label } = e
+
         return {
             value,
             label
         }
     })
+
 
     return {
         props: {

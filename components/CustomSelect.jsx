@@ -25,7 +25,7 @@ export default function CustomSelect({ options, label, onchange, name }) {
     return (
         <div style={{width: '170px'}} >
             <Label htmlFor={name}>{label}</Label>
-          <Select isSearchable={false} id={name} instanceId={name} onChange={e => onchange(e, name)} name={name} style={{width: '170px'}}  styles={stylesOption} options={options} />
+          <Select isSearchable={false} id={name} instanceId={name} onChange={e => onchange(e, name)} name={name}  styles={stylesOption} options={options} />
 
         </div>
     )

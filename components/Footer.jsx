@@ -57,8 +57,8 @@ export default function Footer() {
                 {/* <Title>Navegação</Title> */}
                 <Link href="/movie">Filmes</Link>
                 <Link href="/tv">Series</Link>
-                <Link href="/top-rated">Top IMDB</Link>
-                <Link href="/release">Lançamentos</Link>
+                <Link href="/movie/top-rated/1">Top IMDB</Link>
+                <Link href="/release/1">Lançamentos</Link>
             </Row>
          
             {/* </Container> */}

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { getMediaById, getDetails, getMediaVideos, getSimilarMedia } from '../lib/apiTmdb'
 import TabPanel from './TabPanel'
 import MultiCarousel from './MultiCarousel'
 import { Title } from './styles'
@@ -10,13 +9,33 @@ import MediaInfos from './MediaInfos'
 const Container = styled.div`
     display: flex;
     flex-direction: column;
+    min-height: 170vh;
+
+`
+const ImgBg = styled.div`
+  position: absolute;
+  top: 0;
+  background-image: url(${props => props.bgImage});
+  opacity: .7;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: 100vw;
+  margin-top: 4em;
+  z-index: -1;
+
 
 `
 
 const GridContainer = styled.div`
-    padding-top: 12px;
-    padding-left: 8px;
+    padding-top: 10px;
+    /* padding-left: 8px; */
     margin-bottom: 1em;
+    /* background-image: linear-gradient(189deg, #1c2c41ce 0%, #14425fd6 50%) ; */
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* max-height: 100vw; */
+    
 
     /* @media(max-width:480px) {
         display: grid;
@@ -71,7 +90,7 @@ box-shadow: 5px 7px 11px 5px rgba(0,0,0,0.67);
 
 export default function MediaDetails({ data, videos, similarMedia, type, mediaRecommendations }) {
 
-    const { setBgImage, isMediaQueryMd } = useThemeContext()
+    const { bgImage, setBgImage, isMediaQueryMd } = useThemeContext()
 
     useEffect(() => {
         if (data)
@@ -81,8 +100,8 @@ export default function MediaDetails({ data, videos, similarMedia, type, mediaRe
     if (data)
         return (
             <Container>
-
-                <GridContainer>
+                <GridContainer >
+                <ImgBg bgImage={bgImage}/>
                     <GridItem>
                         <Float>
                             <Img src={`https://image.tmdb.org/t/p/w500//${data.poster_path}`} />

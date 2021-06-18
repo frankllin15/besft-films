@@ -1,4 +1,4 @@
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import RenderCard from '../../components/RenderCard'
 import CustomPagination from '../../components/CustomPagination'
@@ -12,25 +12,29 @@ export default function Movie() {
     const [data, setData] = useState(null)
 
     const [page, setPage] = useState(1);
-    
+
 
     useEffect(() => {
         (async function () {
-            setData({...await SearchMult(keyWord, page)})
-        })() 
+            if(keyWord)
+            setData({ ...await SearchMult(keyWord, page) })
+        })()
     }, [keyWord, page])
-    // console.log(keyWord, page)
-    // console.log(data)
 
-    if (data)
-        return (
-            <MainContainer>
-        <RenderCard list={data.results} />
-            <CustomPagination page={page} maxPage={data.total_pages} setPage={setPage}/>
-            
-            </MainContainer>
-        )
-    return <h1>Wait</h1>
 
-  
+
+    return (
+        <MainContainer>
+            {data ?
+                <>
+                    <RenderCard list={data.results} />
+                    <CustomPagination page={page} maxPage={data.total_pages} setPage={setPage} />
+                </>
+                :
+                ""
+            }
+        </MainContainer>
+    )
+    
+
 }
