@@ -155,7 +155,7 @@ export default function PersistentDrawerLeft() {
                     </ListItem>
                     <Divider />
                     <ListItem>
-                        <CustomLink href="/tv">
+                        <CustomLink href="/tv/">
                             Series
                         </CustomLink>
                     </ListItem>
