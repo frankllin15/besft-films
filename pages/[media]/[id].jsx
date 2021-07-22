@@ -11,11 +11,13 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
         <>
         <NextSeo 
             title={(data.title || data.name)}
+            description={data.overview}
             openGraph={{
                 title: (data.title || data.name),
+                description: data.overview,
                 images: [
                     {
-                        url: data.poster_path,
+                        url: `https://image.tmdb.org/t/p/w500${data.poster_path}`,
                         alt: data.title || data.name,
                         width: 500,
                         height: 750,

@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import styled from 'styled-components'
 import MultiCarousel from '../components/MultiCarousel'
 import { getTrandingMedia } from '../lib/apiTmdb'

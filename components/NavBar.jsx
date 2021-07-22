@@ -163,6 +163,7 @@ export default function PersistentDrawerLeft() {
                         <CustomLink href="/movie/top-rated/1">
                             Top IMDB
                         </CustomLink>
+                        <a style={{display: "none"}} href="/tv/top-rated/1"></a>
                     </ListItem>
                     <Divider />
                    

@@ -104,7 +104,7 @@ export default function MediaDetails({ data, videos, similarMedia, type, mediaRe
                 <ImgBg bgImage={bgImage}/>
                     <GridItem>
                         <Float>
-                            <Img src={`https://image.tmdb.org/t/p/w500//${data.poster_path}`} />
+                            <Img src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} />
                         </Float>
                     </GridItem>
                     <GridItem>
