@@ -28,6 +28,8 @@ export default class App extends NextApp {
             <meta name="google-site-verification" content="JT0m821Vw6hBS0L6QiNOfP4H2HDDmaePFsD6MCfUqdM" />
               <title>Best Films</title>
               <script data-ad-client="ca-pub-8693241372934547" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8693241372934547"
+     crossorigin="anonymous"></script>
               </Head>
               <DefaultSeo 
                 openGraph={{
