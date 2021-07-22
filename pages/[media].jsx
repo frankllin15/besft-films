@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import CustomPagination from '../components/CustomPagination'
 import CustomSelect from '../components/CustomSelect'
 import { Title } from '../components/styles'
+import { NextSeo } from 'next-seo'
 
 const Container = styled.div`
   padding: 0 2rem 0;
@@ -71,6 +72,11 @@ export default function Genre({ genre }) {
     ]
     return (
         <Container>
+            <NextSeo 
+                title={`${media === 'movie' ? "Filmes": "Séries"} Online HD`}
+                description={media === "movie" ? "Os melhores filmes HD" : "As melhores Séries HD"}
+            />
+
             {data.results ?
                 <>
                     <Title>{media == 'tv' ? "Series" : 'Filmes'}</Title>

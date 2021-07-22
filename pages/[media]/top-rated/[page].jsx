@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import CustomSelect from '../../../components/CustomSelect'
 import { Title } from '../../../components/styles'
 import styled from 'styled-components';
-
+import { NextSeo } from 'next-seo'
 
 const ContentAlignStart = styled.div`
     align-self: flex-start;
@@ -31,7 +31,11 @@ export default function topimdb({ data }) {
 
     return (
         <MainContainer>
-           
+            <NextSeo 
+                title={media === "tv" ? "Top Series" : 'Top filmes'}
+                description={media === "tv" ? "As series mais bem avaliadas" : "Os filmes mais bem avaliados"}
+                
+            />
             <Title>{media === 'tv'?'Series mais bem avaliadas':'Filmes mais bem avaliados'} </Title>
             <ContentAlignStart>
 

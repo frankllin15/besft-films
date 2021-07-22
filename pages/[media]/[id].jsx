@@ -1,14 +1,30 @@
 import {useRouter} from 'next/router'
 import MediaDetails from '../../components/MediaDetails'
 import { getDetails, getMediaById, getMediaRecommendations, getMediaVideos, getSimilarMedia } from '../../lib/apiTmdb'
-
+import { NextSeo } from 'next-seo'
 
 export default function Movie({ data, videos, similarMedia, mediaRecommendations }) {
     const Router = useRouter()
     const { media } = Router.query
    
     return (
+        <>
+        <NextSeo 
+            title={(data.title || data.name)}
+            openGraph={{
+                title: (data.title || data.name),
+                images: [
+                    {
+                        url: data.poster_path,
+                        alt: data.title || data.name,
+                        width: 500,
+                        height: 750,
+                    }
+                ]
+            }}
+        />
         <MediaDetails mediaRecommendations={mediaRecommendations} type={media} data={data} videos={videos} similarMedia={similarMedia}/> 
+        </>
     )
 
    

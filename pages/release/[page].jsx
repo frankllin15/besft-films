@@ -4,7 +4,7 @@ import { getReleaseMovies } from '../../lib/apiTmdb'
 import RenderCard from '../../components/RenderCard'
 import CustomPagination from '../../components/CustomPagination'
 import { Title } from '../../components/styles'
-
+import { NextSeo } from 'next-seo'
 
 export default function release({ data }) {
 
@@ -16,6 +16,10 @@ export default function release({ data }) {
 
     return (
         <MainContainer>
+            <NextSeo 
+                title="Filmes lançados Recentemente"
+                description="Os mais novos lançamentos de filmes disponiveis em HD"
+            />
             <Title>Lançamentos</Title>
         {data ? <>
            <RenderCard list={data.results} media_type="movie"/>

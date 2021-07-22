@@ -44,7 +44,7 @@ export const MainContainer = styled.div`
   }
 `
 
-export const Title = styled.h3`
+export const Title = styled.h1`
   color: #fff;
   cursor: default;
   font-size: 1.5rem;
