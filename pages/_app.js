@@ -5,9 +5,7 @@ import Footer from '../components/Footer';
 import { ThemeStore } from '../context/ThemeStore';
 import Theme from '../Theme';
 import NavBar from '../components/NavBar'
-import styled from 'styled-components'
 import { DefaultSeo } from 'next-seo'
-
 
 
 export default class App extends NextApp {
@@ -34,29 +32,18 @@ export default class App extends NextApp {
                 openGraph={{
                   site_name: "Best Films",
                   url: "https://bestfilms.vercel.app/",
-                  // book: {
-                  //   tags: [
-                  //     "HD",
-                  //     "Fullhd",
-                  //     "Online",
-                  //     "Grates",
-                  //     "Dublado",
-                  //     "Legendado",
-                  //     "Atualizado",
-                  //     "Filmes Online Grates",
-                  //     "Filmes HD",
-                  //     "Best Films",
-                  //     "Melhores Filmes",
-                  //     "Free Movie"
-                  //   ]
-                  // },
+                  images: [
+                    {
+                      url: "https://bestfilms.vercel.app/img/logo_poster.jpg",
+                      width: 165,
+                      height: 165,
+                
+                    }
+                  ],
                   type: 'website'
-                 
-                  
                 }}
                 description="Site de filmes e series online de graça!!!"
                 title="Os melhores Filmes e Series"
-              
               />
 
             <NavBar />

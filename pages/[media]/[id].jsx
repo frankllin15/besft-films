@@ -12,9 +12,13 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
         <NextSeo 
             title={(data.title || data.name)}
             description={data.overview}
+            facebook = { { 
+                appId : '1234567890' , 
+              } }
             openGraph={{
                 title: (data.title || data.name),
                 description: data.overview,
+                
                 images: [
                     {
                         url: `https://image.tmdb.org/t/p/w500${data.poster_path}`,
