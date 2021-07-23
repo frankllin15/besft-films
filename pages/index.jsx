@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import MultiCarousel from '../components/MultiCarousel'
 import { getTrandingMedia } from '../lib/apiTmdb'
 import { Title } from '../components/styles'
+import Head from 'next/head'
 
 
 const MainContainer = styled.div`
@@ -17,6 +18,10 @@ export default function Home({ trendingTv, trendingMovie }) {
 
   return (
     <>
+    {/* <Head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8693241372934547" 
+            crossorigin="anonymous"></script>
+    </Head> */}
       <MainContainer>
 
         <Title>Series em Alta</Title>
