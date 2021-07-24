@@ -27,16 +27,7 @@ export default class App extends NextApp {
             <Head>
               <meta name="google-site-verification" content="JT0m821Vw6hBS0L6QiNOfP4H2HDDmaePFsD6MCfUqdM" />
           
-              <script async src="https://www.googletagmanager.com/gtag/js?id=G-KMYFP1JYED"></script>
-              <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){
-                  dataLayer.push(arguments)
-                }
-                gtag('js', new Date());
-
-                gtag('config', 'G-KMYFP1JYED');
-              </script>
+             
               <title>Best Films</title>
               <script data-ad-client="ca-pub-8693241372934547" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
               
