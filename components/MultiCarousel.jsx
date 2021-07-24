@@ -36,7 +36,7 @@ export default function MultiCarousel({ data, type }) {
              <Carousel
               
                 responsive={responsive}
-                autoPlay={false}
+                autoPlay={true}
                 autoPlaySpeed={6000}
             
                 // transitionDuration={500}

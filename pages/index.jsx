@@ -3,6 +3,7 @@ import MultiCarousel from '../components/MultiCarousel'
 import { getTrandingMedia } from '../lib/apiTmdb'
 import { Title } from '../components/styles'
 import Head from 'next/head'
+import CookiePermition from '../components/CookiePermition'
 
 
 const MainContainer = styled.div`
@@ -18,10 +19,6 @@ export default function Home({ trendingTv, trendingMovie }) {
 
   return (
     <>
-    {/* <Head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8693241372934547" 
-            crossorigin="anonymous"></script>
-    </Head> */}
       <MainContainer>
 
         <Title>Series em Alta</Title>
@@ -29,9 +26,9 @@ export default function Home({ trendingTv, trendingMovie }) {
         
         <Title>Filmes em Alta</Title>
         <MultiCarousel key={2} data={trendingMovie} />
-
       </MainContainer>
 
+        <CookiePermition />
     </>
   )
 }

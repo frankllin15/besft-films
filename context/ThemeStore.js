@@ -5,7 +5,7 @@ import json2mq from 'json2mq';
 const ThemeContext = React.createContext()
 
 const ThemeStore = ({ children }) => {
-    const [bgImage, setBgImage] = useState('https://image.tmdb.org/t/p/w1280/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg')
+    const [bgImage, setBgImage] = useState('')
     const isMediaQuerySm = useMediaQuery(
         json2mq({
           maxWidth: 700,

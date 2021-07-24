@@ -46,10 +46,8 @@ const Item = styled.div`
         transition: 500ms;
         transform: scale(1.04);
         ${HoverRate}{
-            /* display: flex; */
             transition: 600ms;
             opacity: 1;
-            /* transition: 300ms; */
             background-color: #4444445c;
         }
     }

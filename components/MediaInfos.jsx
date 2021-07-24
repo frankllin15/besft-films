@@ -1,11 +1,21 @@
 import React from 'react'
 import { hourFormat } from '../lib/utils'
+import styled from 'styled-components'
 
+
+const Dl = styled.dl`
+    dd, dt, p {
+        /* text-shadow: 4px 4px 8px #00000086; */
+        text-shadow: 7px 10px 16px #0c01016d;
+        color: #fff;
+        font-size: 1rem;
+    }
+`
 
 export default function MediaInfos({ data }) {
     return (
         
-            <dl>
+            <Dl>
                           
 
                             <dt>
@@ -48,7 +58,7 @@ export default function MediaInfos({ data }) {
                             <dd>
                                 {data.vote_average}
                             </dd>
-                        </dl>
+                        </Dl>
        
     )
 }
