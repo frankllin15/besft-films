@@ -26,7 +26,7 @@ export default class App extends NextApp {
           <Theme>
             <Head>
               <meta name="google-site-verification" content="JT0m821Vw6hBS0L6QiNOfP4H2HDDmaePFsD6MCfUqdM" />
-              <!-- Global site tag (gtag.js) - Google Analytics -->
+          
               <script async src="https://www.googletagmanager.com/gtag/js?id=G-KMYFP1JYED"></script>
               <script>
                 window.dataLayer = window.dataLayer || [];
