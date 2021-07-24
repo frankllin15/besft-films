@@ -6,19 +6,39 @@ import { ThemeStore } from '../context/ThemeStore';
 import Theme from '../Theme';
 import NavBar from '../components/NavBar'
 import { DefaultSeo } from 'next-seo'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
+import * as ga from '../lib/ga'
 
-export default class App extends NextApp {
+export default function App({ Component, pageProps }) {
   // remove it here
-  componentDidMount() {
+  useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles && jssStyles.parentNode)
       jssStyles.parentNode.removeChild(jssStyles)
 
-  }
+  }, [])
 
-  render() {
-    const { Component, pageProps } = this.props
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      ga.pageview(url)
+    }
+    //When the component is mounted, subscribe to router changes
+    //and log those page views
+    router.events.on('routeChangeComplete', handleRouteChange)
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events])
+
+ 
+   
 
     return (
       <>
@@ -56,7 +76,7 @@ export default class App extends NextApp {
         </ThemeStore>
       </>
     )
-  }
+  
 }
 
 

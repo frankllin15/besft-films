@@ -52,13 +52,15 @@ const Buttom = styled.button`
 
 export default function CookiePermition() {
 
-    const [cookiesAllowed, setCokiesAllowed] = React.useState(false)
+    const [cookiesAllowed, setCokiesAllowed] = React.useState(true)
 
     useEffect(() => {
         const  storageCookiesAllowed = localStorage.getItem("cookiesAllowed")
 
         if (storageCookiesAllowed === "true")
             setCokiesAllowed(true)
+        else
+            setCokiesAllowed(false)
     }, [])
 
     const handlleClick = () => {

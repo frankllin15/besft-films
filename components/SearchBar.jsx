@@ -5,6 +5,8 @@ import { useRouter } from 'next/router'
 import CustomBootstrapInput from './CustomBootstrapInput'
 import IconButton from '@material-ui/core/IconButton';
 
+import * as ga from '../lib/ga'
+
 
 const SearchContainer = styled.div`
   display: flex;
@@ -19,10 +21,24 @@ export default function SearchBar() {
   const [keyWord, setKeyWord] = useState("")
   const router = useRouter()
 
+
+
+  const search = () => {
+    ga.event({
+      action: "search",
+      params : {
+        search_term: keyWord
+      }
+    })
+  }
+
   function handleClick() {
 
-    if (keyWord !== "")
+    if (keyWord !== "") {
+      search()
       router.push(`/search/${keyWord}`)
+    }
+
   }
 
   function handleChange(e) {
