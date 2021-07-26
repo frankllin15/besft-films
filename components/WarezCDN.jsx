@@ -5,7 +5,7 @@ import Logo from '../public/img/warezLogo.png'
 
 
 const Wrapper = styled.div`
-flex-grow: 2;
+
     position: relative;
 
     max-width: 300px;

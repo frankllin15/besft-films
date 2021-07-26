@@ -7,14 +7,16 @@ const Wrapper =  styled.a`
     border-radius: 8px;
     height: 42px;
     min-width: 93px;
-    max-width: fit-content;
+    max-width: min-content;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 3px 8px 3px;
     text-decoration: none;
-    margin: 4px 16px ;
+    margin: 8px 1rem 1rem 0;
+    /* margin-right: 12px; */
+
     
     p {
         color: ${props => props.color||"#eee"};

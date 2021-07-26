@@ -61,48 +61,50 @@ const Link = styled.a`
 
 export default function Footer() {
     return (
-        <GridContainer>
+        <footer className="w-full grid grid-row-3 pl-6 pr-6 mt-14" >
 
-            <Row>
+            <section className="flex justify-around mt-4 mb-10">
 
                 <Link href="/movie">Filmes</Link>
                 <Link href="/tv">Series</Link>
                 <Link href="/movie/top-rated/1">Top IMDB</Link>
                 <Link href="/release/1">Lançamentos</Link>
-            </Row>
+            </section>
 
-            <Row>
+            <section className="flex w-full flex-col sm:flex-row ">
 
-                <Col style={{flex: 3}}>
-                    
-                    <Title>Aviso Legal</Title>
-                        <div>
+                <div className="flex flex-row mb-4 w-full justify-between sm:flex-col">
 
-                        <p>
-                            O Best Films é uma plataforma absolutamente legal e contém apenas links apontando para outros sites de vídeos, nós não hospedamos nenhum arquivo de mídia (avi, mkv, mpg, mpeg, vob, wmv, flv, mp4, mov, m2v, divx, xvid, 3gp, webm, ogv, ogg) protegido por direitos autorais em nosso servidor, nós apenas fazemos uma busca pelos links através da própria internet e organizamos os vídeos em nossa página de forma facilitada para o usuário.
-                        </p>
-                        </div>
-                        <WarezCDN />
+                    <div className="flex justify-start flex-wrap ">
+                        {/* <h3 className="w-full" >Contato</h3> */}
 
-                
-                </Col>
-                <Col style={{flex: 1}}>
-                        <Title>Contato</Title>
+                        <LinkSosialMedia href="https://github.com/frankllin15" text="GitHub" logo={gitHubLogo} bgColor="#000" />
+                        <LinkSosialMedia href="https://www.linkedin.com/in/frankllin-teixeira-244a9517b/" text="LinkedIn" logo={logoLinkedin} color="#000" bgColor="#fff" />
                         
-                        <LinkSosialMedia href="https://github.com/frankllin15" text="GitHub" logo={gitHubLogo} bgColor="#000"/>
-                        <LinkSosialMedia href="https://www.linkedin.com/in/frankllin-teixeira-244a9517b/" text="LinkedIn" logo={logoLinkedin} color="#000" bgColor="#fff"/>
-                
-                </Col>
 
-            </Row>
-            <Col>
+                    </div>
+                    <WarezCDN />
+
+
+
+                </div>
+
+            </section>
+            <section className="rounded-xl border-green-light p-4 border mb-6">
+                <h3 className="text-lg">Aviso Legal</h3>
+                <div>
+
+                    <p>
+                        O Best Films é uma plataforma absolutamente legal e contém apenas links apontando para outros sites de vídeos, nós não hospedamos nenhum arquivo de mídia (avi, mkv, mpg, mpeg, vob, wmv, flv, mp4, mov, m2v, divx, xvid, 3gp, webm, ogv, ogg) protegido por direitos autorais em nosso servidor, nós apenas fazemos uma busca pelos links através da própria internet e organizamos os vídeos em nossa página de forma facilitada para o usuário.
+                    </p>
+                </div>
+            </section>
+            <section className="mb-4 text-center">
                 <p>Filmes Online - Assistir Filmes - Assistir Filmes Online Grátis - Series Online - Assistir Series Online - Series Online Grátis - Animes Online - Assistir Anime</p>
-            </Col>
+            </section>
 
-            <div className="h-10 w-10 bg-red-800 +" >
-                asdsad
-            </div>
+            
 
-        </GridContainer>
+        </footer>
     )
 }

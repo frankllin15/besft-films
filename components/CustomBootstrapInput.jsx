@@ -1,5 +1,5 @@
 import InputBase from '@material-ui/core/InputBase';
-import { fade, withStyles } from '@material-ui/core/styles';
+import { alpha, withStyles } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const BootstrapInput = withStyles((theme) => ({
@@ -39,7 +39,7 @@ const BootstrapInput = withStyles((theme) => ({
         '"Segoe UI Symbol"',
       ].join(','),
       '&:focus': {
-        boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+        boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
         borderColor: theme.palette.primary.main,
       },
     },

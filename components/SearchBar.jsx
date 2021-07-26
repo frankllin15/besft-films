@@ -117,7 +117,7 @@ export default function SearchBar() {
 
       <CustomBootstrapInput  onKeyDown={e => {if(e.key === "Enter") handleClick()}}  value={keyWord} onChange={e => handleChange(e)}/>  
        <IconButton style={{padding: "8px"}}  onClick={handleClick}>
-        <SearchIcon fontSize="default" color="secondary" />
+        <SearchIcon fontSize="medium" color="secondary" />
       </IconButton>
       {getSugestions().length?
       <Sugestions>
