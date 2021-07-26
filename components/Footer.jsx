@@ -99,7 +99,7 @@ export default function Footer() {
                 <p>Filmes Online - Assistir Filmes - Assistir Filmes Online Grátis - Series Online - Assistir Series Online - Series Online Grátis - Animes Online - Assistir Anime</p>
             </Col>
 
-            <div className="h-10 w-10 bg-red-800" >
+            <div className="h-10 w-10 bg-red-800 +" >
                 asdsad
             </div>
 
