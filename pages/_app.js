@@ -10,6 +10,8 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import * as ga from '../lib/ga'
+import { SearchHistoryProvider } from '../context/SearchHistoryContext';
+
 
 export default function App({ Component, pageProps }) {
   // remove it here
@@ -68,8 +70,9 @@ export default function App({ Component, pageProps }) {
                 description="Site de filmes e series online de graça!!!"
                 title="Best Films"
               />
-
+            <SearchHistoryProvider>
             <NavBar />
+            </SearchHistoryProvider>
             
             <Component {...pageProps} />
             <Footer />

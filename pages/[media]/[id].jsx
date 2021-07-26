@@ -2,11 +2,34 @@ import {useRouter} from 'next/router'
 import MediaDetails from '../../components/MediaDetails'
 import { getDetails, getMediaById, getMediaRecommendations, getMediaVideos, getSimilarMedia } from '../../lib/apiTmdb'
 import { NextSeo } from 'next-seo'
+import styled from 'styled-components'
+
+const TagContainer = styled.section`
+    width: 100%;
+    min-height: 100px;
+    margin-top: 28px;
+    margin-left: 1rem;
+`
+
+const Tag = styled.h4`
+    margin-right: 4px;
+    font-size: .9rem;
+    color: #ccc;
+    display: inline-block;
+    margin: 3px;
+    font-weight: 500;
+
+`
+
 
 export default function Movie({ data, videos, similarMedia, mediaRecommendations }) {
     const Router = useRouter()
     const { media } = Router.query
-   
+    
+    const tags = ["Online", "Dublado", "Legendado", "HD", "Dublado Online", "Dublado Online HD", "Legendado Online", "Legendado Online HD"]
+        .map(e => `${data.title || data.name} ${e}` )
+
+
     return (
         <>
         <NextSeo 
@@ -30,6 +53,13 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
             }}
         />
         <MediaDetails mediaRecommendations={mediaRecommendations} type={media} data={data} videos={videos} similarMedia={similarMedia}/> 
+
+        <TagContainer>
+            <h3>Tags:</h3>
+            {tags.map((e, id) => (
+                <Tag key={id}>{e}</Tag>
+            ))}
+        </TagContainer>
         </>
     )
 

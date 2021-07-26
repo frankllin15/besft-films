@@ -1,8 +1,9 @@
 import InputBase from '@material-ui/core/InputBase';
 import { fade, withStyles } from '@material-ui/core/styles';
-
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const BootstrapInput = withStyles((theme) => ({
+
     root: {
       'label + &': {
         marginTop: theme.spacing(3),
@@ -18,8 +19,11 @@ const BootstrapInput = withStyles((theme) => ({
       color: '#122764',
       fontSize: 16,
       width: '30vw',
-      height: ".5rem",
-      padding: '10px 12px',
+      height: ".7rem",
+      padding: '8px 10px',
+      // justifyContent: 'center',
+      lineHeight: '1px',
+       
       transition: theme.transitions.create(['border-color', 'box-shadow']),
       // Use the system font instead of the default Roboto font.
       fontFamily: [
@@ -40,5 +44,6 @@ const BootstrapInput = withStyles((theme) => ({
       },
     },
   }))(InputBase);
+  
 
   export default BootstrapInput

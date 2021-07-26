@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import Image from 'next/image'
 import Button from '@material-ui/core/IconButton';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import styled from 'styled-components'
 
 
 
@@ -59,13 +60,18 @@ const Item = styled.div`
 `
 
 
-const Img = styled.img`
-    border-radius: 4px;
-    width: 200px;
+const ImgContiner = styled.div`
+    .cardImage {
 
+        border-radius: 4px;
+    }
+
+    width: 200px;
     /* height: 300px; */
     -webkit-box-shadow: 5px 5px 12px 2px rgba(0,0,0,0.51); 
     box-shadow: 5px 5px 12px 2px rgba(0,0,0,0.51);
+
+
     @media(max-width: 415px) {
             width: 99px;
             height: 148.5px;
@@ -82,8 +88,6 @@ const Img = styled.img`
         width: 200px;
         height: 300px;
     }
-   
-  
    
 `
 
@@ -140,7 +144,9 @@ export default function Card({id, item, media_type}) {
             </CircleProgressContainer>
         <Title>{item.title ? item.title: item.name}</Title>
         </HoverRate>
-        <Img onError={e => handleImgError(e)} src={isImgNotFound ? require('../public/img/posterNotFound.png') : `https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+        <ImgContiner>
+            <Image onError={e => handleImgError(e)} priority={true} placeholder="blur" className="cardImage" layout="fill" src={isImgNotFound ? require('../public/img/posterNotFound.png') : `https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+        </ImgContiner>
          </Button>
     </Item>
      

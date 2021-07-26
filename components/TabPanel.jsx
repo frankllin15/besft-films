@@ -111,7 +111,7 @@ export default function SimpleTabs({imdb_id, type, data, videos, similarMedia}) 
       </AppBar>
       <TabPanel value={value} index={0}>
     
-    <iframe src={`https://api.obaflix.com/embed/${imdb_id}`} width="100%" height="400px" allowFullScreen={true} scrolling="no" frameBorder="0"></iframe>
+    <iframe src={`https://embed.warezcdn.com/${type=="tv"?"serie":"filme"}/${imdb_id}/2`} width="100%" height="400px" allowFullScreen={true} scrolling="no" frameBorder="0"></iframe>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <GridContainer>
@@ -130,8 +130,16 @@ export default function SimpleTabs({imdb_id, type, data, videos, similarMedia}) 
       <TabPanel value={value} index={2}>
         {videos ? 
           videos.map((item, id) => (
+            <div key={id} style={{ position: "relative", overflow: "visible", paddingTop: "56.25%", marginBottom: "8px"}}>
+            <iframe style={{ 
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              border: 0}} src={`https://www.youtube.com/embed/${item.key}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
             
-            <iframe style={{marginTop: '12px'}} key={id} width="100%"  height="370px"   src={`https://www.youtube.com/embed/${item.key}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+      </div>
           ))
         :
         ""

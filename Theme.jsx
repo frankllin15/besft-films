@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import { ThemeContext} from './context/ThemeStore'
 
+import 'tailwindcss/tailwind.css'
+
 
 
 const GlobalStyle = createGlobalStyle`
@@ -14,9 +16,10 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-  background: linear-gradient(189deg, rgba(28,44,65,1) 0%, #14425f 50%);
+  background: linear-gradient(189deg, rgba(28,44,65,1) 0%, #0d3853 50%);
   background-repeat: no-repeat;
   background-size: contain;
+  
 
   max-width: 100vw;
   width: 100% ;
