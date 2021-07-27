@@ -1,56 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
 import WarezCDN from './WarezCDN'
-import LinkSosialMedia from './LinkSosialMedia'
+import LinkSocialMedia from './LinkSocialMedia'
 import gitHubLogo from '../public/img/GitHub-Mark-Light-32px.png'
 import logoLinkedin from '../public/img/logo-linkedin-32px.png'
 
-const GridContainer = styled.footer`
-    display: grid;
-    width: 100%;
-    grid-template-rows: 1fr 3fr;
-    justify-items: center;
-    bottom: 0;
-    width: 100%;
-    min-height: 400px;
-    /* margin-top: 20px; */
 
-    
-`
-const Row = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    padding: 12px;
-    width: 100%;
-    flex-wrap: wrap;
-
-  
-
-`
-
-
-
-
-const Col = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-    height: 100%;
-    max-width: 90%;
-`
-const Title = styled.h3`
-    color: #fff;
-    cursor: default;
-`
 const Link = styled.a`
-    font-size: 1.2em;
+    font-size: 1.3em;
+    padding: 5px 12px;
     color: #fff;
-        &:hover {
-            transition: 300ms;
+    border-radius: 8px;
+    
+    &:hover { 
+        transition: 300ms;
+        border-radius: 6px 12px;
             color: #fff;
         }
         text-decoration: none;
@@ -58,35 +22,28 @@ const Link = styled.a`
 `
 
 
-
 export default function Footer() {
     return (
-        <footer className="w-full grid grid-row-3 pl-6 pr-6 mt-14" >
+        <footer className="w-full grid grid-row-3 pl-8 pr-8 mt-16" >
 
-            <section className="flex justify-around mt-4 mb-10">
+            <section className="flex flex-wrap  justify-around mt-4 mb-16">
 
-                <Link href="/movie">Filmes</Link>
+                <Link className="" href="/movie">Filmes</Link>
                 <Link href="/tv">Series</Link>
                 <Link href="/movie/top-rated/1">Top IMDB</Link>
                 <Link href="/release/1">Lançamentos</Link>
             </section>
 
-            <section className="flex w-full flex-col sm:flex-row ">
+            <section className="flex w-full flex-col  sm:flex-row ">
 
-                <div className="flex flex-row mb-4 w-full justify-between sm:flex-col">
+                <div className="flex flex-row mb-4 w-full  justify-between sm:flex-col">
 
-                    <div className="flex justify-start flex-wrap ">
-                        {/* <h3 className="w-full" >Contato</h3> */}
-
-                        <LinkSosialMedia href="https://github.com/frankllin15" text="GitHub" logo={gitHubLogo} bgColor="#000" />
-                        <LinkSosialMedia href="https://www.linkedin.com/in/frankllin-teixeira-244a9517b/" text="LinkedIn" logo={logoLinkedin} color="#000" bgColor="#fff" />
-                        
-
+                    <div className="flex justify-start  flex-wrap ">
+                        {/* <h3 className="w-full text-lg " >Contate-me :)</h3> */}
+                        <LinkSocialMedia href="https://github.com/frankllin15" text="GitHub" logo={gitHubLogo} bgColor="#000" />
+                        <LinkSocialMedia href="https://www.linkedin.com/in/frankllin-teixeira-244a9517b/" text="LinkedIn" logo={logoLinkedin} color="#000" bgColor="#fff" />
                     </div>
                     <WarezCDN />
-
-
-
                 </div>
 
             </section>
@@ -103,7 +60,7 @@ export default function Footer() {
                 <p>Filmes Online - Assistir Filmes - Assistir Filmes Online Grátis - Series Online - Assistir Series Online - Series Online Grátis - Animes Online - Assistir Anime</p>
             </section>
 
-            
+
 
         </footer>
     )

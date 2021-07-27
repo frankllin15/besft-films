@@ -108,7 +108,7 @@ export default function MediaDetails({ data, videos, similarMedia, type, mediaRe
                         </Float>
                     </GridItem>
                     <GridItem>
-                        <h1>{data.title ? data.title : data.name} <span style={{ color: '#5e5e5e' }}>({(data.release_date ? data.release_date : data.first_air_date).substring(0, 4)})</span></h1>
+                        <h1 className="text-xl text-white">{data.title ? data.title : data.name} <span style={{ color: '#5e5e5e' }}>({(data.release_date ? data.release_date : data.first_air_date).substring(0, 4)})</span></h1>
                         <TabPanel similarMedia={similarMedia} videos={videos} data={data} imdb_id={data.imdb_id || data.external_ids.imdb_id} type={type} />
 
                     </GridItem>

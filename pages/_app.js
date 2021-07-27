@@ -1,4 +1,3 @@
-import NextApp from 'next/app'
 import Head from 'next/head';
 import React from 'react'
 import Footer from '../components/Footer';
@@ -8,9 +7,9 @@ import NavBar from '../components/NavBar'
 import { DefaultSeo } from 'next-seo'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import GoToTop from '../components/GoToTop';
 
 import * as ga from '../lib/ga'
-import { SearchHistoryProvider } from '../context/SearchHistoryContext';
 
 
 export default function App({ Component, pageProps }) {
@@ -56,10 +55,10 @@ export default function App({ Component, pageProps }) {
               <DefaultSeo 
                 openGraph={{
                   site_name: "Best Films",
-                  url: "https://bestfilms.vercel.app/",
+                  url: "https://besftfilms.xyz/",
                   images: [
                     {
-                      url: "https://bestfilms.vercel.app/img/logo_poster.jpg",
+                      url: "https://besftfilms.xyz/img/logo_poster.jpg",
                       width: 165,
                       height: 165,
                 
@@ -70,11 +69,12 @@ export default function App({ Component, pageProps }) {
                 description="Site de filmes e series online de graça!!!"
                 title="Best Films"
               />
-            <SearchHistoryProvider>
+           
             <NavBar />
-            </SearchHistoryProvider>
+           
             
             <Component {...pageProps} />
+            <GoToTop />
             <Footer />
           </Theme>
         </ThemeStore>

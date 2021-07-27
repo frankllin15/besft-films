@@ -12,15 +12,16 @@ import { Title } from './styles'
 
 
 const GridContainer = styled.div`
-padding-left: 4px;
-padding-right: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  grid-gap: 2px;
   div {
     text-align: center;
 
   }
   @media(max-width: 935px) {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   justify-items: center;
 
   div {
@@ -80,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleTabs({imdb_id, type, data, videos, similarMedia}) {
+export default function SimpleTabs({ imdb_id, type, data, videos, similarMedia }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const { isMediaQueryMd } = useThemeContext()
@@ -92,60 +93,61 @@ export default function SimpleTabs({imdb_id, type, data, videos, similarMedia}) 
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{backgroundColor: "#161f2b"}}>
+      <AppBar position="static" style={{ backgroundColor: "#161f2b" }}>
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Assitir" {...a11yProps(0)} />
-          {data.overview ? 
-          <Tab label="Sobre" {...a11yProps(1)} />
-          :
-          ""
-          }
-          {
-            videos ?
-            <Tab label="Thrilers" {...a11yProps(2)} />
+          {data.overview ?
+            <Tab label="Sobre" {...a11yProps(1)} />
             :
             ""
           }
-        
+          {
+            videos ?
+              <Tab label="Thrilers" {...a11yProps(2)} />
+              :
+              ""
+          }
+
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-    
-    <iframe src={`https://embed.warezcdn.com/${type=="tv"?"serie":"filme"}/${imdb_id}/2`} width="100%" height="400px" allowFullScreen={true} scrolling="no" frameBorder="0"></iframe>
+
+        <iframe src={`https://embed.warezcdn.com/${type == "tv" ? "serie" : "filme"}/${imdb_id}`} width="100%" height="400px" allowFullScreen={true} scrolling="no" frameBorder="0"></iframe>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <GridContainer>
           <div>
-          <Title>Resumo</Title>
-          <p>{data.overview}</p>
+            <Title>Resumo</Title>
+            <p>{data.overview}</p>
           </div>
-        {
-          isMediaQueryMd ?
-          <MediaInfos data={data}/>
-          :
-          ""
-        }
+          {
+            isMediaQueryMd ?
+              <MediaInfos data={data} />
+              :
+              ""
+          }
         </GridContainer>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {videos ? 
+        {videos ?
           videos.map((item, id) => (
-            <div key={id} style={{ position: "relative", overflow: "visible", paddingTop: "56.25%", marginBottom: "8px"}}>
-            <iframe style={{ 
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              border: 0}} src={`https://www.youtube.com/embed/${item.key}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-            
-      </div>
+            <div key={id} style={{ position: "relative", overflow: "visible", paddingTop: "56.25%", marginBottom: "8px" }}>
+              <iframe style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                border: 0
+              }} src={`https://www.youtube.com/embed/${item.key}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
+            </div>
           ))
-        :
-        ""
-      }
+          :
+          ""
+        }
       </TabPanel>
-      
+
     </div>
   );
 }

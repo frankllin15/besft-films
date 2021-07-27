@@ -5,7 +5,7 @@ import { NextSeo } from 'next-seo'
 import styled from 'styled-components'
 
 const TagContainer = styled.section`
-    width: 100%;
+    max-width: 100%;
     min-height: 100px;
     margin-top: 28px;
     margin-left: 1rem;
