@@ -1,3 +1,3 @@
 User-Agent: *
 Allow: /
-Sitemap: https://bestfilms.vercel.app/sitemap.xml
+Sitemap: https://besftfilms.xyz/sitemap.xml
