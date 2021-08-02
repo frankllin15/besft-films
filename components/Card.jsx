@@ -6,71 +6,13 @@ import 'react-circular-progressbar/dist/styles.css';
 import styled from 'styled-components'
 
 
-
-const HoverRate = styled.div`
-   position:  absolute;
-   top: 0;
-   width: 119px;
-    height: 178.5px;
-   background-color: #444;
-   opacity: 0;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: space-around;
-   z-index: 100;
-   @media(max-width: 415px) {
-            width: 99px;
-            height: 148.5px;
-        }
-    @media(min-width: 416px) {
-    width: 119px;
-    height: 178.5px;
-    }
-    @media(min-width: 600px) {
-        width: 165px;
-        height: 247.5px;
-    }
-    @media(min-width: 850px) {
-        width: 200px;
-        height: 300px;
-    }
-
-`
-
-const Item = styled.div`
-    /* position: relative; */
-    width: 200px;
-    margin: 0 12px 0;
-    margin-bottom: 1.5rem;
-    &:hover{
-        transition: 500ms;
-        transform: scale(1.04);
-        ${HoverRate}{
-            transition: 600ms;
-            opacity: 1;
-            background-color: #4444445c;
-        }
-    }
-
-    @media(max-width: 480px) {
-        width: 100px;
-    }
+const Container = styled.div`
    
-`
-
-
-const ImgContiner = styled.div`
-    .cardImage {
-
-        border-radius: 4px;
-    }
-
     width: 200px;
-    /* height: 300px; */
-    -webkit-box-shadow: 5px 5px 12px 2px rgba(0,0,0,0.51); 
-    box-shadow: 5px 5px 12px 2px rgba(0,0,0,0.51);
-
+    height: 300px;
+   
+    margin: 0 .4rem 0;
+    margin-bottom: 2rem;
 
     @media(max-width: 415px) {
             width: 99px;
@@ -92,63 +34,39 @@ const ImgContiner = styled.div`
 `
 
 
-const Title = styled.h3`
-    text-align: center;
-    color: #fff;
-    cursor: default;
-    font-size: .8rem;
-    text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
 
-    @media(max-width: 480px) {
-        font-size: .7rem;
-    }
-`
-const CircleProgressContainer = styled.div`
-    width: 65px;
-    height: 65px;
-
-    @media(max-width: 480px) {
-        width: 50px;
-        height: 50px;
-    }
-`
-
-export default function Card({id, item, media_type}) {
+export default function Card({ item, media_type }) {
     const [isImgNotFound, setIsImgNotFound] = useState(false)
 
     function handleImgError(e) {
-        
-        e.target.onerror = null; 
+
+        e.target.onerror = null;
         setIsImgNotFound(true)
     }
+    
 
-    // reenderiza a pagina quando o item muda; obtivo: atualizar o src da imagem
-    useEffect(() => {
-        setIsImgNotFound(false)
-    }, [item])
 
     return (
-      
-        
-        <Item >
-        <Button style={{padding: 0}} href={`/${item.media_type || media_type}/${item.id}`}> 
-        <HoverRate>
-            <CircleProgressContainer >
+        <Container>
+            <a href={`/${item.media_type || media_type}/${item.id}`}>
 
-            <CircularProgressbar styles={buildStyles({
-                textColor: "#fff",
-                textSize: "1.3rem"
-            })}  value={Number(item.vote_average)} maxValue={10} text={`${Number(item.vote_average).toFixed(1)}/10`} 
-                
-                />
-            </CircleProgressContainer>
-        <Title>{item.title ? item.title: item.name}</Title>
-        </HoverRate>
-        <ImgContiner>
-            <Image onError={e => handleImgError(e)} priority={true} placeholder="blur" className="cardImage" layout="fill" src={isImgNotFound ? require('../public/img/posterNotFound.png') : `https://image.tmdb.org/t/p/w500${item.poster_path}`} />
-        </ImgContiner>
-         </Button>
-    </Item>
-     
+            <div href={`/${item.media_type || media_type}/${item.id}`} className=" transition w-full h-full  duration-400 group transform ease-in-out hover:scale-110 ml-1 mr-1 mb-3 mt-3 m-5">
+                <div className="flex flex-col  justify-around items-center shadow-lg bg-gray-500 w-full h-full absolute top-0 z-50 opacity-0 group-hover:transition duration-400 group-hover:opacity-100 group-hover:bg-gray-transparent ">
+
+                    <div className="w-16 h-16 sm:w-12 sm:h-12" >
+
+                        <CircularProgressbar styles={buildStyles({
+                            textColor: "#fff",
+                            textSize: "1.3rem",
+                        })} value={Number(item.vote_average)} maxValue={10} text={`${Number(item.vote_average).toFixed(1)}/10`}
+                        />
+                    </div>
+                    <h3 className="text-center text-white cursor-default font-semibold shadow-xl text-base sm:text-md">{item.title ? item.title : item.name}</h3>
+                </div>
+                <Image  onError={e => handleImgError(e)} priority={false} loading='lazy' placeholder="blur" className="rounded-md" layout="fill" src={isImgNotFound ? require('../public/img/posterNotFound.png') : `https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+            </div>
+            </a>
+        </Container>
+
     )
 }

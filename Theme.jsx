@@ -18,26 +18,29 @@ body {
   background-repeat: no-repeat;
   background-size: contain;
   
-
+  
   max-width: 100vw;
   /* width: 100vw; */
   min-height: 100vh;
   
   padding: 4rem 0px 0; 
   margin: 0;
-  font-family:Verdana;
   font-size: 1em;
+  
   /* display: flex;
   flex-direction: column; */
   /* justify-content: center; */
   /* align-items: center; */
- 
- @media(max-width: 480px) {
-   font-size: .8em;
- }
- .MuiPaginationItem-root {
-   color: #fff;
- }
+  
+  @media(max-width: 480px) {
+    font-size: .8em;
+  }
+  .MuiPaginationItem-root {
+    color: #fff;
+  }
+} h1, h2, h3 {
+  font-family: 'Gugi', cursive;
+
 }
 
 /* @media(min-width: 700px) {
@@ -48,6 +51,8 @@ body {
 
 .carousel-container {
   padding-top: 20px;
+  padding-bottom: 20px;
+
 }
 `
 

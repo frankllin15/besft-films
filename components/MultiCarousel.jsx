@@ -27,7 +27,7 @@ const responsive = {
 };
 
 
-export default function MultiCarousel({ data, type }) {
+export default function MultiCarousel({ data, type, autoPlay }) {
     
 
     return (
@@ -36,15 +36,17 @@ export default function MultiCarousel({ data, type }) {
              <Carousel
               
                 responsive={responsive}
-                autoPlay={true}
+                autoPlay={(autoPlay == undefined ?  true : autoPlay)}
                 autoPlaySpeed={6000}
             
                 // transitionDuration={500}
                 ssr={true}
-                // centerMode={true}
+                centerMode={false}
                 containerClass="carousel-container"
                 customTransition="transform 1000ms ease-in-out"
-                infinite={true}>
+                infinite={true}
+                
+                >
                     
                 {data.map((item, id) => (
                     <Card key={id} item={item} id={id} media_type={type}/>

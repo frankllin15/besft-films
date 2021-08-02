@@ -53,7 +53,7 @@ export default function SearchBar() {
 
   return <SearchContainer key="searchbar1">
 
-      <CustomBootstrapInput  onKeyDown={e => {if(e.key === "Enter") handleClick()}}  value={keyWord} onChange={e => handleChange(e)}/>  
+      <CustomBootstrapInput placeholder="O que deseja assistir?"  onKeyDown={e => {if(e.key === "Enter") handleClick()}}  value={keyWord} onChange={e => handleChange(e)}/>  
        <IconButton style={{padding: "8px"}}  onClick={handleClick}>
         <SearchIcon fontSize="medium" color="secondary" />
       </IconButton>

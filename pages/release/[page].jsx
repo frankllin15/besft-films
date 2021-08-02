@@ -1,9 +1,7 @@
 import { useRouter } from 'next/router'
-import { MainContainer } from '../../components/styles'
 import { getReleaseMovies } from '../../lib/apiTmdb'
 import RenderCard from '../../components/RenderCard'
 import CustomPagination from '../../components/CustomPagination'
-import { Title } from '../../components/styles'
 import { NextSeo } from 'next-seo'
 
 export default function release({ data }) {
@@ -15,12 +13,12 @@ export default function release({ data }) {
     } 
 
     return (
-        <MainContainer>
+        <div className="flex flex-col ">
             <NextSeo 
                 title="Filmes lançados Recentemente"
                 description="Os mais novos lançamentos de filmes disponiveis em HD"
             />
-            <Title>Lançamentos</Title>
+            <h1 className="text-2xl text-white text-center">Lançamentos</h1>
         {data ? <>
            <RenderCard list={data.results} media_type="movie"/>
             <CustomPagination page={data.page} setPage={handlePagination} maxPage={data.total_pages}/>
@@ -28,7 +26,7 @@ export default function release({ data }) {
             :
             ""
         }
-        </MainContainer>
+        </div>
     )
 }
 

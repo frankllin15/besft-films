@@ -9,6 +9,7 @@ import MediaInfos from './MediaInfos'
 import { useThemeContext } from '../context/ThemeStore';
 import styled from 'styled-components'
 import { Title } from './styles'
+import { Functions } from '@material-ui/icons';
 
 
 const GridContainer = styled.div`
@@ -69,10 +70,10 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // flexGrow: 1,
+
     backgroundColor: "#1c2c41da",
     width: "100%",
-    // height: '100%',
+    
     minHeight: '300px',
     maxHeight: 'auto',
     '& .MuiBox-root': {
@@ -91,19 +92,15 @@ export default function SimpleTabs({ imdb_id, type, data, videos, similarMedia }
   };
 
 
+
   return (
     <div className={classes.root}>
       <AppBar position="static" style={{ backgroundColor: "#161f2b" }}>
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Assitir" {...a11yProps(0)} />
-          {data.overview ?
-            <Tab label="Sobre" {...a11yProps(1)} />
-            :
-            ""
-          }
           {
             videos ?
-              <Tab label="Thrilers" {...a11yProps(2)} />
+              <Tab label="Thrilers" {...a11yProps(1)} />
               :
               ""
           }
@@ -112,23 +109,10 @@ export default function SimpleTabs({ imdb_id, type, data, videos, similarMedia }
       </AppBar>
       <TabPanel value={value} index={0}>
 
-        <iframe src={`https://embed.warezcdn.com/${type == "tv" ? "serie" : "filme"}/${imdb_id}`} width="100%" height="400px" allowFullScreen={true} scrolling="no" frameBorder="0"></iframe>
+        <iframe  src={`https://embed.warezcdn.com/${type == "tv" ? "serie" : "filme"}/${imdb_id}`}  width="100%" height="400px" allowFullScreen={true} scrolling="no" frameBorder="0"></iframe>
       </TabPanel>
+      
       <TabPanel value={value} index={1}>
-        <GridContainer>
-          <div>
-            <Title>Resumo</Title>
-            <p>{data.overview}</p>
-          </div>
-          {
-            isMediaQueryMd ?
-              <MediaInfos data={data} />
-              :
-              ""
-          }
-        </GridContainer>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
         {videos ?
           videos.map((item, id) => (
             <div key={id} style={{ position: "relative", overflow: "visible", paddingTop: "56.25%", marginBottom: "8px" }}>
@@ -139,7 +123,7 @@ export default function SimpleTabs({ imdb_id, type, data, videos, similarMedia }
                 width: "100%",
                 height: "100%",
                 border: 0
-              }} src={`https://www.youtube.com/embed/${item.key}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+              }} src={`https://www.youtube.com/embed/${item.key}`}  title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
             </div>
           ))

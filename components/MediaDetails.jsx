@@ -5,142 +5,120 @@ import MultiCarousel from './MultiCarousel'
 import { Title } from './styles'
 import { useThemeContext } from '../context/ThemeStore'
 import MediaInfos from './MediaInfos'
+import Image from 'next/image'
+import { hourFormat } from '../lib/utils'
+import StarRate from './StarRate'
+import Cast from './Cast'
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: 170vh;
 
-`
 const ImgBg = styled.div`
   position: absolute;
   top: 0;
-  background-image: url(${props => props.bgImage});
-  opacity: .7;
+  background: linear-gradient(
+0deg
+,#130b1a 0,rgba(19,11,26,.84) 25%,rgba(19,11,26,.66) 38%,rgba(7,6,10,.61) 58%,rgba(11,7,21,.76) 100%), url(${props => props.bgImage})  no-repeat center top ;
+  /* opacity: .6; */
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
+  /* margin: ; */
   width: 100%;
-  height: 100vw;
+  height: 100vh;
   margin-top: 4em;
   z-index: -1;
 
 
 `
 
-const GridContainer = styled.div`
-    padding-top: 10px;
-    /* padding-left: 8px; */
-    margin-bottom: 1em;
-    /* background-image: linear-gradient(189deg, #1c2c41ce 0%, #14425fd6 50%) ; */
-    background-size: contain;
-    background-repeat: no-repeat;
-    /* max-height: 100vw; */
-    
 
-    /* @media(max-width:480px) {
-        display: grid;
-        grid-grid-template-rows: 1fr 2fr 1fr;
-        width: 100%;
-    } */
-    /* Tablets */
-    @media(min-width:935px) {
-        display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
-        width: 100%;
-        }
-    /* Desktop */
-    @media(min-width:1025px) {
 
-    }
-`
-const GridItem = styled.section`
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
-    cursor: default;
-    /* height: 3000px; */
 
-    dt {
-        color: #fff;
-        margin: 1rem 0 1rem;
-    }
 
-`
 
-const Float = styled.div`
-    position: sticky;
-    top: 100px;
-    margin: 0 auto 0;
-    display: flex;
-    flex-direction: column;
-`
-
-const Img = styled.img`
-    border-radius: 8px;
-    width: 260px;
-    -webkit-box-shadow: 5px 7px 11px 5px rgba(0,0,0,0.67); 
-box-shadow: 5px 7px 11px 5px rgba(0,0,0,0.67);
-
-    @media(max-width: 480px) {
-        width: 198px;
-        margin-top: 12px;
-    }
-`
+const Item = ({ children }) => (
+    <section className="flex flex-col ml-6 2md:ml-0 pt-4  max-w-3xl min-h-360 justify-start items-start cursor-default">
+        {children}
+    </section>
+)
 
 export default function MediaDetails({ data, videos, similarMedia, type, mediaRecommendations }) {
 
-    const { bgImage, setBgImage, isMediaQueryMd } = useThemeContext()
+    const { bgImage, setBgImage } = useThemeContext()
 
     useEffect(() => {
         if (data)
             setBgImage(`https://image.tmdb.org/t/p/w1280//${data.backdrop_path}`)
     }, [data])
 
-    if (data)
-        return (
-            <Container>
-                <GridContainer >
-                <ImgBg bgImage={bgImage}/>
-                    <GridItem>
-                        <Float>
-                            <Img src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} />
-                        </Float>
-                    </GridItem>
-                    <GridItem>
-                        <h1 className="text-xl text-white">{data.title ? data.title : data.name} <span style={{ color: '#5e5e5e' }}>({(data.release_date ? data.release_date : data.first_air_date).substring(0, 4)})</span></h1>
-                        <TabPanel similarMedia={similarMedia} videos={videos} data={data} imdb_id={data.imdb_id || data.external_ids.imdb_id} type={type} />
 
-                    </GridItem>
-                    <GridItem >
-                        {!isMediaQueryMd ?
-                            <MediaInfos data={data} />
-                            :
-                            ""
+
+
+    return (
+
+        <div className="flex  mt-6  flex-col">
+            <ImgBg bgImage={bgImage} />
+            <main className="grid grid-cols-300px-1 mb-4  2md:grid-rows-300-1 2md:justify-items-center 2md:grid-cols-1" >
+                <div className="rounded-lg max-h-300 max-w-200 relative w-60 ml-auto mr-auto  shadow-lg">
+                    <Image layout='fill' className="rounded-lg " priority={true} src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} />
+                </div>
+
+                <section className="flex flex-col ml-6 2md:ml-0 pt-4  max-w-3xl min-h-360 justify-start items-start cursor-default">
+                    <h1 className="text-4xl ml-2 mr-2 mb-4 sm:text-4xl font-semibold  text-white">{data.title ? data.title : data.name} </h1>
+                    <div className="flex font-semibold text-base  ml-2 mb-3 justify-around ">
+                        <span className="mr-3">
+
+                            {(data.release_date ? data.release_date : data.first_air_date).substring(0, 4)}
+                        </span>
+                        {
+                            data.runtime ?
+                                <span className="mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    {hourFormat(data.runtime)}
+                                </span>
+                                : ""
+                        }
+                        {
+                            data.vote_average ?
+                                <span className="">
+                                    <StarRate rate={data.vote_average} />
+                                </span>
+                                :
+                                ""
                         }
 
-                    </GridItem>
+                    </div>
+                    <div>
+                        <Cast data={data.cast} />
+                    </div>
+                    <p className="text-md mb-4 text-white mr-2 ml-2">{data.overview}</p>
 
-                </GridContainer>
-                {mediaRecommendations.length > 0 ?
-                    <>
-                        <Title>Talvez você goste</Title>
-                        <MultiCarousel data={mediaRecommendations} />
-                    </>
-                    :
-                    ""
-                }
-                {similarMedia.length > 0 ?
-                    <>
-                        <Title>Similares</Title>
-                        <MultiCarousel data={similarMedia} type={type} />
-                    </>
-                    :
-                    ""
-                }
-            </Container>
+                    <TabPanel similarMedia={similarMedia} videos={videos} data={data} imdb_id={data.imdb_id || data.external_ids.imdb_id} type={type} />
 
-        )
-    else
-        return ""
+
+                </section>
+
+
+
+            </main>
+            {mediaRecommendations.length > 0 ?
+                <div className="pl-3 pr-3">
+                    <Title>Talvez você goste</Title>
+                    <MultiCarousel data={mediaRecommendations} />
+                </div>
+                :
+                ""
+            }
+            {similarMedia.length > 0 ?
+                <div className="pl-3 pr-3">
+                    <Title>Similares</Title>
+                    <MultiCarousel data={similarMedia} type={type} />
+                </div>
+                :
+                ""
+            }
+        </div>
+
+    )
+
 }

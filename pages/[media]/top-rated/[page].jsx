@@ -1,16 +1,10 @@
-import { MainContainer } from '../../../components/styles'
 import RenderCard from '../../../components/RenderCard'
 import { getTopRatedTmdb } from '../../../lib/apiTmdb';
 import CustomPagination from '../../../components/CustomPagination'
 import { useRouter } from 'next/router';
 import CustomSelect from '../../../components/CustomSelect'
-import { Title } from '../../../components/styles'
-import styled from 'styled-components';
 import { NextSeo } from 'next-seo'
 
-const ContentAlignStart = styled.div`
-    align-self: flex-start;
-`
 
 export default function topimdb({ data }) {
     const Router = useRouter()
@@ -30,22 +24,17 @@ export default function topimdb({ data }) {
     }
 
     return (
-        <MainContainer>
-            <NextSeo 
+        <div className="flex flex-col justify-center items-center">
+            <NextSeo
                 title={media === "tv" ? "Top Series" : 'Top filmes'}
                 description={media === "tv" ? "As series mais bem avaliadas" : "Os filmes mais bem avaliados"}
-                
             />
-            <Title>{media === 'tv'?'Series mais bem avaliadas':'Filmes mais bem avaliados'} </Title>
-            <ContentAlignStart>
+            <h1 className="text-2xl text-white text-center mb-4">{media === 'tv' ? 'Series mais bem avaliadas' : 'Filmes mais bem avaliados'} </h1>
+            <CustomSelect className="self-start" options={mediaOptions} label="Categoria" name="media" onchange={handleMediaChange} />
+            <RenderCard list={data.results} media_type={media} />
+            <CustomPagination page={Number(page)} maxPage={data.total_pages} setPage={handlePagination} />
 
-            <CustomSelect options={mediaOptions} label="Categoria" name="media" onchange={handleMediaChange}/>
-            </ContentAlignStart>
-    
-                <RenderCard list={data.results} media_type={media}/>
-                <CustomPagination page={Number(page)} maxPage={data.total_pages} setPage={handlePagination}/>
-            
-        </MainContainer>
+        </div>
     )
 }
 
@@ -54,11 +43,11 @@ export async function getStaticPaths() {
     const { total_pages: tv_totalPages } = await getTopRatedTmdb('tv', 1)
 
     const paths = Array(movie_total_pages).fill(0).map((e, id) => {
-        return { params: {page: `${id+1}`, media: 'movie'} }
+        return { params: { page: `${id + 1}`, media: 'movie' } }
     }).concat(Array(tv_totalPages).fill(0).map((e, id) => {
-        return { params: {page: `${id+1}`, media: 'tv'} }
+        return { params: { page: `${id + 1}`, media: 'tv' } }
     }))
-    
+
     return {
         paths,
         fallback: false

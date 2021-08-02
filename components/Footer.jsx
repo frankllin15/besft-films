@@ -1,25 +1,13 @@
 import React from 'react'
-import styled from 'styled-components'
 import WarezCDN from './WarezCDN'
 import LinkSocialMedia from './LinkSocialMedia'
 import gitHubLogo from '../public/img/GitHub-Mark-Light-32px.png'
 import logoLinkedin from '../public/img/logo-linkedin-32px.png'
 
 
-const Link = styled.a`
-    font-size: 1.3em;
-    padding: 5px 12px;
-    color: #fff;
-    border-radius: 8px;
-    
-    &:hover { 
-        transition: 300ms;
-        border-radius: 6px 12px;
-            color: #fff;
-        }
-        text-decoration: none;
-    
-`
+const Link = ({children, href}) => (
+    <a href={href} className="text-xl text-white cursor-pointer">{children}</a>
+)
 
 
 export default function Footer() {
@@ -28,7 +16,7 @@ export default function Footer() {
 
             <section className="flex flex-wrap  justify-around mt-4 mb-16">
 
-                <Link className="" href="/movie">Filmes</Link>
+                <Link href="/movie">Filmes</Link>
                 <Link href="/tv">Series</Link>
                 <Link href="/movie/top-rated/1">Top IMDB</Link>
                 <Link href="/release/1">Lançamentos</Link>
@@ -40,8 +28,8 @@ export default function Footer() {
 
                     <div className="flex justify-start  flex-wrap ">
                         {/* <h3 className="w-full text-lg " >Contate-me :)</h3> */}
-                        <LinkSocialMedia href="https://github.com/frankllin15" text="GitHub" logo={gitHubLogo} bgColor="#000" />
-                        <LinkSocialMedia href="https://www.linkedin.com/in/frankllin-teixeira-244a9517b/" text="LinkedIn" logo={logoLinkedin} color="#000" bgColor="#fff" />
+                        <LinkSocialMedia href="https://github.com/frankllin15" logo={gitHubLogo} bgColor="black">GitHub</LinkSocialMedia>
+                        <LinkSocialMedia href="https://www.linkedin.com/in/frankllin-teixeira-244a9517b/" logo={logoLinkedin} color="black" bgColor="white">LinkedIn</LinkSocialMedia>
                     </div>
                     <WarezCDN />
                 </div>

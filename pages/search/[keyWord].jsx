@@ -1,3 +1,5 @@
+
+import React from 'react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import RenderCard from '../../components/RenderCard'
@@ -6,13 +8,15 @@ import { SearchMult } from '../../lib/apiTmdb'
 import { MainContainer } from '../../components/styles'
 
 
-export default function Movie() {
+
+export function Search() {
     const Router = useRouter()
     const { keyWord } = Router.query
     const [data, setData] = useState(null)
 
     const [page, setPage] = useState(1);
 
+    console.log("Render")
 
     useEffect(() => {
         (async function () {
@@ -20,7 +24,6 @@ export default function Movie() {
             setData({ ...await SearchMult(keyWord, page) })
         })()
     }, [keyWord, page])
-
 
 
     return (
@@ -36,5 +39,7 @@ export default function Movie() {
         </MainContainer>
     )
     
-
 }
+const MemorizedSearch = React.memo(Search)
+
+export default MemorizedSearch

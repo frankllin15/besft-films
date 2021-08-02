@@ -30,7 +30,7 @@ width: 100%;
 
 
 export const MainContainer = styled.div`
-  padding: 0 2rem 0;
+  
   padding-top: 30px;
   padding: 0 2rem 0;
   display: flex;

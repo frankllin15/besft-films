@@ -1,53 +1,5 @@
 import React from 'react'
 import { useEffect } from 'react'
-import styled from 'styled-components'
-
-
-const Container = styled.div`
-    position: fixed;
-    bottom: 3px;
-    width: 94%;
-    min-height: 3.4rem;
-    display: block;
-    border-radius: 8px;
-    /* margin: 10px auto ; */
-    margin: 3px auto;
-    left: 0;
-    right: 0;
-    justify-self: center;
-    background-color: #eee;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0px 1rem 0; 
-    z-index: 2000;
-    p {
-
-        color: #14425f;
-        font-weight: 600;
-    }
-`
-
-const Buttom = styled.button`
-    min-width: 100px;
-    height: 38px;
-    padding: 5px;
-    border-radius: 14px;
-    background-color: #eee;
-    border: solid 1px #14425f;
-    color: #14425f;
-    font-weight: 600;
-    /* box-shadow: 10px 8px 18px 3px rgba(0,0,0,0.5); */
-    box-shadow: 10px 8px 18px 0px rgba(0,0,0,0.5);
-    cursor: pointer;
-
-    :active{
-        box-shadow: 10px 8px 18px -7px rgba(0,0,0,0.5);
-
-    }
-`
-
 
 
 export default function CookiePermition() {
@@ -71,11 +23,11 @@ export default function CookiePermition() {
 
     if (!cookiesAllowed) 
         return (
-        <Container>
-            <p>Esse site utiliza cookies de terceiros para oferecer uma melhor experiencia.</p>
+        <div style={{backgroundColor: '#eee' }} className="fixed flex flex-row z-2000 bottom-2 items-center mr-2 ml-2  p-3 rounded-lg shadow-xl ">
+            <p className="text-blue-900 mr-3 font-bold">Esse site utiliza cookies de terceiros para oferecer uma melhor experiencia.</p>
             
-            <Buttom onClick={handlleClick}>Tudo bem</Buttom>
-        </Container>
+            <button className="p-2 rounded-lg border shadow-lg hover:shadow-none  min-w-100px text-blue-900 font-bold  border-blue-900 h-9" onClick={handlleClick}>Tudo bem</button>
+        </div>
     ) 
     else 
         return null
