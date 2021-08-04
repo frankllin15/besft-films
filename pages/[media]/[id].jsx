@@ -34,38 +34,36 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
         .map(e => `${data.title || data.name} ${e}`)
 
 
-        useEffect(() => {
-        
-            if (media) {
+    useEffect(() => {
 
-            // Armazena a media atual no historico do localStorage
-            if (data.id) {
+        if (media) {
+
+                // Armazena a media atual no historico do localStorage
+
                 let watched = JSON.parse(window.localStorage.getItem("medias_watched")) || []
+
+                const date = getDate()
 
                 if (!watched?.some(e => e.id == data.id)) {
 
-                    const date = getDate()
+                    watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date})
 
-
-                    watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date })
-
-                   
                     localStorage.setItem("medias_watched", JSON.stringify(watched))
-                    
+
                 } else {
 
                     const array_id = watched.findIndex(e => e.id == data.id)
                     watched.splice(array_id, 1)
-                    watched.unshift({ id: `${data.id}`, type: media })
 
-                    if (watched.length > 20)
-                        watched.pop()
+                    watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date})
 
-                
                     localStorage.setItem("medias_watched", JSON.stringify(watched))
 
                 }
-            }
+
+                if (watched.length > 15)
+                    watched.pop()
+            
         }
 
     })
@@ -109,8 +107,8 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
 export async function getServerSideProps(ctx) {
 
     const { media, id } = ctx.query
-   
-    
+
+
     const data = { ...await getMediaById(media, id), ...await getDetails(media, id) }
     const videos = [...await getMediaVideos(media, id) || []]
     const similarMedia = [...await getSimilarMedia(id, media) || []]
