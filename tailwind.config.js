@@ -38,7 +38,9 @@ module.exports = {
       minWidth:{
    
         '100px': '100px',
-        '93px': '93px'
+        '93px': '93px',
+        '200px': '200px',
+
       },
       minHeight: {
         '360': '360px'
@@ -48,6 +50,12 @@ module.exports = {
       },
       maxWidth: {
         '200': '200px'
+      },
+      width: {
+        '200': '200px'
+      },
+      height: {
+        '300': '300px'
       },
       zIndex: {
         '2000': "2000"

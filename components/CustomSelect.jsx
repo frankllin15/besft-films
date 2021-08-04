@@ -21,11 +21,11 @@ const stylesOption = {
     };
 
 
-export default function CustomSelect({ options, label, onchange, name, className }) {
+export default function CustomSelect({ options, label, onchange, name, className, placeHolder }) {
     return (
-        <div className={className} style={{width: '170px', zIndex: "200", marginLeft: '8px'}} >
+        <div className={className} style={{width: '170px', zIndex: "200", marginLeft: '12px'}} >
             <Label htmlFor={name}>{label}</Label>
-          <Select placeholder="" isSearchable={false} id={name} instanceId={name} onChange={e => onchange(e, name)} name={name}  styles={stylesOption} options={options} />
+          <Select placeholder={placeHolder || ""} isSearchable={false} id={name} instanceId={name} onChange={e => onchange(e, name)} name={name}  styles={stylesOption} options={options} />
 
         </div>
     )

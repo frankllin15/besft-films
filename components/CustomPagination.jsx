@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     
 }));
 
-export default function PaginationControlled({page, setPage, maxPage}) {
+export default function PaginationControlled({page, setPage, maxPage, scrollTo}) {
   const classes = useStyles();
   const isMediaQuerySm = useMediaQuery(
     json2mq({
@@ -26,10 +26,14 @@ export default function PaginationControlled({page, setPage, maxPage}) {
  
   const handleChange = (event, value) => {
     setPage(value);
+
+    if (scrollTo)
+      scrollTo.current.scrollIntoView()
+    else
     window.scrollTo({
         top: 0,
         left: 100,
-        behavior: 'smooth'
+        // behavior: 'smooth'
       })
   };
 

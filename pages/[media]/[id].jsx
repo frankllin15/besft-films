@@ -5,6 +5,8 @@ import { NextSeo } from 'next-seo'
 import styled from 'styled-components'
 import { useEffect } from 'react'
 import { getDate } from '../../lib/utils'
+import Cookies from 'cookies'
+import cookieCutter from 'cookie-cutter'
 
 const TagContainer = styled.section`
     max-width: 100%;
@@ -32,8 +34,9 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
         .map(e => `${data.title || data.name} ${e}`)
 
 
-    useEffect(() => {
-        if (media) {
+        useEffect(() => {
+        
+            if (media) {
 
             // Armazena a media atual no historico do localStorage
             if (data.id) {
@@ -45,8 +48,10 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
 
 
                     watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date })
-                    localStorage.setItem("medias_watched", JSON.stringify(watched))
 
+                   
+                    localStorage.setItem("medias_watched", JSON.stringify(watched))
+                    
                 } else {
 
                     const array_id = watched.findIndex(e => e.id == data.id)
@@ -56,6 +61,7 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
                     if (watched.length > 20)
                         watched.pop()
 
+                
                     localStorage.setItem("medias_watched", JSON.stringify(watched))
 
                 }
@@ -103,6 +109,8 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
 export async function getServerSideProps(ctx) {
 
     const { media, id } = ctx.query
+   
+    
     const data = { ...await getMediaById(media, id), ...await getDetails(media, id) }
     const videos = [...await getMediaVideos(media, id) || []]
     const similarMedia = [...await getSimilarMedia(id, media) || []]

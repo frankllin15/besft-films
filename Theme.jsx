@@ -13,6 +13,10 @@ const GlobalStyle = createGlobalStyle`
 
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: linear-gradient(189deg, rgba(28,44,65,1) 0%, #0d3853 50%);
   background-repeat: no-repeat;
@@ -54,6 +58,8 @@ body {
   padding-bottom: 20px;
 
 }
+
+
 `
 
 const Theme = ({ children }) => {

@@ -61,7 +61,7 @@ export default function Card({ item, media_type }) {
                         })} value={Number(item.vote_average)} maxValue={10} text={`${Number(item.vote_average).toFixed(1)}/10`}
                         />
                     </div>
-                    <h3 className="text-center text-white cursor-default font-semibold shadow-xl text-base sm:text-md">{item.title ? item.title : item.name}</h3>
+                    <h3 className="text-center text-white  font-semibold shadow-xl text-base sm:text-md sm:text-sm">{item.title ? item.title : item.name}</h3>
                 </div>
                 <Image  onError={e => handleImgError(e)} priority={false} loading='lazy' placeholder="blur" className="rounded-md" layout="fill" src={isImgNotFound ? require('../public/img/posterNotFound.png') : `https://image.tmdb.org/t/p/w500${item.poster_path}`} />
             </div>
