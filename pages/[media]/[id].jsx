@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router'
 import MediaDetails from '../../components/MediaDetails'
-import { getDetails, getMediaById, getMediaRecommendations, getMediaVideos, getSimilarMedia } from '../../lib/apiTmdb'
+import { getDetails, getMediaById, getMediaRecommendations, getMediaVideos, getSimilarMedia, getTrandingMedia } from '../../lib/apiTmdb'
 import { NextSeo } from 'next-seo'
 import styled from 'styled-components'
 import { useEffect } from 'react'
 import { getDate } from '../../lib/utils'
-import Cookies from 'cookies'
-import cookieCutter from 'cookie-cutter'
+import CircularProgress from '@material-ui/core/CircularProgress'
+
 
 const TagContainer = styled.section`
     max-width: 100%;
@@ -30,44 +30,57 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
     const Router = useRouter()
     const { media } = Router.query
 
-    const tags = ["Online", "Dublado", "Legendado", "HD", "Dublado Online", "Dublado Online HD", "Legendado Online", "Legendado Online HD"]
-        .map(e => `${data.title || data.name} ${e}`)
+    const { isFallback} = Router
+
+    // const tags = ["Online", "Dublado", "Legendado", "HD", "Dublado Online", "Dublado Online HD", "Legendado Online", "Legendado Online HD"]
+    //     .map(e => `${data.title || data.name} ${e}`)
 
 
+    
     useEffect(() => {
-
+        
         if (media) {
-
-                // Armazena a media atual no historico do localStorage
-
-                let watched = JSON.parse(window.localStorage.getItem("medias_watched")) || []
-
-                const date = getDate()
-
-                if (!watched?.some(e => e.id == data.id)) {
-
-                    watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date})
-
-                    localStorage.setItem("medias_watched", JSON.stringify(watched))
-
-                } else {
-
-                    const array_id = watched.findIndex(e => e.id == data.id)
-                    watched.splice(array_id, 1)
-
-                    watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date})
-
-                    localStorage.setItem("medias_watched", JSON.stringify(watched))
-
-                }
-
-                if (watched.length > 15)
-                    watched.pop()
             
+            
+            console.log(isFallback)
+            // Armazena a media atual no historico do localStorage
+
+            let watched = JSON.parse(window.localStorage.getItem("medias_watched")) || []
+
+            const date = getDate()
+
+            if (!watched?.some(e => e.id == data.id)) {
+
+                watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date })
+
+                localStorage.setItem("medias_watched", JSON.stringify(watched))
+
+            } else {
+
+                const array_id = watched.findIndex(e => e.id == data.id)
+                watched.splice(array_id, 1)
+
+                watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date })
+
+                localStorage.setItem("medias_watched", JSON.stringify(watched))
+
+            }
+
+            if (watched.length > 15)
+                watched.pop()
+
         }
 
     })
 
+    if(isFallback) 
+        return (
+            <div className="flex items-center w-full h-screen justify-center">
+                <CircularProgress />
+            </div>
+        )
+        
+    
 
     return (
         <>
@@ -95,18 +108,39 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
 
             <TagContainer>
                 <h3>Tags:</h3>
-                {tags.map((e, id) => (
-                    <Tag key={id}>{e}</Tag>
+                {["Online", "Dublado", "Legendado", "HD", "Dublado Online", "Dublado Online HD", "Legendado Online", "Legendado Online HD"].map((e, id) => (
+                    <Tag key={id}>{data.title || data.name} {e}</Tag>
+                    
                 ))}
             </TagContainer>
         </>
     )
 
+
+
 }
 
-export async function getServerSideProps(ctx) {
+export async function getStaticPaths() {
+    const trendingTv = await getTrandingMedia('tv')
+    const trendingMovie = await getTrandingMedia('movie')
 
-    const { media, id } = ctx.query
+    const paths = await trendingTv.map(e => ({
+        params: { media: 'tv', id: `${e.id}` }
+    })).concat(trendingMovie.map(e => ({
+        params: { media: 'movie', id: `${e.id}` }
+    })))
+
+   
+
+    return {
+        paths,
+        fallback: true
+    }
+}
+
+export async function getStaticProps({ params }) {
+
+    const { media, id } = params
 
 
     const data = { ...await getMediaById(media, id), ...await getDetails(media, id) }
@@ -114,26 +148,47 @@ export async function getServerSideProps(ctx) {
     const similarMedia = [...await getSimilarMedia(id, media) || []]
     const mediaRecommendations = [...await getMediaRecommendations(media, id) || []]
 
-    if (data.id)
-        return {
-            props: {
-                data,
-                videos,
-                similarMedia,
-                mediaRecommendations
-            }
-        }
-
-    else return {
-        redirect: {
-            permanent: false,
-            destination: '/'
-
-        },
+    return {
         props: {
-
+            data,
+            videos,
+            similarMedia,
+            mediaRecommendations
         }
+    
     }
 }
+
+// export async function getServerSideProps(ctx) {
+
+//     const { media, id } = ctx.query
+
+
+//     const data = { ...await getMediaById(media, id), ...await getDetails(media, id) }
+//     const videos = [...await getMediaVideos(media, id) || []]
+//     const similarMedia = [...await getSimilarMedia(id, media) || []]
+//     const mediaRecommendations = [...await getMediaRecommendations(media, id) || []]
+
+//     if (data.id)
+//         return {
+//             props: {
+//                 data,
+//                 videos,
+//                 similarMedia,
+//                 mediaRecommendations
+//             }
+//         }
+
+//     else return {
+//         redirect: {
+//             permanent: false,
+//             destination: '/'
+
+//         },
+//         props: {
+
+//         }
+//     }
+// }
 
 
