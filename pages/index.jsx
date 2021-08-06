@@ -8,6 +8,8 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import StarRate from '../components/StarRate'
 import { NextSeo } from 'next-seo'
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+
 
 
 const MainContainer = styled.div`
@@ -72,6 +74,7 @@ export default function Home({ trendingTv, trendingMovie }) {
       </MainContainer>
 
         <CookiePermition />
+        {/* <h1>Oba</h1> */}
     </>
   )
 }
@@ -80,14 +83,51 @@ export default function Home({ trendingTv, trendingMovie }) {
 
 export async function getStaticProps() {
 
-  const trendingTv = await getTrandingMedia('tv')
-  const trendingMovie = await getTrandingMedia('movie')
+  // const trendingTv = await getTrandingMedia('tv')
+  // const trendingMovie = await getTrandingMedia('movie')
+
+  // return {
+  //   props: {
+  //     trendingTv: trendingTv,
+  //     trendingMovie: trendingMovie,
+  //   },
+  //   revalidate: 60 * 60 * 24
+  // }
+
+
+  const client = new ApolloClient({
+    uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+    cache: new InMemoryCache({
+      addTypename: false
+    }),
+  
+  });
+
+  const { data: props } = await client.query({
+    query: gql`
+      query{
+
+        trendingMovie: trendingMedia(media_type: "movie") {
+          id
+          name
+          poster_path
+          media_type
+          vote_average
+        }
+        trendingTv: trendingMedia(media_type: "tv") {
+          id
+          name
+          poster_path
+          media_type
+          vote_average
+        }
+
+    }
+    `
+  });
 
   return {
-    props: {
-      trendingTv: trendingTv,
-      trendingMovie: trendingMovie,
-    },
-    revalidate: 60 * 60 * 24
+      props,
+      revalidate: 60 * 60 * 24
   }
 }

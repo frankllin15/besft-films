@@ -3,6 +3,8 @@ import { getReleaseMovies } from '../../lib/apiTmdb'
 import RenderCard from '../../components/RenderCard'
 import CustomPagination from '../../components/CustomPagination'
 import { NextSeo } from 'next-seo'
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+
 
 export default function release({ data }) {
 
@@ -13,7 +15,7 @@ export default function release({ data }) {
     } 
 
     return (
-        <div className="flex flex-col ">
+        <div className="flex flex-col  items-center">
             <NextSeo 
                 title="Filmes lançados Recentemente"
                 description="Os mais novos lançamentos de filmes disponiveis em HD"
@@ -50,13 +52,34 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 
-    const data = await getReleaseMovies(params.page)
+    const client = new ApolloClient({
+        uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+        cache: new InMemoryCache({
+          addTypename: false
+        }),
+      
+      });
     
-        return {
-            props: {
-                data
-            },
-            revalidate: 60 * 60 * 24 * 5
+      const { data: props } = await client.query({
+        query: gql`
+          query{
+    
+            data: releaseMovies(page: ${params.page}) {
+                results {
+                    id
+                    name
+                    poster_path
+                    media_type
+                    vote_average
+                    }
+                    total_pages
+              }
         }
-        
+        `
+      });
+    
+      return {
+          props,
+          revalidate: 60 * 60 * 24 * 7
+      }
 }

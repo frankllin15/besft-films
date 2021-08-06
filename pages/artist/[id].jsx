@@ -5,13 +5,14 @@ import RenderCard from '../../components/RenderCard'
 import CustomSelect from '../../components/CustomSelect'
 import CustomPagination from '../../components/CustomPagination'
 import { NextSeo } from 'next-seo'
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+
 
 export default function Artist({ data }) {
 
     const ref = useRef(null)
     const [type, setType] = useState("movie")
     const [page, setPage] = useState(1)
-    // const [data, setData] = useState([])
     const [artWorks, setArtWorks] = useState([])
 
     const selectOptions = [{ label: "Filmes", value: "movie" }, { label: "Séries", value: "tv" }]
@@ -52,11 +53,7 @@ export default function Artist({ data }) {
             toggleOverflow.innerHTML = "Mostrar mais"
             element.classList.add("max-h-20")
         }
-
-
-
     }
-
 
 
     return (
@@ -96,13 +93,34 @@ export async function getServerSideProps(ctx) {
 
     const { id } = ctx.params
 
-    const data = await getPeapleById(id)
- 
 
-    return {
-        props: {
-            data,
+    const client = new ApolloClient({
+        uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+        cache: new InMemoryCache({
+          addTypename: false
+        }),
       
+      });
+    
+      const { data: props } = await client.query({
+        query: gql`
+          query{
+    
+            data: peaple(id: ${id}) {
+                    id
+                    name
+                    profile_path
+                    known_for_department
+                    place_of_birth
+                    birthday
+                    biography
+                }
         }
-    }
+        `
+      });
+    
+      return {
+          props,
+
+      }
 }

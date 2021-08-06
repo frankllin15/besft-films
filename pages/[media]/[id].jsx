@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
 import MediaDetails from '../../components/MediaDetails'
-import { getDetails, getMediaById, getMediaRecommendations, getMediaVideos, getSimilarMedia, getTrandingMedia } from '../../lib/apiTmdb'
+import { getTrandingMedia } from '../../lib/apiTmdb'
 import { NextSeo } from 'next-seo'
 import styled from 'styled-components'
 import { useEffect } from 'react'
 import { getDate } from '../../lib/utils'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 
 const TagContainer = styled.section`
@@ -26,23 +27,18 @@ const Tag = styled.h4`
 `
 
 
-export default function Movie({ data, videos, similarMedia, mediaRecommendations }) {
+export default function Movie({  data, videos, similarMedia, mediaRecommendations }) {
     const Router = useRouter()
     const { media } = Router.query
 
     const { isFallback} = Router
 
-    // const tags = ["Online", "Dublado", "Legendado", "HD", "Dublado Online", "Dublado Online HD", "Legendado Online", "Legendado Online HD"]
-    //     .map(e => `${data.title || data.name} ${e}`)
-
-
+    console.log(data)
     
     useEffect(() => {
         
-        if (media) {
-            
-            
-            console.log(isFallback)
+        if (media) {  
+         
             // Armazena a media atual no historico do localStorage
 
             let watched = JSON.parse(window.localStorage.getItem("medias_watched")) || []
@@ -78,9 +74,7 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
             <div className="flex items-center w-full h-screen justify-center">
                 <CircularProgress />
             </div>
-        )
-        
-    
+        )  
 
     return (
         <>
@@ -115,9 +109,6 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
             </TagContainer>
         </>
     )
-
-
-
 }
 
 export async function getStaticPaths() {
@@ -130,8 +121,6 @@ export async function getStaticPaths() {
         params: { media: 'movie', id: `${e.id}` }
     })))
 
-   
-
     return {
         paths,
         fallback: true
@@ -142,53 +131,57 @@ export async function getStaticProps({ params }) {
 
     const { media, id } = params
 
+    const client = new ApolloClient({
+        uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+        cache: new InMemoryCache()
+      });
 
-    const data = { ...await getMediaById(media, id), ...await getDetails(media, id) }
-    const videos = [...await getMediaVideos(media, id) || []]
-    const similarMedia = [...await getSimilarMedia(id, media) || []]
-    const mediaRecommendations = [...await getMediaRecommendations(media, id) || []]
+      const { data: props } = await client.query({
+        query: gql`
+          query{
 
-    return {
-        props: {
-            data,
-            videos,
-            similarMedia,
-            mediaRecommendations
+            data: media(id: ${id}, media_type: "${media}") {
+                id
+                name
+                imdb_id
+                poster_path
+                backdrop_path
+                vote_average
+                release_date
+                genres {
+                  name
+                  id
+                }
+                cast {
+                    name
+                    id
+                    profile_path
+                }
+              }
+              videos: mediaVideos(id: ${id}, media_type: "${media}") {
+                key
+                name
+                site
+              }
+              mediaRecommendations(id: ${id}, media_type: "${media}") {
+                id
+                name
+                poster_path
+                media_type
+                vote_average
+              }
+              similarMedia(id: ${id}, media_type: "${media}") {
+                id
+                name
+                poster_path
+                media_type
+                vote_average
+              }
         }
-    
-    }
+        `
+      });
+
+      return {
+          props
+      }
 }
-
-// export async function getServerSideProps(ctx) {
-
-//     const { media, id } = ctx.query
-
-
-//     const data = { ...await getMediaById(media, id), ...await getDetails(media, id) }
-//     const videos = [...await getMediaVideos(media, id) || []]
-//     const similarMedia = [...await getSimilarMedia(id, media) || []]
-//     const mediaRecommendations = [...await getMediaRecommendations(media, id) || []]
-
-//     if (data.id)
-//         return {
-//             props: {
-//                 data,
-//                 videos,
-//                 similarMedia,
-//                 mediaRecommendations
-//             }
-//         }
-
-//     else return {
-//         redirect: {
-//             permanent: false,
-//             destination: '/'
-
-//         },
-//         props: {
-
-//         }
-//     }
-// }
-
-

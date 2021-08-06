@@ -43,9 +43,8 @@ export default function Card({ item, media_type }) {
         e.target.onerror = null;
         setIsImgNotFound(true)
     }
+
     
-
-
     return (
         <Container>
             <a href={`/${item.media_type || media_type}/${item.id}`}>

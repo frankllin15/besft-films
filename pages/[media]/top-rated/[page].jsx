@@ -4,6 +4,8 @@ import CustomPagination from '../../../components/CustomPagination'
 import { useRouter } from 'next/router';
 import CustomSelect from '../../../components/CustomSelect'
 import { NextSeo } from 'next-seo'
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+
 
 
 export default function topimdb({ data }) {
@@ -56,12 +58,35 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 
-    const data = await getTopRatedTmdb(params.media, params.page)
 
-    return {
-        props: {
-            data: data
-        },
-        revalidate: 60 * 60 * 24 * 7
-    }
+    const client = new ApolloClient({
+        uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+        cache: new InMemoryCache({
+          addTypename: false
+        }),
+      
+      });
+    
+      const { data: props } = await client.query({
+        query: gql`
+          query{
+    
+            data: topRatedTmdb(media_type: "${params.media}", page: ${params.page}) {
+                results {
+                    id
+                    name
+                    poster_path
+                    media_type
+                    vote_average
+                    }
+                    total_pages
+              }
+        }
+        `
+      });
+    
+      return {
+          props,
+          revalidate: 60 * 60 * 24 * 7
+      }
 }
