@@ -20,12 +20,11 @@ const apolloServer = new ApolloServer({
 //     path: "/api/graphql",
 //   })(req, res);
 // }
-
-export default apolloServer.createHandler({ path: "/api/graphql" })
-
 export const config = {
   api: {
     bodyParser: false,
     externalResolver: true,
   },
 };
+
+export default apolloServer.createHandler({ path: "/api/graphql" })
