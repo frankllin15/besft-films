@@ -5,35 +5,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import MediaInfos from './MediaInfos'
 import { useThemeContext } from '../context/ThemeStore';
-import styled from 'styled-components'
-import { Title } from './styles'
-import { Functions } from '@material-ui/icons';
 
 
-const GridContainer = styled.div`
-  padding-left: 4px;
-  padding-right: 4px;
-  grid-gap: 2px;
-  div {
-    text-align: center;
-
-  }
-  @media(max-width: 935px) {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  justify-items: center;
-
-  div {
-
-    text-align: start;
-  } 
-  
-
-  }
-
-`
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

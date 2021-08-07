@@ -4,7 +4,6 @@ import TabPanel from './TabPanel'
 import MultiCarousel from './MultiCarousel'
 import { Title } from './styles'
 import { useThemeContext } from '../context/ThemeStore'
-import MediaInfos from './MediaInfos'
 import Image from 'next/image'
 import { hourFormat } from '../lib/utils'
 import StarRate from './StarRate'
@@ -30,16 +29,6 @@ const ImgBg = styled.div`
 `
 
 
-
-
-
-
-const Item = ({ children }) => (
-    <section className="flex flex-col ml-6 2md:ml-0 pt-4  max-w-3xl min-h-360 justify-start items-start cursor-default">
-        {children}
-    </section>
-)
-
 export default function MediaDetails({ data, videos, similarMedia, type, mediaRecommendations }) {
 
     const { bgImage, setBgImage } = useThemeContext()
@@ -48,8 +37,6 @@ export default function MediaDetails({ data, videos, similarMedia, type, mediaRe
         if (data)
             setBgImage(`https://image.tmdb.org/t/p/w1280//${data.backdrop_path}`)
     }, [data])
-
-
 
 
     return (
@@ -66,25 +53,23 @@ export default function MediaDetails({ data, videos, similarMedia, type, mediaRe
                     <div className="flex font-semibold text-base  ml-2 mb-3 justify-around ">
                         <span className="mr-3">
 
-                            {(data.release_date ? data.release_date : data.first_air_date).substring(0, 4)}
+                            {(data.release_date || data.first_air_date).substring(0, 4)}
                         </span>
                         {
-                            data.runtime ?
-                                <span className="mr-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    {hourFormat(data.runtime)}
-                                </span>
-                                : ""
+                            data.runtime &&
+                            <span className="mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                {hourFormat(data.runtime)}
+                            </span>
+
                         }
                         {
-                            data.vote_average ?
-                                <span className="">
-                                    <StarRate rate={data.vote_average} />
-                                </span>
-                                :
-                                ""
+                            data.vote_average &&
+                            <span className="">
+                                <StarRate rate={data.vote_average} />
+                            </span>
                         }
 
                     </div>
@@ -97,25 +82,22 @@ export default function MediaDetails({ data, videos, similarMedia, type, mediaRe
 
 
                 </section>
-
-
-
             </main>
-            {mediaRecommendations.length > 0 ?
+
+            {
+                mediaRecommendations.length > 0 &&
                 <div className="pl-3 pr-3">
                     <Title>Talvez você goste</Title>
                     <MultiCarousel data={mediaRecommendations} />
                 </div>
-                :
-                ""
+
             }
-            {similarMedia.length > 0 ?
+            {
+                similarMedia.length > 0 &&
                 <div className="pl-3 pr-3">
                     <Title>Similares</Title>
                     <MultiCarousel data={similarMedia} type={type} />
                 </div>
-                :
-                ""
             }
         </div>
 

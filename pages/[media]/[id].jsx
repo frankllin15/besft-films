@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router'
 import MediaDetails from '../../components/MediaDetails'
-import { getDetails, getMediaById, getMediaRecommendations, getMediaVideos, getSimilarMedia } from '../../lib/apiTmdb'
+import { getTrandingMedia } from '../../lib/apiTmdb'
 import { NextSeo } from 'next-seo'
 import styled from 'styled-components'
 import { useEffect } from 'react'
 import { getDate } from '../../lib/utils'
-import Cookies from 'cookies'
-import cookieCutter from 'cookie-cutter'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+
 
 const TagContainer = styled.section`
     max-width: 100%;
@@ -26,48 +27,53 @@ const Tag = styled.h4`
 `
 
 
-export default function Movie({ data, videos, similarMedia, mediaRecommendations }) {
+export default function Movie({  data, videos, similarMedia, mediaRecommendations }) {
     const Router = useRouter()
     const { media } = Router.query
 
-    const tags = ["Online", "Dublado", "Legendado", "HD", "Dublado Online", "Dublado Online HD", "Legendado Online", "Legendado Online HD"]
-        .map(e => `${data.title || data.name} ${e}`)
+    const { isFallback} = Router
 
-
+    
     useEffect(() => {
+        
+        if (media) {  
+         
+            // Armazena a media atual no historico do localStorage
 
-        if (media) {
+            let watched = JSON.parse(window.localStorage.getItem("medias_watched")) || []
 
-                // Armazena a media atual no historico do localStorage
+            const date = getDate()
 
-                let watched = JSON.parse(window.localStorage.getItem("medias_watched")) || []
+            if (!watched?.some(e => e.id == data.id)) {
 
-                const date = getDate()
+                watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date })
 
-                if (!watched?.some(e => e.id == data.id)) {
+                localStorage.setItem("medias_watched", JSON.stringify(watched))
 
-                    watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date})
+            } else {
 
-                    localStorage.setItem("medias_watched", JSON.stringify(watched))
+                const array_id = watched.findIndex(e => e.id == data.id)
+                watched.splice(array_id, 1)
 
-                } else {
+                watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date })
 
-                    const array_id = watched.findIndex(e => e.id == data.id)
-                    watched.splice(array_id, 1)
+                localStorage.setItem("medias_watched", JSON.stringify(watched))
 
-                    watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date})
+            }
 
-                    localStorage.setItem("medias_watched", JSON.stringify(watched))
+            if (watched.length > 15)
+                watched.pop()
 
-                }
-
-                if (watched.length > 15)
-                    watched.pop()
-            
         }
 
     })
 
+    if(isFallback) 
+        return (
+            <div className="flex items-center w-full h-screen justify-center">
+                <CircularProgress />
+            </div>
+        )  
 
     return (
         <>
@@ -95,45 +101,87 @@ export default function Movie({ data, videos, similarMedia, mediaRecommendations
 
             <TagContainer>
                 <h3>Tags:</h3>
-                {tags.map((e, id) => (
-                    <Tag key={id}>{e}</Tag>
+                {["Online", "Dublado", "Legendado", "HD", "Dublado Online", "Dublado Online HD", "Legendado Online", "Legendado Online HD"].map((e, id) => (
+                    <Tag key={id}>{data.title || data.name} {e}</Tag>
+                    
                 ))}
             </TagContainer>
         </>
     )
-
 }
 
-export async function getServerSideProps(ctx) {
+export async function getStaticPaths() {
+    const trendingTv = await getTrandingMedia('tv')
+    const trendingMovie = await getTrandingMedia('movie')
 
-    const { media, id } = ctx.query
+    const paths = await trendingTv.map(e => ({
+        params: { media: 'tv', id: `${e.id}` }
+    })).concat(trendingMovie.map(e => ({
+        params: { media: 'movie', id: `${e.id}` }
+    })))
 
-
-    const data = { ...await getMediaById(media, id), ...await getDetails(media, id) }
-    const videos = [...await getMediaVideos(media, id) || []]
-    const similarMedia = [...await getSimilarMedia(id, media) || []]
-    const mediaRecommendations = [...await getMediaRecommendations(media, id) || []]
-
-    if (data.id)
-        return {
-            props: {
-                data,
-                videos,
-                similarMedia,
-                mediaRecommendations
-            }
-        }
-
-    else return {
-        redirect: {
-            permanent: false,
-            destination: '/'
-
-        },
-        props: {
-
-        }
+    return {
+        paths,
+        fallback: true
     }
 }
 
+export async function getStaticProps({ params }) {
 
+    const { media, id } = params
+
+    const client = new ApolloClient({
+        uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+        cache: new InMemoryCache()
+      });
+
+      const { data: props } = await client.query({
+        query: gql`
+          query{
+
+            data: media(id: ${id}, media_type: "${media}") {
+                id
+                name
+                imdb_id
+                poster_path
+                backdrop_path
+                vote_average
+                release_date
+                genres {
+                  name
+                  id
+                }
+                cast {
+                    name
+                    id
+                    profile_path
+                }
+              }
+              videos: mediaVideos(id: ${id}, media_type: "${media}") {
+                key
+                name
+                site
+              }
+              mediaRecommendations(id: ${id}, media_type: "${media}") {
+                id
+                name
+                poster_path
+                media_type
+                vote_average
+              }
+              similarMedia(id: ${id}, media_type: "${media}") {
+                id
+                name
+                poster_path
+                media_type
+                vote_average
+              }
+        }
+        `
+      });
+
+      return {
+          props,
+          revalidate: 60 * 60 * 24 * 31
+      }
+}

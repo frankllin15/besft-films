@@ -4,8 +4,6 @@ import styled from 'styled-components'
 
 const Wrapper = styled.div`
 
-    /* width: 100px; */
-
     display: inline-flex;
     /* height: 33px; */
     align-items: start;
