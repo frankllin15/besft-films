@@ -115,7 +115,7 @@ export default function Artist({ data }) {
             <div ref={ref} className="flex flex-col items-center pt-4">
                 <CustomSelect className="self-start ml-5" placeHolder="Categoria" name="type" onchange={(e) => handleChangeSelect(e.value)} label="" options={selectOptions} />
                 {artWorks.results && <RenderCard list={artWorks.results} media_type="movie" />}
-                <CustomPagination maxPage={artWorks.maxPage} page={page} setPage={setPage} scrollTo={ref} />
+                <CustomPagination maxPage={artWorks.total_pages} page={page} setPage={setPage} scrollTo={ref} />
             </div>
 
         </div>

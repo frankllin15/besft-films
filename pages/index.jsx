@@ -41,6 +41,7 @@ export default function Home({ trendingTv, trendingMovie }) {
     })()
   }, [])
 
+  console.log(trendingMovie)
 
   return (
     <>
