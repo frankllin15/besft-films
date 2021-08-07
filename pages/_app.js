@@ -39,20 +39,14 @@ export default function App({ Component, pageProps }) {
   }, [router.events])
 
  
-   
-
     return (
       <>
         <ThemeStore>
           <Theme>
             <Head>
+
               <meta name="google-site-verification" content="JT0m821Vw6hBS0L6QiNOfP4H2HDDmaePFsD6MCfUqdM" />
-          
-              <style>
-@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
-</style>
-          
-              
+
               </Head>
               <DefaultSeo 
                 openGraph={{

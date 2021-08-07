@@ -1,15 +1,12 @@
 import styled from 'styled-components'
 import MultiCarousel from '../components/MultiCarousel'
-import { getMediaById, getMultipleMediaById, getTrandingMedia } from '../lib/apiTmdb'
+import { getMultipleMediaById } from '../lib/apiTmdb'
 import { Title } from '../components/styles'
-import Head from 'next/head'
 import CookiePermition from '../components/CookiePermition'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import StarRate from '../components/StarRate'
 import { NextSeo } from 'next-seo'
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
-
 
 
 const MainContainer = styled.div`
@@ -29,16 +26,14 @@ export default function Home({ trendingTv, trendingMovie }) {
     (async() => {
       const watched = JSON.parse(localStorage.getItem("medias_watched"))
 
-      // console.log(watched)
+
       if (watched) {
         try {
-
 
           const data = getMultipleMediaById(watched)
 
           setWatched(await data)
     
-
         } catch(e) {
           console.log({error: e})
         }
@@ -74,7 +69,6 @@ export default function Home({ trendingTv, trendingMovie }) {
       </MainContainer>
 
         <CookiePermition />
-        {/* <h1>Oba</h1> */}
     </>
   )
 }
@@ -82,18 +76,6 @@ export default function Home({ trendingTv, trendingMovie }) {
 
 
 export async function getStaticProps() {
-
-  // const trendingTv = await getTrandingMedia('tv')
-  // const trendingMovie = await getTrandingMedia('movie')
-
-  // return {
-  //   props: {
-  //     trendingTv: trendingTv,
-  //     trendingMovie: trendingMovie,
-  //   },
-  //   revalidate: 60 * 60 * 24
-  // }
-
 
   const client = new ApolloClient({
     uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',

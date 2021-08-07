@@ -4,7 +4,7 @@ import { ServerStyleSheet as StyledComponentSheets } from 'styled-components'
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/core/styles'
 
 export default class Document extends NextDocument {
-  static async getInitialProps (ctx) {
+  static async getInitialProps(ctx) {
     const styledComponentSheet = new StyledComponentSheets()
     const materialUiSheets = new MaterialUiServerStyleSheets()
     const originalRenderPage = ctx.renderPage
@@ -52,8 +52,11 @@ export default class Document extends NextDocument {
           `,
             }}
           />
-              <script data-ad-client="ca-pub-8693241372934547" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <script data-ad-client="ca-pub-8693241372934547" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+          <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet" />
         </Head>
         <body>
           <Main />

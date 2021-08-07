@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { getArtWorks, getPeapleById } from '../../lib/apiTmdb'
 import Image from 'next/image'
 import RenderCard from '../../components/RenderCard'
 import CustomSelect from '../../components/CustomSelect'
@@ -19,10 +18,44 @@ export default function Artist({ data }) {
 
     useEffect(() => {
         (async () => {
-            setArtWorks(await getArtWorks(data.id, type, page))
+            
+            const client = new ApolloClient({
+                uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+                cache: new InMemoryCache({
+                  addTypename: false
+                }),
+              
+            });
+            
+              const { data: query } = await client.query({
+                  query: gql`
+                  query{
+                      
+                      artWorks(id: ${data.id}, media_type: "${type}", page: ${page}) {
+                        results {
+      
+    
+                            id
+                         name
+                         poster_path
+                         media_type
+                         vote_average
+                           
+                         
+                         }
+                         
+                           total_pages
+                        
+                    }
+                }
+                `
+            });
+
+
+            setArtWorks((await query).artWorks)
         })()
     }, [page, type])
-
+    
     useEffect(() => {
         const element = document.querySelector("#bio")
         const toggleOverflow = document.querySelector("#toggleOverflow")

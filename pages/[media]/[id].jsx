@@ -33,7 +33,6 @@ export default function Movie({  data, videos, similarMedia, mediaRecommendation
 
     const { isFallback} = Router
 
-    console.log(data)
     
     useEffect(() => {
         
@@ -182,6 +181,7 @@ export async function getStaticProps({ params }) {
       });
 
       return {
-          props
+          props,
+          revalidate: 60 * 60 * 24 * 31
       }
 }
