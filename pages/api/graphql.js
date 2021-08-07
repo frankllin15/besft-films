@@ -6,7 +6,7 @@ import {  ApolloServerPluginLandingPageGraphQLPlayground  } from 'apollo-server-
 const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
-    // playground: false, 
+    playground: false, 
     plugins: process.env.NODE_ENV === "development" ? [ApolloServerPluginLandingPageGraphQLPlayground()] : [],
   });
 
