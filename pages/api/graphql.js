@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server-micro";
-import { typeDefs } from "./schemas";
-import { resolvers } from "./resolvers";
+import { typeDefs } from "../../lib/graphql/schemas";
+import { resolvers } from "../../lib/graphql/resolvers";
 import {  ApolloServerPluginLandingPageGraphQLPlayground  } from 'apollo-server-core'
 
 const apolloServer = new ApolloServer({
