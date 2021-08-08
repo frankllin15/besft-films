@@ -147,6 +147,7 @@ export async function getStaticProps({ params }) {
                 backdrop_path
                 vote_average
                 release_date
+                overview
                 genres {
                   name
                   id

@@ -55,7 +55,7 @@ export default class Document extends NextDocument {
           <script data-ad-client="ca-pub-8693241372934547" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet" />
         </Head>
         <body>

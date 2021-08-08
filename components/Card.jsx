@@ -62,7 +62,7 @@ export default function Card({ item, media_type }) {
                     </div>
                     <h3 className="text-center text-white  font-semibold shadow-xl text-base sm:text-md sm:text-sm">{item.title ? item.title : item.name}</h3>
                 </div>
-                <Image  onError={e => handleImgError(e)} priority={false} loading='lazy' placeholder="blur" className="rounded-md" layout="fill" src={isImgNotFound ? require('../public/img/posterNotFound.png') : `https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+                <Image  onError={e => handleImgError(e)} priority={false} loading='lazy' placeholder="empty" className="rounded-md" layout="fill" src={isImgNotFound ? require('../public/img/posterNotFound.png') : `https://image.tmdb.org/t/p/w500${item.poster_path}`} />
             </div>
             </a>
         </Container>

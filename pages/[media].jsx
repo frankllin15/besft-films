@@ -57,7 +57,6 @@ export default function Genre({ genre }) {
         })()
     }, [page, filter])
 
-    console.log(filter)
 
 
     const releaseOptions = [
