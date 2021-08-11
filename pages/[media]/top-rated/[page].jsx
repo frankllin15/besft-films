@@ -5,12 +5,15 @@ import { useRouter } from 'next/router';
 import CustomSelect from '../../../components/CustomSelect'
 import { NextSeo } from 'next-seo'
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 
 
 export default function topimdb({ data }) {
     const Router = useRouter()
     const { page, media } = Router.query
+
+    const { isFallback } = Router
 
     const mediaOptions = [
         { label: 'Filme', value: 'movie' },
@@ -24,6 +27,13 @@ export default function topimdb({ data }) {
     function handleMediaChange(e) {
         Router.push(`/${e.value}/top-rated/${page}`)
     }
+
+    if(isFallback) 
+        return (
+            <div className="flex items-center w-full h-screen justify-center">
+                <CircularProgress />
+            </div>
+        ) 
 
     return (
         <div className="flex flex-col justify-center items-center">
@@ -41,18 +51,18 @@ export default function topimdb({ data }) {
 }
 
 export async function getStaticPaths() {
-    const { total_pages: movie_total_pages } = await getTopRatedTmdb('movie', 1)
-    const { total_pages: tv_totalPages } = await getTopRatedTmdb('tv', 1)
+    // const { total_pages: movie_total_pages } = await getTopRatedTmdb('movie', 1)
+    // const { total_pages: tv_totalPages } = await getTopRatedTmdb('tv', 1)
 
-    const paths = Array(movie_total_pages).fill(0).map((e, id) => {
-        return { params: { page: `${id + 1}`, media: 'movie' } }
-    }).concat(Array(tv_totalPages).fill(0).map((e, id) => {
-        return { params: { page: `${id + 1}`, media: 'tv' } }
-    }))
+    // const paths = Array(movie_total_pages).fill(0).map((e, id) => {
+    //     return { params: { page: `${id + 1}`, media: 'movie' } }
+    // }).concat(Array(tv_totalPages).fill(0).map((e, id) => {
+    //     return { params: { page: `${id + 1}`, media: 'tv' } }
+    // }))
 
     return {
-        paths,
-        fallback: false
+        paths: [],
+        fallback: true
     }
 }
 
@@ -87,6 +97,6 @@ export async function getStaticProps({ params }) {
     
       return {
           props,
-          revalidate: 60 * 60 * 24 * 7
+          revalidate: 60 * 60 * 24 * 31
       }
 }
