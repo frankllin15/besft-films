@@ -96,7 +96,7 @@ export default function Artist({ data }) {
                 <div className="h-full sticky md:static top-24 flex-1  min-w-200px">
 
                     <div className="rounded-lg  w-200 min-w-200px h-300 relative ml-auto mr-auto shadow-lg">
-                        <Image alt={data.name} layout='fill' className="rounded-lg  " priority={true} src={`https://image.tmdb.org/t/p/w500${data.profile_path}`} />
+                        <img alt={data.name} layout='fill' className="rounded-lg  " priority={true} src={`https://image.tmdb.org/t/p/w500${data.profile_path}`} />
                     </div>
                 </div>
                 <article className="pl-5 mt-4">

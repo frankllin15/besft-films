@@ -4,7 +4,7 @@ import TabPanel from './TabPanel'
 import MultiCarousel from './MultiCarousel'
 import { Title } from './styles'
 import { useThemeContext } from '../context/ThemeStore'
-import Image from 'next/image'
+
 import { hourFormat } from '../lib/utils'
 import StarRate from './StarRate'
 import Cast from './Cast'
@@ -45,7 +45,7 @@ export default function MediaDetails({ data, videos, similarMedia, type, mediaRe
             <ImgBg bgImage={bgImage} />
             <main className="grid grid-cols-300px-1 mb-4  2md:grid-rows-300-1 2md:justify-items-center 2md:grid-cols-1" >
                 <div className="rounded-lg max-h-300 max-w-200 relative w-60 ml-auto mr-auto  shadow-lg">
-                    <Image layout='fill' className="rounded-lg " priority={true} src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} />
+                    <img layout='fill' className="rounded-lg " priority={true} src={`https://image.tmdb.org/t/p/w500${data.poster_path}`} />
                 </div>
 
                 <section className="flex flex-col ml-6 2md:ml-0 pt-4  max-w-3xl min-h-360 justify-start items-start cursor-default">

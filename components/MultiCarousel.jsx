@@ -37,7 +37,7 @@ export default function MultiCarousel({ data, type, autoPlay }) {
               
                 responsive={responsive}
                 autoPlay={(autoPlay == undefined ?  true : autoPlay)}
-                autoPlaySpeed={6000}
+                autoPlaySpeed={8000}
             
                 // transitionDuration={500}
                 ssr={true}

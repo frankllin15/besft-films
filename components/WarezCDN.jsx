@@ -1,7 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Image from 'next/image'
-import Logo from '../public/img/warezLogo.png'
 
 
 const Wrapper = styled.div`
@@ -34,10 +32,9 @@ export default function WarezCDN() {
     return (
     
     <a target="_black" style={{textDecoration: "none"}} href="https://warezcdn.com/">
-
         <Wrapper>
             
-            <Image src={Logo}  width="199px" height="29px"   />
+            <img src="/img/warezLogo.png"  width="199px" height="29px"   />
             <p>Todo o conteúdo nesse site é promovido pela WAREZCDN. A maior api de filmes, series e animes do mundo.</p>
         </Wrapper>
         </a>

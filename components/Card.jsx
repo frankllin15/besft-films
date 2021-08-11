@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
-import Button from '@material-ui/core/IconButton';
+import React, { useState } from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import styled from 'styled-components'
@@ -62,7 +60,7 @@ export default function Card({ item, media_type }) {
                     </div>
                     <h3 className="text-center text-white  font-semibold shadow-xl text-base sm:text-md sm:text-sm">{item.title ? item.title : item.name}</h3>
                 </div>
-                <Image  onError={e => handleImgError(e)} priority={false} loading='lazy' placeholder="empty" className="rounded-md" layout="fill" src={isImgNotFound ? require('../public/img/posterNotFound.png') : `https://image.tmdb.org/t/p/w500${item.poster_path}`} />
+                <img  onError={e => handleImgError(e)}  loading='lazy' placeholder="empty" className="rounded-md" layout="fill" src={isImgNotFound ? "/img/posterNotFound.png" : `https://image.tmdb.org/t/p/w500${item.poster_path}`} />
             </div>
             </a>
         </Container>
