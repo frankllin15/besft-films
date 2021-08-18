@@ -77,7 +77,7 @@ export default function Movie({  data, videos, similarMedia, mediaRecommendation
 
     return (
         <>
-            <NextSeo
+            {/* <NextSeo
                 title={(data.title || data.name)}
                 description={data.overview}
                 facebook={{
@@ -96,7 +96,7 @@ export default function Movie({  data, videos, similarMedia, mediaRecommendation
                         }
                     ]
                 }}
-            />
+            /> */}
             {/* <MediaDetails mediaRecommendations={mediaRecommendations} type={media} data={data} videos={videos} similarMedia={similarMedia} />
 
             <TagContainer>
@@ -111,17 +111,17 @@ export default function Movie({  data, videos, similarMedia, mediaRecommendation
 }
 
 export async function getStaticPaths() {
-    const trendingTv = await getTrandingMedia('tv')
-    const trendingMovie = await getTrandingMedia('movie')
+    // const trendingTv = await getTrandingMedia('tv')
+    // const trendingMovie = await getTrandingMedia('movie')
 
-    const paths = await trendingTv.map(e => ({
-        params: { media: 'tv', id: `${e.id}` }
-    })).concat(trendingMovie.map(e => ({
-        params: { media: 'movie', id: `${e.id}` }
-    })))
+    // const paths = await trendingTv.map(e => ({
+    //     params: { media: 'tv', id: `${e.id}` }
+    // })).concat(trendingMovie.map(e => ({
+    //     params: { media: 'movie', id: `${e.id}` }
+    // })))
 
     return {
-        paths,
+        paths: [],
         fallback: true
     }
 }
