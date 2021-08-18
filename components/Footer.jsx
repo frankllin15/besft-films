@@ -1,8 +1,7 @@
 import React from 'react'
 import WarezCDN from './WarezCDN'
 import LinkSocialMedia from './LinkSocialMedia'
-import gitHubLogo from '../public/img/GitHub-Mark-Light-32px.png'
-import logoLinkedin from '../public/img/logo-linkedin-32px.png'
+
 
 
 const Link = ({children, href}) => (
@@ -27,9 +26,9 @@ export default function Footer() {
                 <div className="flex flex-row mb-4 w-full  justify-between sm:flex-col">
 
                     <div className="flex justify-start  flex-wrap ">
-                        {/* <h3 className="w-full text-lg " >Contate-me :)</h3> */}
-                        <LinkSocialMedia href="https://github.com/frankllin15" logo={gitHubLogo} bgColor="black">GitHub</LinkSocialMedia>
-                        <LinkSocialMedia href="https://www.linkedin.com/in/frankllin-teixeira-244a9517b/" logo={logoLinkedin} color="black" bgColor="white">LinkedIn</LinkSocialMedia>
+                 
+                        <LinkSocialMedia href="https://github.com/frankllin15" logo={"/img/GitHub-Mark-Light-32px.png"} bgColor="black">GitHub</LinkSocialMedia>
+                        <LinkSocialMedia href="https://www.linkedin.com/in/frankllin-teixeira-244a9517b/" logo={"/img/logo-linkedin-32px.png"} color="black" bgColor="white">LinkedIn</LinkSocialMedia>
                     </div>
                     <WarezCDN />
                 </div>

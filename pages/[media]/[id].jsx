@@ -28,52 +28,52 @@ const Tag = styled.h4`
 
 
 export default function Movie({  data, videos, similarMedia, mediaRecommendations }) {
-    const Router = useRouter()
-    const { media } = Router.query
+    // const Router = useRouter()
+    // const { media } = Router.query
 
-    const { isFallback} = Router
+    // const { isFallback} = Router
 
     
-    useEffect(() => {
+    // useEffect(() => {
         
-        if (media) {  
+    //     if (media) {  
          
-            // Armazena a media atual no historico do localStorage
+    //         // Armazena a media atual no historico do localStorage
 
-            let watched = JSON.parse(window.localStorage.getItem("medias_watched")) || []
+    //         let watched = JSON.parse(window.localStorage.getItem("medias_watched")) || []
 
-            const date = getDate()
+    //         const date = getDate()
 
-            if (!watched?.some(e => e.id == data.id)) {
+    //         if (!watched?.some(e => e.id == data.id)) {
 
-                watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date })
+    //             watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date })
 
-                localStorage.setItem("medias_watched", JSON.stringify(watched))
+    //             localStorage.setItem("medias_watched", JSON.stringify(watched))
 
-            } else {
+    //         } else {
 
-                const array_id = watched.findIndex(e => e.id == data.id)
-                watched.splice(array_id, 1)
+    //             const array_id = watched.findIndex(e => e.id == data.id)
+    //             watched.splice(array_id, 1)
 
-                watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date })
+    //             watched.unshift({ id: `${data.id}`, media_type: media, name: data.title || data.name, date: date })
 
-                localStorage.setItem("medias_watched", JSON.stringify(watched))
+    //             localStorage.setItem("medias_watched", JSON.stringify(watched))
 
-            }
+    //         }
 
-            if (watched.length > 15)
-                watched.pop()
+    //         if (watched.length > 15)
+    //             watched.pop()
 
-        }
+    //     }
 
-    })
+    // })
 
-    if(isFallback) 
-        return (
-            <div className="flex items-center w-full h-screen justify-center">
-                <CircularProgress />
-            </div>
-        )  
+    // if(isFallback) 
+    //     return (
+    //         <div className="flex items-center w-full h-screen justify-center">
+    //             <CircularProgress />
+    //         </div>
+    //     )  
 
     return (
         <>
@@ -97,7 +97,7 @@ export default function Movie({  data, videos, similarMedia, mediaRecommendation
                     ]
                 }}
             />
-            <MediaDetails mediaRecommendations={mediaRecommendations} type={media} data={data} videos={videos} similarMedia={similarMedia} />
+            {/* <MediaDetails mediaRecommendations={mediaRecommendations} type={media} data={data} videos={videos} similarMedia={similarMedia} />
 
             <TagContainer>
                 <h3>Tags:</h3>
@@ -105,7 +105,7 @@ export default function Movie({  data, videos, similarMedia, mediaRecommendation
                     <Tag key={id}>{data.title || data.name} {e}</Tag>
                     
                 ))}
-            </TagContainer>
+            </TagContainer> */}
         </>
     )
 }
@@ -128,61 +128,63 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 
-    const { media, id } = params
+    // const { media, id } = params
 
-    const client = new ApolloClient({
-        uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
-        cache: new InMemoryCache()
-      });
+    // const client = new ApolloClient({
+    //     uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+    //     cache: new InMemoryCache()
+    //   });
 
-      const { data: props } = await client.query({
-        query: gql`
-          query{
+    //   const { data: props } = await client.query({
+    //     query: gql`
+    //       query{
 
-            data: media(id: ${id}, media_type: "${media}") {
-                id
-                name
-                imdb_id
-                poster_path
-                backdrop_path
-                vote_average
-                release_date
-                overview
-                genres {
-                  name
-                  id
-                }
-                cast {
-                    name
-                    id
-                    profile_path
-                }
-              }
-              videos: mediaVideos(id: ${id}, media_type: "${media}") {
-                key
-                name
-                site
-              }
-              mediaRecommendations(id: ${id}, media_type: "${media}") {
-                id
-                name
-                poster_path
-                media_type
-                vote_average
-              }
-              similarMedia(id: ${id}, media_type: "${media}") {
-                id
-                name
-                poster_path
-                media_type
-                vote_average
-              }
-        }
-        `
-      });
+    //         data: media(id: ${id}, media_type: "${media}") {
+    //             id
+    //             name
+    //             imdb_id
+    //             poster_path
+    //             backdrop_path
+    //             vote_average
+    //             release_date
+    //             overview
+    //             genres {
+    //               name
+    //               id
+    //             }
+    //             cast {
+    //                 name
+    //                 id
+    //                 profile_path
+    //             }
+    //           }
+    //           videos: mediaVideos(id: ${id}, media_type: "${media}") {
+    //             key
+    //             name
+    //             site
+    //           }
+    //           mediaRecommendations(id: ${id}, media_type: "${media}") {
+    //             id
+    //             name
+    //             poster_path
+    //             media_type
+    //             vote_average
+    //           }
+    //           similarMedia(id: ${id}, media_type: "${media}") {
+    //             id
+    //             name
+    //             poster_path
+    //             media_type
+    //             vote_average
+    //           }
+    //     }
+    //     `
+    //   });
 
       return {
-          props,
+          props: {
+
+          },
           revalidate: 60 * 60 * 24 * 31
       }
 }
