@@ -78,7 +78,7 @@ export default function Home({ trendingTv, trendingMovie }) {
 export async function getStaticProps() {
 
   const client = new ApolloClient({
-    uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+    uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql' : 'https://besftfilms.xyz/api/graphql',
     cache: new InMemoryCache({
       addTypename: false
     }),
