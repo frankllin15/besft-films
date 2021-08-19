@@ -20,32 +20,32 @@ const MainContainer = styled.div`
 
 export default function Home({ trendingTv, trendingMovie }) {
 
-  // const [watched, setWatched] = useState([])
+  const [watched, setWatched] = useState([])
 
-  // useEffect(() => {
-  //   (async() => {
-  //     const watched = JSON.parse(localStorage.getItem("medias_watched"))
+  useEffect(() => {
+    (async() => {
+      const watched = JSON.parse(localStorage.getItem("medias_watched"))
 
 
-  //     if (watched) {
-  //       try {
+      if (watched) {
+        try {
 
-  //         const data = getMultipleMediaById(watched)
+          const data = getMultipleMediaById(watched)
 
-  //         setWatched(await data)
+          setWatched(await data)
     
-  //       } catch(e) {
-  //         console.log({error: e})
-  //       }
-  //     }
-  //   })()
-  // }, [])
+        } catch(e) {
+          console.log({error: e})
+        }
+      }
+    })()
+  }, [])
 
 
   return (
     <>
       <MainContainer>
-        {/* <NextSeo 
+        <NextSeo 
           title="Best Films"
           description="Os melhores filmes e series online"
           additionalMetaTags={[
@@ -59,13 +59,13 @@ export default function Home({ trendingTv, trendingMovie }) {
       <MultiCarousel autoPlay={false} key={0} data={watched} />
       </>
       : ""
-    }
+      }
 
         <Title>Series em Alta</Title>
         <MultiCarousel key={1} data={trendingTv} />
         
         <Title>Filmes em Alta</Title>
-        <MultiCarousel key={2} data={trendingMovie} /> */}
+        <MultiCarousel key={2} data={trendingMovie} />
       </MainContainer>
 
         <CookiePermition />
@@ -77,41 +77,39 @@ export default function Home({ trendingTv, trendingMovie }) {
 
 export async function getStaticProps() {
 
-  // const client = new ApolloClient({
-  //   uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
-  //   cache: new InMemoryCache({
-  //     addTypename: false
-  //   }),
+  const client = new ApolloClient({
+    uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+    cache: new InMemoryCache({
+      addTypename: false
+    }),
   
-  // });
+  });
 
-  // const { data: props } = await client.query({
-  //   query: gql`
-  //     query{
+  const { data: props } = await client.query({
+    query: gql`
+      query{
 
-  //       trendingMovie: trendingMedia(media_type: "movie") {
-  //         id
-  //         name
-  //         poster_path
-  //         media_type
-  //         vote_average
-  //       }
-  //       trendingTv: trendingMedia(media_type: "tv") {
-  //         id
-  //         name
-  //         poster_path
-  //         media_type
-  //         vote_average
-  //       }
+        trendingMovie: trendingMedia(media_type: "movie") {
+          id
+          name
+          poster_path
+          media_type
+          vote_average
+        }
+        trendingTv: trendingMedia(media_type: "tv") {
+          id
+          name
+          poster_path
+          media_type
+          vote_average
+        }
 
-  //   }
-  //   `
-  // });
+    }
+    `
+  });
 
   return {
-      props: {
-
-      },
+      props,
       revalidate: 60 * 60 * 24
   }
 }

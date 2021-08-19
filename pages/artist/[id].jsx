@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Image from 'next/image'
 import RenderCard from '../../components/RenderCard'
 import CustomSelect from '../../components/CustomSelect'
 import CustomPagination from '../../components/CustomPagination'
@@ -9,89 +8,89 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 export default function Artist({ data }) {
 
-    // const ref = useRef(null)
-    // const [type, setType] = useState("movie")
-    // const [page, setPage] = useState(1)
-    // const [artWorks, setArtWorks] = useState([])
+    const ref = useRef(null)
+    const [type, setType] = useState("movie")
+    const [page, setPage] = useState(1)
+    const [artWorks, setArtWorks] = useState([])
 
-    // const selectOptions = [{ label: "Filmes", value: "movie" }, { label: "Séries", value: "tv" }]
+    const selectOptions = [{ label: "Filmes", value: "movie" }, { label: "Séries", value: "tv" }]
 
-    // useEffect(() => {
-    //     (async () => {
+    useEffect(() => {
+        (async () => {
             
-    //         const client = new ApolloClient({
-    //             uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
-    //             cache: new InMemoryCache({
-    //               addTypename: false
-    //             }),
+            const client = new ApolloClient({
+                uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+                cache: new InMemoryCache({
+                  addTypename: false
+                }),
               
-    //         });
+            });
             
-    //           const { data: query } = await client.query({
-    //               query: gql`
-    //               query{
+              const { data: query } = await client.query({
+                  query: gql`
+                  query{
                       
-    //                   artWorks(id: ${data.id}, media_type: "${type}", page: ${page}) {
-    //                     results {
+                      artWorks(id: ${data.id}, media_type: "${type}", page: ${page}) {
+                        results {
       
     
-    //                         id
-    //                      name
-    //                      poster_path
-    //                      media_type
-    //                      vote_average
+                         id
+                         name
+                         poster_path
+                         media_type
+                         vote_average
                            
                          
-    //                      }
+                         }
                          
-    //                        total_pages
+                        total_pages
                         
-    //                 }
-    //             }
-    //             `
-    //         });
+                    }
+                }
+                `
+            });
 
 
-    //         setArtWorks((await query).artWorks)
-    //     })()
-    // }, [page, type])
+            setArtWorks((await query).artWorks)
+        })()
+    }, [page, type])
     
-    // useEffect(() => {
-    //     const element = document.querySelector("#bio")
-    //     const toggleOverflow = document.querySelector("#toggleOverflow")
+    useEffect(() => {
+        const element = document.querySelector("#bio")
+        const toggleOverflow = document.querySelector("#toggleOverflow")
 
-    //     if (element.scrollHeight > element.clientHeight) {
-    //         toggleOverflow.style.display = 'inline'
+        if (element.scrollHeight > element.clientHeight) {
+            toggleOverflow.style.display = 'inline'
 
-    //     } else {
-    //         toggleOverflow.style.display = 'none'
+        } else {
+            toggleOverflow.style.display = 'none'
 
-    //     }
-    // }, [])
+        }
+    }, [])
 
-    // function handleChangeSelect(e) {
-    //     setType(e)
-    //     setPage(1)
-    // }
+    function handleChangeSelect(e) {
+        setType(e)
+        setPage(1)
+    }
 
-    // function hendleOverFlow() {
-    //     const element = document.querySelector("#bio")
-    //     const toggleOverflow = document.querySelector("#toggleOverflow")
+    function hendleOverFlow() {
+        const element = document.querySelector("#bio")
+        const toggleOverflow = document.querySelector("#toggleOverflow")
 
-    //     if (element.scrollHeight > element.clientHeight) {
-    //         toggleOverflow.innerHTML = "Mostrar menos"
-    //         element.classList.remove("max-h-20")
+        if (element.scrollHeight > element.clientHeight) {
+            toggleOverflow.innerHTML = "Mostrar menos"
+            element.classList.remove("max-h-20")
 
-    //     } else {
-    //         toggleOverflow.innerHTML = "Mostrar mais"
-    //         element.classList.add("max-h-20")
-    //     }
-    // }
+        } else {
+            toggleOverflow.innerHTML = "Mostrar mais"
+            element.classList.add("max-h-20")
+        }
+    }
 
 
     return (
         <div className="flex  mt-6  flex-col">
-            {/* <NextSeo title={data.name} description={`Filmes e series relacionados a ${data.name}`} />
+            <NextSeo title={data.name} description={`Filmes e series relacionados a ${data.name}`} />
             <div className="flex flex-row  md:flex-col p-5 self-start ">
                 <div className="h-full sticky md:static top-24 flex-1  min-w-200px">
 
@@ -116,7 +115,7 @@ export default function Artist({ data }) {
                 <CustomSelect className="self-start ml-5" placeHolder="Categoria" name="type" onchange={(e) => handleChangeSelect(e.value)} label="" options={selectOptions} />
                 {artWorks.results && <RenderCard list={artWorks.results} media_type="movie" />}
                 <CustomPagination maxPage={artWorks.total_pages} page={page} setPage={setPage} scrollTo={ref} />
-            </div> */}
+            </div>
 
         </div>
     )
@@ -124,38 +123,36 @@ export default function Artist({ data }) {
 
 export async function getServerSideProps(ctx) {
 
-    // const { id } = ctx.params
+    const { id } = ctx.params
 
 
-    // const client = new ApolloClient({
-    //     uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
-    //     cache: new InMemoryCache({
-    //       addTypename: false
-    //     }),
+    const client = new ApolloClient({
+        uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+        cache: new InMemoryCache({
+          addTypename: false
+        }),
       
-    //   });
+      });
     
-    //   const { data: props } = await client.query({
-    //     query: gql`
-    //       query{
+      const { data: props } = await client.query({
+        query: gql`
+          query{
     
-    //         data: peaple(id: ${id}) {
-    //                 id
-    //                 name
-    //                 profile_path
-    //                 known_for_department
-    //                 place_of_birth
-    //                 birthday
-    //                 biography
-    //             }
-    //     }
-    //     `
-    //   });
+            data: peaple(id: ${id}) {
+                    id
+                    name
+                    profile_path
+                    known_for_department
+                    place_of_birth
+                    birthday
+                    biography
+                }
+        }
+        `
+      });
     
       return {
-          props: {
-
-          },
+          props,
 
       }
 }

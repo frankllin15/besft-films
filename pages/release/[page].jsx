@@ -9,26 +9,26 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 
 export default function release({ data }) {
 
-    // const Router = useRouter()
+    const Router = useRouter()
 
-    // const { isFallback} = Router
+    const { isFallback} = Router
 
 
-    // function handlePagination(e){
-    //     Router.push(`${e}`)
-    // } 
+    function handlePagination(e){
+        Router.push(`${e}`)
+    } 
 
-    // if(isFallback) 
-    //     return (
-    //         <div className="flex items-center w-full h-screen justify-center">
-    //             <CircularProgress />
-    //         </div>
-    //     )  
+    if(isFallback) 
+        return (
+            <div className="flex items-center w-full h-screen justify-center">
+                <CircularProgress />
+            </div>
+        )  
 
 
     return (
         <div className="flex flex-col  items-center">
-            {/* <NextSeo 
+            <NextSeo 
                 title="Filmes lançados Recentemente"
                 description="Os mais novos lançamentos de filmes disponiveis em HD"
             />
@@ -38,61 +38,59 @@ export default function release({ data }) {
             <CustomPagination page={data.page} setPage={handlePagination} maxPage={data.total_pages}/>
             </>
            
-        } */}
+        }
         </div>
     )
 }
 
 export async function getStaticPaths() {
-    // const { total_pages } = await getReleaseMovies(1)
+    const { total_pages } = await getReleaseMovies(1)
 
-    // const paths = Array(total_pages).fill(0).map((e, id) => {
+    const paths = Array(total_pages).fill(0).map((e, id) => {
         
-    //     return {
-    //         params: {
-    //             page: `${id+1}`
-    //         }
-    //     }
-    // })
+        return {
+            params: {
+                page: `${id+1}`
+            }
+        }
+    })
    
     return {
-            paths: [],
+            paths,
             fallback: true
     }
 }
 
 export async function getStaticProps({ params }) {
 
-    // const client = new ApolloClient({
-    //     uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
-    //     cache: new InMemoryCache({
-    //       addTypename: false
-    //     }),
+    const client = new ApolloClient({
+        uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+        cache: new InMemoryCache({
+          addTypename: false
+        }),
       
-    //   });
+      });
     
-    //   const { data: props } = await client.query({
-    //     query: gql`
-    //       query{
+      const { data: props } = await client.query({
+        query: gql`
+          query{
     
-    //         data: releaseMovies(page: ${params.page}) {
-    //             results {
-    //                 id
-    //                 name
-    //                 poster_path
-    //                 media_type
-    //                 vote_average
-    //                 }
-    //                 total_pages
-    //           }
-    //     }
-    //     `
-    //   });
+            data: releaseMovies(page: ${params.page}) {
+                results {
+                    id
+                    name
+                    poster_path
+                    media_type
+                    vote_average
+                    }
+                    total_pages
+              }
+        }
+        `
+      });
     
       return {
-          props: {
-
-          },
+          props,
           revalidate: 60 * 60 * 24 * 7
       }
 }
