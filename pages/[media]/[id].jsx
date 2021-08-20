@@ -131,7 +131,7 @@ export async function getStaticProps({ params }) {
     const { media, id } = params
 
     const client = new ApolloClient({
-        uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+        uri: process.env.API_GRAPHQL,
         cache: new InMemoryCache()
       });
 

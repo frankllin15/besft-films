@@ -15,11 +15,12 @@ export default function Artist({ data }) {
 
     const selectOptions = [{ label: "Filmes", value: "movie" }, { label: "Séries", value: "tv" }]
 
+
     useEffect(() => {
         (async () => {
             
             const client = new ApolloClient({
-                uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+                uri: process.env.NEXT_PUBLIC_API_GRAPHQL,
                 cache: new InMemoryCache({
                   addTypename: false
                 }),
@@ -54,6 +55,7 @@ export default function Artist({ data }) {
             setArtWorks((await query).artWorks)
         })()
     }, [page, type])
+
     
     useEffect(() => {
         const element = document.querySelector("#bio")
@@ -95,7 +97,7 @@ export default function Artist({ data }) {
                 <div className="h-full sticky md:static top-24 flex-1  min-w-200px">
 
                     <div className="rounded-lg  w-200 min-w-200px h-300 relative ml-auto mr-auto shadow-lg">
-                        <img alt={data.name} layout='fill' className="rounded-lg  " priority={true} src={`https://image.tmdb.org/t/p/w500${data.profile_path}`} />
+                        <img alt={data.name} layout='fill' className="rounded-lg  "  src={`https://image.tmdb.org/t/p/w500${data.profile_path}`} />
                     </div>
                 </div>
                 <article className="pl-5 mt-4">
@@ -127,7 +129,7 @@ export async function getServerSideProps(ctx) {
 
 
     const client = new ApolloClient({
-        uri: process.env.NODE_ENV === "development" ? 'http://localhost:3000/api/graphql/' : 'https://besftfilms.xyz/api/graphql/',
+        uri: process.env.API_GRAPHQL,
         cache: new InMemoryCache({
           addTypename: false
         }),
