@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-
+import { NextSeo} from 'next-seo'
 export default function history() {
   const [history, setHistory] = useState([]);
 
