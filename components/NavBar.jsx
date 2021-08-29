@@ -15,7 +15,7 @@ import ListItem from '@material-ui/core/ListItem';
 import { CustomLink, NavBarContent } from './styles';
 import SearchBar from './SearchBar';
 import styled from 'styled-components'
-import { useThemeContext } from '../context/ThemeStore';
+
 
 const drawerWidth = 250;
 
@@ -83,7 +83,7 @@ export default function PersistentDrawerLeft() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const { isMediaQuerySm } = useThemeContext()
+    
 
 
     const handleDrawerOpen = () => {

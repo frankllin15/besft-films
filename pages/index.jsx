@@ -27,7 +27,7 @@ export default function Home({ trendingTv, trendingMovie }) {
       const watched = JSON.parse(localStorage.getItem("medias_watched"))
 
 
-      if (watched) {
+      if (watched.length > 0) {
         try {
 
           const data = getMultipleMediaById(watched)

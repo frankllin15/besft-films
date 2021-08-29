@@ -11,8 +11,8 @@ export default function GoToTop() {
         window.addEventListener("scroll", () => {
             const { pageTop, height } = window.visualViewport
             const element = document.querySelector('.scrollTop')
-
-            if (pageTop > height) 
+          
+            if (pageTop > height && pageTop > 933) 
                 element.style.display = 'block'
 
             else 
@@ -21,7 +21,7 @@ export default function GoToTop() {
     }, [])
 
     return (
-        <div onScroll={() => console.log("scrol")} onClick={handleClick} className="p-3 hidden z-2000 shadow-xl scrollTop rounded-full cursor-pointer bg-green-500 fixed bottom-20  right-5">
+        <div onScroll={() => console.log("scrol")} onClick={handleClick} className="p-3 hidden z-2000 shadow-xl scrollTop rounded-full cursor-pointer bg-green-500 fixed bottom-10  right-5">
 
             <svg xmlns="http://www.w3.org/2000/svg" className=" h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 11l7-7 7 7M5 19l7-7 7 7" />

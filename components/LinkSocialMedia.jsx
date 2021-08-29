@@ -1,15 +1,39 @@
 import React from 'react'
+import styled from 'styled-components'
 
 
-export default function LinkSosialMedia({ logo, children, bgColor, href, color }) {
+const Wrapper = styled.a`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: ${props => (props.bgColor)};
+    color: ${props => props.color};
+    margin: .5rem 1rem .5rem;
+    height: 2.5rem;
+    min-width: 90px;
+    border-radius: .5rem;
+    padding: 1rem;
 
-    bgColor = "bg-"+bgColor
+    :hover {
+        opacity: .9;
+    }
+`
+
+const Text = styled.p`
+    display: inline-block;
+    margin-left: .75rem;
+    color: ${props => (props.color || '#fff')};
+    font-weight: bold;
+`
+
+export default function LinkSocialMedia({ logo, children, bgColor, href, color }) {
+
     return (
-        <a color={color} href={href} className={`flex items-center justify-around mr-4 mb-4 ${bgColor} hover:opacity-90 min-w-93px h-10 rounded-lg p-4 `}>
+        <Wrapper color={color} bgColor={bgColor} href={href}>
             <img width="32" height="32" src={logo}/>
-            <p className={`inline-block ml-3 text-${color || "white"} font-bold`}>
-            {children}
-            </p>
-        </a>
+            <Text color={color}>
+                {children}
+            </Text>
+        </Wrapper>
     )
 }

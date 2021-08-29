@@ -18,7 +18,7 @@ const ThemeStore = ({ children }) => {
       )
     // console.log(children)
     return (
-        <ThemeContext.Provider value={{ bgImage, setBgImage, isMediaQuerySm, isMediaQueryMd}}>
+        <ThemeContext.Provider value={{ bgImage, setBgImage}}>
             {children}
         </ThemeContext.Provider>
     )
