@@ -3,7 +3,8 @@ import RenderCard from "../../components/RenderCard";
 import CustomSelect from "../../components/CustomSelect";
 import CustomPagination from "../../components/CustomPagination";
 import { NextSeo } from "next-seo";
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { client } from "../../lib/graphql/client";
 
 export default function Artist({ data }) {
   const ref = useRef(null);
@@ -18,13 +19,6 @@ export default function Artist({ data }) {
 
   useEffect(() => {
     (async () => {
-      const client = new ApolloClient({
-        uri: process.env.NEXT_PUBLIC_API_GRAPHQL,
-        cache: new InMemoryCache({
-          addTypename: false,
-        }),
-      });
-
       const { data: query } = await client.query({
         query: gql`
                   query{
@@ -142,13 +136,6 @@ export default function Artist({ data }) {
 
 export async function getServerSideProps(ctx) {
   const { id } = ctx.params;
-
-  const client = new ApolloClient({
-    uri: process.env.API_GRAPHQL,
-    cache: new InMemoryCache({
-      addTypename: false,
-    }),
-  });
 
   const { data: props } = await client.query({
     query: gql`

@@ -1,94 +1,74 @@
-import styled from 'styled-components'
-import MultiCarousel from '../components/MultiCarousel'
-import { getMultipleMediaById } from '../lib/apiTmdb'
-import { Title } from '../components/styles'
-import CookiePermition from '../components/CookiePermition'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { NextSeo } from 'next-seo'
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
-
+import styled from "styled-components";
+import MultiCarousel from "../components/MultiCarousel";
+import { getMultipleMediaById } from "../lib/apiTmdb";
+import { Title } from "../components/styles";
+import CookiePermition from "../components/CookiePermition";
+import { useEffect } from "react";
+import { useState } from "react";
+import { NextSeo } from "next-seo";
+import { gql } from "@apollo/client";
+import { client } from "../lib/graphql/client";
 
 const MainContainer = styled.div`
   padding: 0 2rem 0;
   padding-top: 30px;
 
-  @media(max-width: 480px) {
+  @media (max-width: 480px) {
     padding: 0;
   }
-`
+`;
 
 export default function Home({ trendingTv, trendingMovie }) {
-
-  const [watched, setWatched] = useState([])
+  const [watched, setWatched] = useState([]);
 
   useEffect(() => {
-    (async() => {
-      const watched = JSON.parse(localStorage.getItem("medias_watched"))
+    (async () => {
+      const watched = JSON.parse(localStorage.getItem("medias_watched"));
 
-
-      if (watched.length > 0) {
+      if (watched?.length > 0) {
         try {
+          const data = getMultipleMediaById(watched);
 
-          const data = getMultipleMediaById(watched)
-
-          setWatched(await data)
-    
-        } catch(e) {
-          console.log({error: e})
+          setWatched(await data);
+        } catch (e) {
+          console.log({ error: e });
         }
       }
-    })()
-  }, [])
-
+    })();
+  }, []);
 
   return (
     <>
       <MainContainer>
-        <NextSeo 
+        <NextSeo
           title="Best Films"
           description="Os melhores filmes e series online"
-          additionalMetaTags={[
-            {name: 'robots', content:'index,follow'},
-        ]}
+          additionalMetaTags={[{ name: "robots", content: "index,follow" }]}
         />
-      {watched.length > 0 ? 
-      <>
-      <Title>Vistos recentemente</Title>
-      
-      <MultiCarousel autoPlay={false} key={0} data={watched} />
-      </>
-      : ""
-      }
+        {watched.length > 0 && (
+          <>
+            <Title>Vistos recentemente</Title>
+
+            <MultiCarousel autoPlay={false} key={0} data={watched} />
+          </>
+        )}
 
         <Title>Series em Alta</Title>
-        <MultiCarousel key={1} data={trendingTv} />
-        
+        <MultiCarousel autoPlay={false} key={1} data={trendingTv} />
+
         <Title>Filmes em Alta</Title>
-        <MultiCarousel key={2} data={trendingMovie} />
+        <MultiCarousel autoPlay={false} key={2} data={trendingMovie} />
       </MainContainer>
 
-        <CookiePermition />
+      <CookiePermition />
     </>
-  )
+  );
 }
 
-
-
 export async function getStaticProps() {
-
-  const client = new ApolloClient({
-    uri: process.env.API_GRAPHQL,
-    cache: new InMemoryCache({
-      addTypename: false
-    }),
-  
-  });
-
   const { data: props } = await client.query({
     query: gql`
-      query{
-
+      query {
         trendingMovie: trendingMedia(media_type: "movie") {
           id
           name
@@ -103,13 +83,12 @@ export async function getStaticProps() {
           media_type
           vote_average
         }
-
-    }
-    `
+      }
+    `,
   });
 
   return {
-      props,
-      revalidate: 60 * 60 * 24
-  }
+    props,
+    revalidate: 60 * 60 * 24,
+  };
 }
