@@ -38,6 +38,8 @@ export default function Artist({ data }) {
                 `,
       });
 
+      console.log(query);
+
       setArtWorks((await query).artWorks);
     })();
   }, [page, type]);
@@ -73,6 +75,7 @@ export default function Artist({ data }) {
 
   return (
     <div className="flex  mt-6  flex-col">
+      {console.log(artWorks)}
       <NextSeo
         additionalMetaTags={[{ name: "robots", content: "noindex,nofollow" }]}
         title={data.name}
