@@ -23,4 +23,4 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 ## Site
 
-See the implemented project on [https://bestfilms.vercel.app](https://bestfilms.vercel.app/)
+See the implemented project on [https://bestfilms.vercel.app](https://besftfilms.xyz/)
