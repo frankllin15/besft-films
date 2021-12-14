@@ -77,16 +77,36 @@ export default function Nav() {
         }
       >
         <ul className="flex w-full flex-row justify-around   mobile:flex-col mobile:items-center">
-          <CustomLink onClick={handleTootleClick} href="/movie">
+          <CustomLink
+            onClick={() => {
+              if (open) handleTootleClick();
+            }}
+            href="/movie"
+          >
             Filmes
           </CustomLink>
-          <CustomLink onClick={handleTootleClick} href="/tv">
+          <CustomLink
+            onClick={() => {
+              if (open) handleTootleClick();
+            }}
+            href="/tv"
+          >
             Series
           </CustomLink>
-          <CustomLink onClick={handleTootleClick} href="/movie/top-rated/1">
+          <CustomLink
+            onClick={() => {
+              if (open) handleTootleClick();
+            }}
+            href="/movie/top-rated/1"
+          >
             Top IMDB
           </CustomLink>
-          <CustomLink onClick={handleTootleClick} href="/release/1">
+          <CustomLink
+            onClick={() => {
+              if (open) handleTootleClick();
+            }}
+            href="/release/1"
+          >
             Lançamentos
           </CustomLink>
         </ul>
