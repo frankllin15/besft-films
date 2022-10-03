@@ -115,7 +115,7 @@ export default function MediaDetails({
       {similarMedia.length > 0 && (
         <div className="pl-3 pr-3">
           <Title>Similares</Title>
-          <MultiCarousel data={similarMedia} type={type} />
+          <MultiCarousel  data={similarMedia} type={type} />
         </div>
       )}
     </div>

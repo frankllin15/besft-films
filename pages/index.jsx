@@ -66,7 +66,7 @@ export default function Home({ trendingTv, trendingMovie }) {
 }
 
 export async function getStaticProps() {
-  const { data: props } = await client.query({
+  const quey = await client.query({
     query: gql`
       query {
         trendingMovie: trendingMedia(media_type: "movie") {
@@ -86,7 +86,7 @@ export async function getStaticProps() {
       }
     `,
   });
-
+  const props = quey?.data || {};
   return {
     props,
     revalidate: 60 * 60 * 24,

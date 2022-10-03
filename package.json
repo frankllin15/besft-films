@@ -3,29 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS=--max_old_space_size=8192 next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
     "@apollo/client": "3.4.5",
-    "@emotion/memoize": "^0.7.5",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
-    "apollo-server-core": "3.1.2",
-    "apollo-server-micro": "3.1.2",
     "clsx": "^1.1.1",
-    "cookie-cutter": "^0.2.0",
-    "cookies": "^0.8.0",
     "cross-env": "^7.0.3",
-    "global": "^4.4.0",
     "graphql": "^15.5.1",
     "json2mq": "^0.2.0",
-    "micro": "^9.3.4",
-    "next": "^11.0.1",
+    "next": "^12.3.1",
     "next-seo": "^4.26.0",
-    "package.json": "^2.0.1",
     "react": "^17.0.2",
     "react-circular-progressbar": "^2.0.4",
     "react-dom": "^17.0.2",
@@ -35,9 +27,7 @@
     "styled-components": "^5.3.0"
   },
   "devDependencies": {
-    "@svgr/webpack": "^5.5.0",
     "autoprefixer": "^10.3.1",
-    "babel-plugin-inline-react-svg": "^2.0.1",
     "babel-plugin-styled-components": "^1.12.0",
     "postcss": "^8.3.6",
     "tailwindcss": "^2.2.7"

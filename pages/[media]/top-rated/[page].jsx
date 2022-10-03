@@ -70,21 +70,21 @@ export async function getStaticPaths() {
   const { total_pages: movie_total_pages } = await getTopRatedTmdb("movie", 1);
   const { total_pages: tv_totalPages } = await getTopRatedTmdb("tv", 1);
 
-  const paths = Array(movie_total_pages)
-    .fill(0)
-    .map((e, id) => {
-      return { params: { page: `${id + 1}`, media: "movie" } };
-    })
-    .concat(
-      Array(tv_totalPages)
-        .fill(0)
-        .map((e, id) => {
-          return { params: { page: `${id + 1}`, media: "tv" } };
-        })
-    );
+  // const paths = Array(movie_total_pages)
+  //   .fill(0)
+  //   .map((e, id) => {
+  //     return { params: { page: `${id + 1}`, media: "movie" } };
+  //   })
+  //   .concat(
+  //     Array(tv_totalPages)
+  //       .fill(0)
+  //       .map((e, id) => {
+  //         return { params: { page: `${id + 1}`, media: "tv" } };
+  //       })
+  //   );
 
   return {
-    paths,
+    paths: [],
     fallback: true,
   };
 }

@@ -47,18 +47,18 @@ export default function release({ data }) {
 export async function getStaticPaths() {
   const { total_pages } = await getReleaseMovies(1);
 
-  const paths = Array(total_pages)
-    .fill(0)
-    .map((e, id) => {
-      return {
-        params: {
-          page: `${id + 1}`,
-        },
-      };
-    });
+  // const paths = Array(total_pages)
+  //   .fill(0)
+  //   .map((e, id) => {
+  //     return {
+  //       params: {
+  //         page: `${id + 1}`,
+  //       },
+  //     };
+  //   });
 
   return {
-    paths,
+    paths: [],
     fallback: true,
   };
 }
