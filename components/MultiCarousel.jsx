@@ -30,13 +30,14 @@ const responsive = {
 export default function MultiCarousel({ data, type, autoPlay }) {
     
 
-    return (
+    if (data) 
+        return (
         
 
              <Carousel
               
                 responsive={responsive}
-                autoPlay={(autoPlay == undefined ?  true : autoPlay)}
+                autoPlay={(autoPlay == undefined ?  false : autoPlay)}
                 autoPlaySpeed={8000}
             
                 // transitionDuration={500}
@@ -57,4 +58,6 @@ export default function MultiCarousel({ data, type, autoPlay }) {
             </Carousel>
     
     )
+
+    return null
 }

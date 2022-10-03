@@ -71,7 +71,7 @@ export default function SimpleTabs({ imdb_id, type, data, videos, similarMedia }
     <div className={classes.root}>
       <AppBar position="static" style={{ backgroundColor: "#161f2b" }}>
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="Assitir" {...a11yProps(0)} />
+          <Tab label="Assistir" {...a11yProps(0)} />
           {
             videos ?
               <Tab label="Thrilers" {...a11yProps(1)} />
