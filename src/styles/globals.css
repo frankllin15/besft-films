@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  color: #fff;
+  /* background: rgb(0, 0, 0); */
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+@font-face {
+  font-family: "UndergroundNF";
+  src: url("../../public/fonts/UndergroundNF.ttf");
+}
+
+.MuiPaginationItem-root {
+  color: #fff !important;
+}

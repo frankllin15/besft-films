@@ -1,6 +1,10 @@
 module.exports = {
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
+  mode: "jit",
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx}",
+    "./src/components/**/*.{js,ts,jsx,tsx}",
+  ],
+
   theme: {
     borderColor: (theme) => ({
       ...theme("colors"),
@@ -23,6 +27,9 @@ module.exports = {
       xs: { max: "430px" },
     },
     extend: {
+      fontFamily: {
+        underground: ["UndergroundNF", "sans-serif"],
+      },
       screens: {
         mobile: { max: "768px" },
       },
@@ -57,7 +64,7 @@ module.exports = {
         2000: "2000",
       },
       backgroundColor: {
-        "gray-transparent": "#4444445c",
+        "gray-transparent": "#00000080",
       },
       transitionDuration: {
         400: "400ms",
