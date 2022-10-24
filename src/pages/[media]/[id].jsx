@@ -2,28 +2,10 @@ import { useRouter } from "next/router";
 import MediaDetails from "../../components/MediaDetails";
 import { getTrandingMedia } from "../../lib/apiTmdb";
 import { NextSeo } from "next-seo";
-import styled from "styled-components";
 import { useEffect } from "react";
-import { getDate } from "../../lib/utils";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { gql } from "@apollo/client";
 import { client } from "../../lib/graphql/client";
-
-const TagContainer = styled.section`
-  max-width: 100%;
-  min-height: 100px;
-  margin-top: 28px;
-  margin-left: 1rem;
-`;
-
-const Tag = styled.h4`
-  margin-right: 4px;
-  font-size: 0.9rem;
-  color: #ccc;
-  display: inline-block;
-  margin: 3px;
-  font-weight: 500;
-`;
 
 export default function Movie({
   data,
@@ -43,14 +25,14 @@ export default function Movie({
       let watched =
         JSON.parse(window.localStorage.getItem("medias_watched")) || [];
 
-      const date = getDate();
+      const dateNow = Date.now();
 
       if (!watched?.some((e) => e.id == data.id)) {
         watched.unshift({
           id: `${data.id}`,
           media_type: media,
           name: data.title || data.name,
-          date: date,
+          date: dateNow,
         });
 
         localStorage.setItem("medias_watched", JSON.stringify(watched));
@@ -62,7 +44,7 @@ export default function Movie({
           id: `${data.id}`,
           media_type: media,
           name: data.title || data.name,
-          date: date,
+          date: dateNow,
         });
 
         localStorage.setItem("medias_watched", JSON.stringify(watched));
@@ -108,24 +90,6 @@ export default function Movie({
         videos={videos}
         similarMedia={similarMedia}
       />
-
-      <TagContainer>
-        <h3>Tags:</h3>
-        {[
-          "Online",
-          "Dublado",
-          "Legendado",
-          "HD",
-          "Dublado Online",
-          "Dublado Online HD",
-          "Legendado Online",
-          "Legendado Online HD",
-        ].map((e, id) => (
-          <Tag key={id}>
-            {data.title || data.name} {e}
-          </Tag>
-        ))}
-      </TagContainer>
     </>
   );
 }
@@ -166,6 +130,7 @@ export async function getStaticProps({ params }) {
                 vote_average
                 release_date
                 overview
+                runtime
                 genres {
                   name
                   id

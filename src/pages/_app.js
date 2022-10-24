@@ -1,16 +1,12 @@
 import Head from "next/head";
 import React from "react";
-import Footer from "../components/Footer";
-import { ThemeStore } from "../context/ThemeStore";
-import Theme from "../Theme";
-import NavBar from "../components/NavBar";
 import { DefaultSeo } from "next-seo";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import GoToTop from "../components/GoToTop";
-import Nav from "../components/Nav";
+import "../styles/globals.css";
 
 import * as ga from "../lib/ga";
+import { Layout } from "../components/Layout";
 
 export default function App({ Component, pageProps }) {
   // remove it here
@@ -39,38 +35,31 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <ThemeStore>
-        <Theme>
-          <Head>
-            <meta
-              name="google-site-verification"
-              content="JT0m821Vw6hBS0L6QiNOfP4H2HDDmaePFsD6MCfUqdM"
-            />
-          </Head>
-          <DefaultSeo
-            openGraph={{
-              site_name: "Best Films",
-              url: "https://besftfilms.xyz/",
-              images: [
-                {
-                  url: "https://besftfilms.xyz/img/logo_poster.jpg",
-                  width: 165,
-                  height: 165,
-                },
-              ],
-              type: "website",
-            }}
-            description="Site de filmes e series online de graça!!!"
-            title="Best Films"
-          />
-
-          <Nav />
-
-          <Component {...pageProps} />
-          <GoToTop />
-          <Footer />
-        </Theme>
-      </ThemeStore>
+      <Head>
+        <meta
+          name="google-site-verification"
+          content="JT0m821Vw6hBS0L6QiNOfP4H2HDDmaePFsD6MCfUqdM"
+        />
+      </Head>
+      <DefaultSeo
+        openGraph={{
+          site_name: "Best Films",
+          url: "https://besftfilms.xyz/",
+          images: [
+            {
+              url: "https://besftfilms.xyz/img/logo_poster.jpg",
+              width: 165,
+              height: 165,
+            },
+          ],
+          type: "website",
+        }}
+        description="Site de filmes e series online de graça!!!"
+        title="Best Films"
+      />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   );
 }

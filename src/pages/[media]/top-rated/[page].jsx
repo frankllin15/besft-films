@@ -35,7 +35,7 @@ export default function topimdb({ data }) {
     );
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center pt-28">
       <NextSeo
         title={media === "tv" ? "Top Series" : "Top filmes"}
         description={

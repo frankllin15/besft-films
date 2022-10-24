@@ -21,25 +21,20 @@ export default function Artist({ data }) {
     (async () => {
       const { data: query } = await client.query({
         query: gql`
-                  query{
-                      
-                      artWorks(id: ${data.id}, media_type: "${type}", page: ${page}) {
-                        results {
-                         id
-                         name
-                         poster_path
-                         media_type
-                         vote_average
-                         }
-                        total_pages
-                        
-                    }
+                query{
+                  artWorks(id: ${data.id}, media_type: "${type}", page: ${page}) {
+                    results {
+                      id
+                      name
+                      poster_path
+                      media_type
+                      vote_average
+                      }
+                    total_pages
+                  }
                 }
                 `,
       });
-
-      console.log(query);
-
       setArtWorks((await query).artWorks);
     })();
   }, [page, type]);
@@ -74,8 +69,7 @@ export default function Artist({ data }) {
   }
 
   return (
-    <div className="flex  mt-6  flex-col">
-      {console.log(artWorks)}
+    <div className="flex mt-6 flex-col pt-28">
       <NextSeo
         additionalMetaTags={[{ name: "robots", content: "noindex,nofollow" }]}
         title={data.name}
@@ -98,19 +92,15 @@ export default function Artist({ data }) {
           <h3>Naturalidade: {data.place_of_birth}</h3>
           <h3>Nascimento: {data.birthday}</h3>
           {data.biography && <h3 className="mt-4">Bio:</h3>}
-          <p
-            id="bio"
-            className="max-h-20  overflow-hidden"
-            onLoad={(e) => console.log("Event: " + e)}
-          >
+          <p id="bio" className="max-h-20  overflow-hidden">
             {data.biography}
           </p>
           <span
-            className="cursor-pointer mt-4 text-white"
+            className="cursor-pointer mt-4 text-neutral-500"
             onClick={hendleOverFlow}
             id="toggleOverflow"
           >
-            Mstrar mais
+            Mostrar mais
           </span>
         </article>
       </div>
@@ -143,18 +133,17 @@ export async function getServerSideProps(ctx) {
   const { data: props } = await client.query({
     query: gql`
           query{
-    
             data: peaple(id: ${id}) {
-                    id
-                    name
-                    profile_path
-                    known_for_department
-                    place_of_birth
-                    birthday
-                    biography
-                }
+              id
+              name
+              profile_path
+              known_for_department
+              place_of_birth
+              birthday
+              biography
+            }
         }
-        `,
+      `,
   });
 
   return {

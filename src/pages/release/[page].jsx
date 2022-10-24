@@ -24,7 +24,7 @@ export default function release({ data }) {
     );
 
   return (
-    <div className="flex flex-col  items-center">
+    <div className="flex flex-col  items-center pt-28">
       <NextSeo
         title="Filmes lançados Recentemente"
         description="Os mais novos lançamentos de filmes disponiveis em HD"

@@ -10,7 +10,7 @@ import { gql } from "@apollo/client";
 import { client } from "../lib/graphql/client";
 
 const MainContainer = styled.div`
-  padding: 0 2rem 0;
+  padding: 0 0rem 0;
   padding-top: 30px;
 
   @media (max-width: 480px) {
@@ -31,7 +31,7 @@ export default function Home({ trendingTv, trendingMovie }) {
 
           setWatched(await data);
         } catch (e) {
-          console.log({ error: e });
+          console.error({ error: e });
         }
       }
     })();
@@ -45,19 +45,28 @@ export default function Home({ trendingTv, trendingMovie }) {
           description="Os melhores filmes e series online"
           additionalMetaTags={[{ name: "robots", content: "index,follow" }]}
         />
-        {watched.length > 0 && (
-          <>
-            <Title>Vistos recentemente</Title>
+        <div className="flex flex-col gap-8 pt-28">
+          {watched.length > 0 && (
+            <>
+              <Title>Vistos recentemente</Title>
 
-            <MultiCarousel autoPlay={false} key={0} data={watched} />
-          </>
-        )}
+              <MultiCarousel autoPlay={false} key={0} data={watched} />
+            </>
+          )}
+          <MultiCarousel
+            title="Séries em Alta"
+            autoPlay={false}
+            key={1}
+            data={trendingTv}
+          />
 
-        <Title>Series em Alta</Title>
-        <MultiCarousel autoPlay={false} key={1} data={trendingTv} />
-
-        <Title>Filmes em Alta</Title>
-        <MultiCarousel autoPlay={false} key={2} data={trendingMovie} />
+          <MultiCarousel
+            title="Filmes em alta"
+            autoPlay={false}
+            key={2}
+            data={trendingMovie}
+          />
+        </div>
       </MainContainer>
 
       <CookiePermition />

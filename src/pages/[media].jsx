@@ -11,7 +11,7 @@ import { Title } from "../components/styles";
 import { NextSeo } from "next-seo";
 
 const Container = styled.div`
-  padding: 0 0px 0;
+  padding-top: 7rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -51,7 +51,7 @@ export default function Genre({ genre }) {
     (async () => {
       setdata(await getMediaByGenre(media, page, filter));
     })();
-  }, [page, filter]);
+  }, [page, filter, media]);
 
   const releaseOptions = [
     { label: "Todos", value: false },
@@ -74,12 +74,12 @@ export default function Genre({ genre }) {
 
       {data.results ? (
         <>
-          <Title>{media == "tv" ? "Series" : "Filmes"}</Title>
+          <Title>{media == "tv" ? "Séries" : "Filmes"}</Title>
           <FilterContainer>
             <CustomSelect
               options={genre}
               name="genre"
-              label="Genero"
+              label="Gênero"
               onchange={handleChange}
             />
             <CustomSelect

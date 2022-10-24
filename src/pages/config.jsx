@@ -21,13 +21,13 @@ export default function history() {
   }
 
   return (
-    <div className="w-fulll min-h-360 p-2 pt-11">
+    <div className="w-fulll p-2 pt-28 min-h-screen">
       <NextSeo
         additionalMetaTags={[{ name: "robots", content: "noindex,nofollow" }]}
       />
-      <h2 className="text-xl text-center">Hitorico</h2>
+      <h2 className="text-xl text-center mb-8">Histórico</h2>
       <ul className="max-w-full pl-2 pr-5 ml-0">
-        <li className="bg-gray-200 rounded-md flex flex-row  p-3 mb-2 font-semibold text-lg sm:text-sm text-black">
+        <li className="bg-neutral-400 rounded-md flex flex-row  p-3 mb-2 font-semibold text-lg sm:text-sm text-black">
           <p className="text-black flex-1">Visto em</p>
           <p className="text-black flex-2">Nome</p>
         </li>
@@ -35,10 +35,15 @@ export default function history() {
           ? history.map((item, id) => (
               <li
                 key={id}
-                className="flex flex-row mb-2 items-center bg-gray-100 rounded-md p-3 text-blue-900 font-semibold text-lg sm:text-sm"
+                className="flex flex-row mb-2 items-center bg-neutral-300 rounded-md p-3 text-blue-900 font-semibold text-lg sm:text-sm"
               >
-                <p className="flex-1 text-gray-500">{item.date}</p>
-                <a className="flex-2" href={`/${item.media_type}/${item.id}`}>
+                <time className="flex-1 text-gray-900">
+                  {new Date(item.date).toLocaleDateString()}
+                </time>
+                <a
+                  className="flex-2 text-zinc-700"
+                  href={`/${item.media_type}/${item.id}`}
+                >
                   {item.name || item.title}
                 </a>
 
